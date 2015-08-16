@@ -1,0 +1,426 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		151541791B8057AC00071650 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541781B8057AC00071650 /* AppDelegate.swift */; };
+		1515417B1B8057AC00071650 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515417A1B8057AC00071650 /* ViewController.swift */; };
+		1515417E1B8057AC00071650 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1515417C1B8057AC00071650 /* Main.storyboard */; };
+		151541801B8057AC00071650 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1515417F1B8057AC00071650 /* Images.xcassets */; };
+		151541831B8057AC00071650 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541811B8057AC00071650 /* LaunchScreen.xib */; };
+		1515418F1B8057AC00071650 /* Hanoi_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515418E1B8057AC00071650 /* Hanoi_swiftTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		151541891B8057AC00071650 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1515416B1B8057AC00071650 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 151541721B8057AC00071650;
+			remoteInfo = "Hanoi-swift";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		151541731B8057AC00071650 /* Hanoi-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hanoi-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		151541771B8057AC00071650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		151541781B8057AC00071650 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1515417A1B8057AC00071650 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1515417D1B8057AC00071650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1515417F1B8057AC00071650 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		151541821B8057AC00071650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		151541881B8057AC00071650 /* Hanoi-swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hanoi-swiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1515418D1B8057AC00071650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1515418E1B8057AC00071650 /* Hanoi_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hanoi_swiftTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		151541701B8057AC00071650 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		151541851B8057AC00071650 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1515416A1B8057AC00071650 = {
+			isa = PBXGroup;
+			children = (
+				151541751B8057AC00071650 /* Hanoi-swift */,
+				1515418B1B8057AC00071650 /* Hanoi-swiftTests */,
+				151541741B8057AC00071650 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		151541741B8057AC00071650 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				151541731B8057AC00071650 /* Hanoi-swift.app */,
+				151541881B8057AC00071650 /* Hanoi-swiftTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		151541751B8057AC00071650 /* Hanoi-swift */ = {
+			isa = PBXGroup;
+			children = (
+				151541781B8057AC00071650 /* AppDelegate.swift */,
+				1515417A1B8057AC00071650 /* ViewController.swift */,
+				1515417C1B8057AC00071650 /* Main.storyboard */,
+				1515417F1B8057AC00071650 /* Images.xcassets */,
+				151541811B8057AC00071650 /* LaunchScreen.xib */,
+				151541761B8057AC00071650 /* Supporting Files */,
+			);
+			path = "Hanoi-swift";
+			sourceTree = "<group>";
+		};
+		151541761B8057AC00071650 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				151541771B8057AC00071650 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1515418B1B8057AC00071650 /* Hanoi-swiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				1515418E1B8057AC00071650 /* Hanoi_swiftTests.swift */,
+				1515418C1B8057AC00071650 /* Supporting Files */,
+			);
+			path = "Hanoi-swiftTests";
+			sourceTree = "<group>";
+		};
+		1515418C1B8057AC00071650 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1515418D1B8057AC00071650 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		151541721B8057AC00071650 /* Hanoi-swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 151541921B8057AC00071650 /* Build configuration list for PBXNativeTarget "Hanoi-swift" */;
+			buildPhases = (
+				1515416F1B8057AC00071650 /* Sources */,
+				151541701B8057AC00071650 /* Frameworks */,
+				151541711B8057AC00071650 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Hanoi-swift";
+			productName = "Hanoi-swift";
+			productReference = 151541731B8057AC00071650 /* Hanoi-swift.app */;
+			productType = "com.apple.product-type.application";
+		};
+		151541871B8057AC00071650 /* Hanoi-swiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 151541951B8057AC00071650 /* Build configuration list for PBXNativeTarget "Hanoi-swiftTests" */;
+			buildPhases = (
+				151541841B8057AC00071650 /* Sources */,
+				151541851B8057AC00071650 /* Frameworks */,
+				151541861B8057AC00071650 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1515418A1B8057AC00071650 /* PBXTargetDependency */,
+			);
+			name = "Hanoi-swiftTests";
+			productName = "Hanoi-swiftTests";
+			productReference = 151541881B8057AC00071650 /* Hanoi-swiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1515416B1B8057AC00071650 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Frank Li";
+				TargetAttributes = {
+					151541721B8057AC00071650 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					151541871B8057AC00071650 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 151541721B8057AC00071650;
+					};
+				};
+			};
+			buildConfigurationList = 1515416E1B8057AC00071650 /* Build configuration list for PBXProject "Hanoi-swift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1515416A1B8057AC00071650;
+			productRefGroup = 151541741B8057AC00071650 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				151541721B8057AC00071650 /* Hanoi-swift */,
+				151541871B8057AC00071650 /* Hanoi-swiftTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		151541711B8057AC00071650 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1515417E1B8057AC00071650 /* Main.storyboard in Resources */,
+				151541831B8057AC00071650 /* LaunchScreen.xib in Resources */,
+				151541801B8057AC00071650 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		151541861B8057AC00071650 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1515416F1B8057AC00071650 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1515417B1B8057AC00071650 /* ViewController.swift in Sources */,
+				151541791B8057AC00071650 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		151541841B8057AC00071650 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1515418F1B8057AC00071650 /* Hanoi_swiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1515418A1B8057AC00071650 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 151541721B8057AC00071650 /* Hanoi-swift */;
+			targetProxy = 151541891B8057AC00071650 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1515417C1B8057AC00071650 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1515417D1B8057AC00071650 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		151541811B8057AC00071650 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				151541821B8057AC00071650 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		151541901B8057AC00071650 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		151541911B8057AC00071650 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		151541931B8057AC00071650 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Hanoi-swift/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		151541941B8057AC00071650 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Hanoi-swift/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		151541961B8057AC00071650 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Hanoi-swiftTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hanoi-swift.app/Hanoi-swift";
+			};
+			name = Debug;
+		};
+		151541971B8057AC00071650 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Hanoi-swiftTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hanoi-swift.app/Hanoi-swift";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1515416E1B8057AC00071650 /* Build configuration list for PBXProject "Hanoi-swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				151541901B8057AC00071650 /* Debug */,
+				151541911B8057AC00071650 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		151541921B8057AC00071650 /* Build configuration list for PBXNativeTarget "Hanoi-swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				151541931B8057AC00071650 /* Debug */,
+				151541941B8057AC00071650 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		151541951B8057AC00071650 /* Build configuration list for PBXNativeTarget "Hanoi-swiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				151541961B8057AC00071650 /* Debug */,
+				151541971B8057AC00071650 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1515416B1B8057AC00071650 /* Project object */;
+}
