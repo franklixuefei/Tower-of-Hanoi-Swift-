@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		151541791B8057AC00071650 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541781B8057AC00071650 /* AppDelegate.swift */; };
-		1515417B1B8057AC00071650 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515417A1B8057AC00071650 /* ViewController.swift */; };
-		1515417E1B8057AC00071650 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1515417C1B8057AC00071650 /* Main.storyboard */; };
 		151541801B8057AC00071650 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1515417F1B8057AC00071650 /* Images.xcassets */; };
 		151541831B8057AC00071650 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541811B8057AC00071650 /* LaunchScreen.xib */; };
 		1515418F1B8057AC00071650 /* Hanoi_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515418E1B8057AC00071650 /* Hanoi_swiftTests.swift */; };
+		151541A51B805E2E00071650 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A11B805E2E00071650 /* GameViewController.swift */; };
+		151541A61B805E2E00071650 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A21B805E2E00071650 /* MenuViewController.swift */; };
+		151541A81B805E5900071650 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A71B805E5900071650 /* GameLogic.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +30,14 @@
 		151541731B8057AC00071650 /* Hanoi-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hanoi-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		151541771B8057AC00071650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		151541781B8057AC00071650 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1515417A1B8057AC00071650 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1515417D1B8057AC00071650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1515417F1B8057AC00071650 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		151541821B8057AC00071650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		151541881B8057AC00071650 /* Hanoi-swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hanoi-swiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1515418D1B8057AC00071650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1515418E1B8057AC00071650 /* Hanoi_swiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Hanoi_swiftTests.swift; sourceTree = "<group>"; };
+		151541A11B805E2E00071650 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		151541A21B805E2E00071650 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		151541A71B805E5900071650 /* GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +79,10 @@
 		151541751B8057AC00071650 /* Hanoi-swift */ = {
 			isa = PBXGroup;
 			children = (
+				151541A01B805E2E00071650 /* Controllers */,
+				151541A31B805E2E00071650 /* Models */,
+				151541A41B805E2E00071650 /* Views */,
 				151541781B8057AC00071650 /* AppDelegate.swift */,
-				1515417A1B8057AC00071650 /* ViewController.swift */,
-				1515417C1B8057AC00071650 /* Main.storyboard */,
 				1515417F1B8057AC00071650 /* Images.xcassets */,
 				151541811B8057AC00071650 /* LaunchScreen.xib */,
 				151541761B8057AC00071650 /* Supporting Files */,
@@ -110,6 +113,30 @@
 				1515418D1B8057AC00071650 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		151541A01B805E2E00071650 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				151541A11B805E2E00071650 /* GameViewController.swift */,
+				151541A21B805E2E00071650 /* MenuViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		151541A31B805E2E00071650 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				151541A71B805E5900071650 /* GameLogic.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		151541A41B805E2E00071650 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +188,7 @@
 				TargetAttributes = {
 					151541721B8057AC00071650 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = Q4U75G4JJ6;
 					};
 					151541871B8057AC00071650 = {
 						CreatedOnToolsVersion = 6.4;
@@ -192,7 +220,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1515417E1B8057AC00071650 /* Main.storyboard in Resources */,
 				151541831B8057AC00071650 /* LaunchScreen.xib in Resources */,
 				151541801B8057AC00071650 /* Images.xcassets in Resources */,
 			);
@@ -212,7 +239,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1515417B1B8057AC00071650 /* ViewController.swift in Sources */,
+				151541A51B805E2E00071650 /* GameViewController.swift in Sources */,
+				151541A61B805E2E00071650 /* MenuViewController.swift in Sources */,
+				151541A81B805E5900071650 /* GameLogic.swift in Sources */,
 				151541791B8057AC00071650 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -236,14 +265,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1515417C1B8057AC00071650 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1515417D1B8057AC00071650 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		151541811B8057AC00071650 /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -342,9 +363,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Hanoi-swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -352,9 +375,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "Hanoi-swift/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
