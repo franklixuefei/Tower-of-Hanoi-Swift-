@@ -16,9 +16,13 @@
 		151541A81B805E5900071650 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A71B805E5900071650 /* GameLogic.swift */; };
 		151541AA1B8130A600071650 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A91B8130A600071650 /* GameSceneView.swift */; };
 		151541AC1B8130BA00071650 /* GameSceneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541AB1B8130BA00071650 /* GameSceneView.xib */; };
-		151541B11B81872900071650 /* PoleContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B01B81872900071650 /* PoleContainerView.swift */; };
-		151541B31B81875700071650 /* PoleContainerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541B21B81875700071650 /* PoleContainerView.xib */; };
-		151541B81B8402BC00071650 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B71B8402BC00071650 /* UIViewExtensions.swift */; };
+		151541B11B81872900071650 /* PoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B01B81872900071650 /* PoleView.swift */; };
+		151541B31B81875700071650 /* PoleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541B21B81875700071650 /* PoleView.xib */; };
+		151541B81B8402BC00071650 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B71B8402BC00071650 /* Extensions.swift */; };
+		151541BC1B84368100071650 /* DiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541BB1B84368100071650 /* DiskView.swift */; };
+		151541BE1B84368C00071650 /* DiskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541BD1B84368C00071650 /* DiskView.xib */; };
+		151541C01B8441A800071650 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541BF1B8441A800071650 /* Constants.swift */; };
+		151541C21B8442B000071650 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541C11B8442B000071650 /* DataStructures.swift */; };
 		5090118B633BBB64A9947E7D /* Pods_Hanoi_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156CFDA9F6D09CF4ADDFE351 /* Pods_Hanoi_swift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -46,9 +50,13 @@
 		151541A71B805E5900071650 /* GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 		151541A91B8130A600071650 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		151541AB1B8130BA00071650 /* GameSceneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameSceneView.xib; sourceTree = "<group>"; };
-		151541B01B81872900071650 /* PoleContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoleContainerView.swift; sourceTree = "<group>"; };
-		151541B21B81875700071650 /* PoleContainerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoleContainerView.xib; sourceTree = "<group>"; };
-		151541B71B8402BC00071650 /* UIViewExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		151541B01B81872900071650 /* PoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoleView.swift; sourceTree = "<group>"; };
+		151541B21B81875700071650 /* PoleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoleView.xib; sourceTree = "<group>"; };
+		151541B71B8402BC00071650 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
+		151541BB1B84368100071650 /* DiskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskView.swift; sourceTree = "<group>"; };
+		151541BD1B84368C00071650 /* DiskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiskView.xib; sourceTree = "<group>"; };
+		151541BF1B8441A800071650 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		151541C11B8442B000071650 /* DataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
 		156CFDA9F6D09CF4ADDFE351 /* Pods_Hanoi_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hanoi_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A86F957248991EEE6515C33 /* Pods-Hanoi-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hanoi-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hanoi-swift/Pods-Hanoi-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		E9845EB2D9FEAC76A640CF9F /* Pods-Hanoi-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hanoi-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hanoi-swift/Pods-Hanoi-swift.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,11 +104,12 @@
 		151541751B8057AC00071650 /* Hanoi-swift */ = {
 			isa = PBXGroup;
 			children = (
-				151541B61B84024300071650 /* Extensions */,
+				151541B71B8402BC00071650 /* Extensions.swift */,
 				151541A01B805E2E00071650 /* Controllers */,
 				151541A31B805E2E00071650 /* Models */,
 				151541A41B805E2E00071650 /* Views */,
 				151541781B8057AC00071650 /* AppDelegate.swift */,
+				151541BF1B8441A800071650 /* Constants.swift */,
 				1515417F1B8057AC00071650 /* Images.xcassets */,
 				151541811B8057AC00071650 /* LaunchScreen.xib */,
 				151541761B8057AC00071650 /* Supporting Files */,
@@ -146,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				151541A71B805E5900071650 /* GameLogic.swift */,
+				151541C11B8442B000071650 /* DataStructures.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -155,18 +165,12 @@
 			children = (
 				151541A91B8130A600071650 /* GameSceneView.swift */,
 				151541AB1B8130BA00071650 /* GameSceneView.xib */,
-				151541B01B81872900071650 /* PoleContainerView.swift */,
-				151541B21B81875700071650 /* PoleContainerView.xib */,
+				151541B01B81872900071650 /* PoleView.swift */,
+				151541B21B81875700071650 /* PoleView.xib */,
+				151541BB1B84368100071650 /* DiskView.swift */,
+				151541BD1B84368C00071650 /* DiskView.xib */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		151541B61B84024300071650 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				151541B71B8402BC00071650 /* UIViewExtensions.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		B93A46E365050F45D3A92892 /* Pods */ = {
@@ -270,7 +274,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				151541B31B81875700071650 /* PoleContainerView.xib in Resources */,
+				151541BE1B84368C00071650 /* DiskView.xib in Resources */,
+				151541B31B81875700071650 /* PoleView.xib in Resources */,
 				151541AC1B8130BA00071650 /* GameSceneView.xib in Resources */,
 				151541831B8057AC00071650 /* LaunchScreen.xib in Resources */,
 				151541801B8057AC00071650 /* Images.xcassets in Resources */,
@@ -339,13 +344,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				151541B81B8402BC00071650 /* UIViewExtensions.swift in Sources */,
+				151541B81B8402BC00071650 /* Extensions.swift in Sources */,
 				151541A51B805E2E00071650 /* GameViewController.swift in Sources */,
 				151541A61B805E2E00071650 /* MenuViewController.swift in Sources */,
-				151541B11B81872900071650 /* PoleContainerView.swift in Sources */,
+				151541B11B81872900071650 /* PoleView.swift in Sources */,
 				151541AA1B8130A600071650 /* GameSceneView.swift in Sources */,
+				151541C21B8442B000071650 /* DataStructures.swift in Sources */,
 				151541A81B805E5900071650 /* GameLogic.swift in Sources */,
 				151541791B8057AC00071650 /* AppDelegate.swift in Sources */,
+				151541BC1B84368100071650 /* DiskView.swift in Sources */,
+				151541C01B8441A800071650 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

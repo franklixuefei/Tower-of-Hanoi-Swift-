@@ -12,30 +12,41 @@ class GameSceneView: UIView {
   
   @IBOutlet weak var firstPoleContainer: UIView! {
     didSet {
-      let pole = instantiatePole(poleType: .OriginalPole)
-      pinPoleToContainer(pole);
+      instantiatePole(poleType: .OriginalPole)
+      pinPoleToContainer(originalPole);
     }
   }
   @IBOutlet weak var secondPoleContainer: UIView! {
     didSet {
-      let pole = instantiatePole(poleType: .BufferPole)
-      pinPoleToContainer(pole);
+      instantiatePole(poleType: .BufferPole)
+      pinPoleToContainer(bufferPole);
     }
   }
   @IBOutlet weak var thirdPoleContainer: UIView! {
     didSet {
-      let pole = instantiatePole(poleType: .DestinationPole)
-      pinPoleToContainer(pole);
+      instantiatePole(poleType: .DestinationPole)
+      pinPoleToContainer(destinationPole);
     }
   }
   
-  private func instantiatePole(poleType type:PoleContainerView.PoleType) -> PoleContainerView {
-    let pole = UIView.viewFromNib("PoleContainerView") as! PoleContainerView
+  var originalPole: PoleView!
+  var bufferPole: PoleView!
+  var destinationPole: PoleView!
+  
+  private func instantiatePole(poleType type:PoleView.PoleType) {
+    let pole = UIView.viewFromNib(XibNames.PoleContainerViewXibName) as! PoleView
     pole.poleType = type
-    return pole;
+    switch type {
+    case .OriginalPole:
+      originalPole = pole
+    case .BufferPole:
+      bufferPole = pole
+    case .DestinationPole:
+      destinationPole = pole
+    }
   }
   
-  private func pinPoleToContainer(pole: PoleContainerView) {
+  private func pinPoleToContainer(pole: PoleView) {
     let poleContainer: UIView!
     switch pole.poleType! {
     case .OriginalPole:
@@ -44,8 +55,6 @@ class GameSceneView: UIView {
       poleContainer = secondPoleContainer
     case .DestinationPole:
       poleContainer = thirdPoleContainer
-    default:
-      break
     }
     poleContainer.addSubview(pole)
     pole.setTranslatesAutoresizingMaskIntoConstraints(false)
