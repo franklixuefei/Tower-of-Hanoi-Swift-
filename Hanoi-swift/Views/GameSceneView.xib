@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7706"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Hanoi_swift" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view opaque="NO" contentMode="scaleToFill" id="iN0-l3-epB" customClass="GameSceneView" customModule="Hanoi_swift" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="622" height="454"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SIT-Ms-vZ7">
+                    <rect key="frame" x="15" y="0.0" width="592" height="454"/>
+                    <subviews>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu4-jJ-qKp" userLabel="firstPole">
+                            <rect key="frame" x="0.0" y="0.0" width="197" height="454"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2M-OA-jUn" userLabel="secondPole">
+                            <rect key="frame" x="197" y="0.0" width="198" height="454"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIO-xl-DB9" userLabel="thirdPole">
+                            <rect key="frame" x="395" y="0.0" width="197" height="454"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="aIO-xl-DB9" secondAttribute="trailing" id="Cee-Ki-HnG"/>
+                        <constraint firstAttribute="bottom" secondItem="f2M-OA-jUn" secondAttribute="bottom" id="Fpm-nD-Uiv"/>
+                        <constraint firstItem="f2M-OA-jUn" firstAttribute="width" secondItem="cu4-jJ-qKp" secondAttribute="width" id="NOP-kM-Qh9"/>
+                        <constraint firstItem="aIO-xl-DB9" firstAttribute="leading" secondItem="f2M-OA-jUn" secondAttribute="trailing" id="NiD-hj-dhA"/>
+                        <constraint firstAttribute="bottom" secondItem="cu4-jJ-qKp" secondAttribute="bottom" id="PlA-K0-kF9"/>
+                        <constraint firstItem="cu4-jJ-qKp" firstAttribute="leading" secondItem="SIT-Ms-vZ7" secondAttribute="leading" id="Wr4-Gk-i6O"/>
+                        <constraint firstItem="f2M-OA-jUn" firstAttribute="width" secondItem="aIO-xl-DB9" secondAttribute="width" id="YYN-Yv-t8t"/>
+                        <constraint firstAttribute="bottom" secondItem="aIO-xl-DB9" secondAttribute="bottom" id="gRW-dC-PFr"/>
+                        <constraint firstItem="cu4-jJ-qKp" firstAttribute="top" secondItem="SIT-Ms-vZ7" secondAttribute="top" id="hQU-0g-RAL"/>
+                        <constraint firstItem="f2M-OA-jUn" firstAttribute="leading" secondItem="cu4-jJ-qKp" secondAttribute="trailing" id="k5N-6b-RdB"/>
+                        <constraint firstItem="f2M-OA-jUn" firstAttribute="top" secondItem="SIT-Ms-vZ7" secondAttribute="top" id="l9c-oJ-c5N"/>
+                        <constraint firstItem="aIO-xl-DB9" firstAttribute="top" secondItem="SIT-Ms-vZ7" secondAttribute="top" id="sS5-RP-izX"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="SIT-Ms-vZ7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="FOr-hm-wSW"/>
+                <constraint firstAttribute="trailing" secondItem="SIT-Ms-vZ7" secondAttribute="trailing" constant="15" id="RMS-9N-jPI"/>
+                <constraint firstItem="SIT-Ms-vZ7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="UiF-Qw-gae"/>
+                <constraint firstAttribute="bottom" secondItem="SIT-Ms-vZ7" secondAttribute="bottom" id="u1D-by-1l0"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="firstPoleContainer" destination="cu4-jJ-qKp" id="QRJ-0M-PSg"/>
+                <outlet property="secondPoleContainer" destination="f2M-OA-jUn" id="VZY-30-WTh"/>
+                <outlet property="thirdPoleContainer" destination="aIO-xl-DB9" id="CUp-lp-pov"/>
+            </connections>
+            <point key="canvasLocation" x="231" y="285"/>
+        </view>
+    </objects>
+</document>

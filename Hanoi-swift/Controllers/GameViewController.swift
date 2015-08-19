@@ -10,10 +10,15 @@ import UIKit
 
 class GameViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+  
+  override func loadView() {
+    let gameSceneView = UIView.viewFromNib("GameSceneView");
+    self.view = gameSceneView
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    // Do any additional setup after loading the view.
+  }
 
 }
