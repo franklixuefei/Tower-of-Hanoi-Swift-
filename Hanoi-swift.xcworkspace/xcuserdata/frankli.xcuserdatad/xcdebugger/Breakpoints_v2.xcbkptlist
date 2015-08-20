@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Controllers/GameViewController.swift"
-            timestampString = "461744681.128238"
+            timestampString = "461797614.297406"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "loadView()"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Models/GameLogic.swift"
-            timestampString = "461664562.729279"
+            timestampString = "461803783.74627"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "createDisksData(largestDiskWidth:numberOfDisks:maximumDiskPileHeight:)"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "createDisks(largestDiskWidth:numberOfDisks:maximumDiskPileHeight:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Controllers/GameViewController.swift"
-            timestampString = "461744681.128238"
+            timestampString = "461797614.297406"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
+            startingLineNumber = "14"
+            endingLineNumber = "14"
             landmarkName = "GameViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -74,12 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Controllers/GameViewController.swift"
-            timestampString = "461749640.053258"
+            timestampString = "461802970.232652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "createDisks()"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "initDisks()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,12 +106,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Controllers/GameViewController.swift"
-            timestampString = "461749640.053258"
+            timestampString = "461802970.232652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "createDisks()"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "initDisks()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -122,12 +122,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Controllers/GameViewController.swift"
-            timestampString = "461749640.053258"
+            timestampString = "461802970.232652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "createDisks()"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "initDisks()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,12 +138,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hanoi-swift/Controllers/GameViewController.swift"
-            timestampString = "461749640.053258"
+            timestampString = "461802970.232652"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
-            landmarkName = "createDisks()"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "initDisks()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -176,6 +176,38 @@
             startingLineNumber = "75"
             endingLineNumber = "75"
             landmarkName = "animationDidStop(_:finished:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hanoi-swift/Controllers/GameViewController.swift"
+            timestampString = "461803433.475521"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "initDisks()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hanoi-swift/Controllers/GameViewController.swift"
+            timestampString = "461803470.517314"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "initDisks()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

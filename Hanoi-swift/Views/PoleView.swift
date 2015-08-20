@@ -14,12 +14,6 @@ class PoleView: UIView {
   @IBOutlet weak var poleBase: UIView!
   @IBOutlet weak var poleStick: UIView!
   
-  enum PoleType {
-    case OriginalPole
-    case BufferPole
-    case DestinationPole
-  }
-  
   var poleType: PoleType!
   
 }

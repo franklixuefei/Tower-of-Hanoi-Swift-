@@ -8,7 +8,8 @@
 
 import UIKit
 
-class GameViewController: UIViewController, UIViewControllerTransitioningDelegate, ViewControllerProtocol {
+class GameViewController: UIViewController, UIViewControllerTransitioningDelegate,
+ViewControllerProtocol, DiskViewDataSource, DiskViewDelegate {
 
   @IBOutlet weak var dotButton: ControlPanelButton!
   
@@ -51,7 +52,7 @@ class GameViewController: UIViewController, UIViewControllerTransitioningDelegat
     gameSceneView.setNeedsLayout()
     gameSceneView.layoutIfNeeded()
     setupControlPanelDropShadow()
-    createDisks()
+    initDisks()
   }
   
   @IBAction func dotPressed() {
@@ -62,27 +63,32 @@ class GameViewController: UIViewController, UIViewControllerTransitioningDelegat
     self.presentViewController(menuVC, animated: true, completion: nil)
   }
   
-  func createDisks() {
+  func initDisks() {
+    // can also be bufferPole or destinationPole.
     let poleBaseFrame = gameSceneView.originalPole.poleBase.frame
     let poleStickFrame = gameSceneView.originalPole.poleStick.frame
+    let poleStickCenter = gameSceneView.originalPole.poleStick.center
     
     let poleBaseWidth = Double(poleBaseFrame.size.width)
     let poleStickHeight = Double(poleStickFrame.size.height)
-    let poleBaseCenterX = Double(poleBaseFrame.origin.x + poleBaseFrame.size.width / 2.0)
+    let poleStickCenterX = poleStickCenter.x
     let numberOfDisks = 9; // TODO: from GameLogic
     
-    model.createDisksData(largestDiskWidth: poleBaseWidth - DiskConstant.diskWidthOffset, numberOfDisks: numberOfDisks,
-      maximumDiskPileHeight: poleStickHeight)
-    for disk in model.originalStack {
+    var disks = model.createDisks(largestDiskWidth: poleBaseWidth - DiskConstant.diskWidthOffset,
+      numberOfDisks: numberOfDisks, maximumDiskPileHeight: poleStickHeight)
+    for disk in disks {
       let diskView = UIView.viewFromNib(XibNames.DiskViewXibName) as! DiskView
       let diskWidth = CGFloat(disk.width)
-      let diskHeight = CGFloat(disk.height)
-      let diskPositionX = CGFloat(poleBaseCenterX - disk.width / 2.0)
-      let diskPositionY = poleBaseFrame.origin.y - CGFloat(disk.distanceToPoleBase) - CGFloat(disk.height)
+      let diskHeight = CGFloat(Disk.height)
+      let diskCenterX = poleStickCenterX
+      let diskCenterY = poleBaseFrame.origin.y -
+        CGFloat(model.pileHeight(poleType: .OriginalPole) + 0.5*Disk.height)
       gameSceneView.originalPole.addSubview(diskView)
-      diskView.frame = CGRectMake(diskPositionX, diskPositionY, diskWidth, diskHeight)
-      
-      
+      diskView.frame = CGRectMake(0, 0, diskWidth, diskHeight)
+      diskView.center = CGPointMake(diskCenterX, diskCenterY)
+      model.placeDisk(disk, onPole: .OriginalPole)
+      diskView.dataSource = self
+      diskView.delegate = self
     }
   }
   
@@ -112,4 +118,9 @@ class GameViewController: UIViewController, UIViewControllerTransitioningDelegat
     return nil
   }
 
+  // MARK: DiskViewDataSource methods
+  func getGameSceneView() -> GameSceneView? {
+    return gameSceneView
+  }
+  
 }

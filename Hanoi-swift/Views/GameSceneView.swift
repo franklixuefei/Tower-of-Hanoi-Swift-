@@ -33,7 +33,7 @@ class GameSceneView: UIView {
   var bufferPole: PoleView!
   var destinationPole: PoleView!
   
-  private func instantiatePole(poleType type:PoleView.PoleType) {
+  private func instantiatePole(poleType type:PoleType) {
     let pole = UIView.viewFromNib(XibNames.PoleContainerViewXibName) as! PoleView
     pole.poleType = type
     switch type {
