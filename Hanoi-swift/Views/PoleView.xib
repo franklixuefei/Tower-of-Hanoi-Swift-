@@ -11,10 +11,10 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YTE-Vn-7BY" userLabel="Base">
-                    <rect key="frame" x="15" y="299" width="191" height="16"/>
+                    <rect key="frame" x="10" y="306" width="201" height="12"/>
                     <color key="backgroundColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="16" id="BfC-hm-UIL"/>
+                        <constraint firstAttribute="height" constant="12" id="BfC-hm-UIL"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -23,7 +23,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zwg-9m-WWx" userLabel="Stick">
-                    <rect key="frame" x="107" y="80" width="7" height="222"/>
+                    <rect key="frame" x="107" y="90" width="7" height="219"/>
                     <color key="backgroundColor" red="0.14509803921568626" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="7" id="32H-0l-OO4"/>
@@ -37,11 +37,11 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="YTE-Vn-7BY" secondAttribute="bottom" constant="8" id="Xlh-rd-aME"/>
-                <constraint firstItem="Zwg-9m-WWx" firstAttribute="top" secondItem="sY9-8v-FOr" secondAttribute="top" constant="80" id="g89-dS-SEM"/>
-                <constraint firstAttribute="trailing" secondItem="YTE-Vn-7BY" secondAttribute="trailing" constant="15" id="hRJ-Kb-Jhz"/>
+                <constraint firstAttribute="bottom" secondItem="YTE-Vn-7BY" secondAttribute="bottom" constant="5" id="Xlh-rd-aME"/>
+                <constraint firstItem="Zwg-9m-WWx" firstAttribute="top" secondItem="sY9-8v-FOr" secondAttribute="top" constant="90" id="g89-dS-SEM"/>
+                <constraint firstAttribute="trailing" secondItem="YTE-Vn-7BY" secondAttribute="trailing" constant="10" id="hRJ-Kb-Jhz"/>
                 <constraint firstItem="YTE-Vn-7BY" firstAttribute="top" secondItem="Zwg-9m-WWx" secondAttribute="bottom" constant="-3" id="qzE-YS-BvN"/>
-                <constraint firstItem="YTE-Vn-7BY" firstAttribute="leading" secondItem="sY9-8v-FOr" secondAttribute="leading" constant="15" id="r56-Nu-QZo"/>
+                <constraint firstItem="YTE-Vn-7BY" firstAttribute="leading" secondItem="sY9-8v-FOr" secondAttribute="leading" constant="10" id="r56-Nu-QZo"/>
                 <constraint firstAttribute="centerX" secondItem="Zwg-9m-WWx" secondAttribute="centerX" id="sjy-vZ-aDW"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

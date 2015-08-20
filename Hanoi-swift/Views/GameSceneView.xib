@@ -43,7 +43,7 @@
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="0.0" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="SIT-Ms-vZ7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="FOr-hm-wSW"/>
                 <constraint firstAttribute="trailing" secondItem="SIT-Ms-vZ7" secondAttribute="trailing" constant="15" id="RMS-9N-jPI"/>

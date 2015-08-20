@@ -12,13 +12,15 @@ struct XibNames {
   static let GameSceneViewXibName = "GameSceneView"
   static let PoleContainerViewXibName = "PoleView"
   static let DiskViewXibName = "DiskView"
+  static let ControlPanelViewXibName = "ControlPanelView"
+  static let MenuViewXibName = "MenuView"
 }
 
 struct DiskConstant {
   static let maximumDiskHeight = 25.0
   static let largeSmallDiskWidthRatio = 3.0
-  static let diskWidthOffset = 16.0
-  static let diskHeightOffset = 10.0
+  static let diskWidthOffset = 20.0
+  static let diskHeightOffset = 12.0
 }
 
 struct LogicConstant {

@@ -8,34 +8,68 @@
 
 import UIKit
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, UIViewControllerTransitioningDelegate, ViewControllerProtocol {
 
+  @IBOutlet weak var dotButton: ControlPanelButton!
+  
   var model = GameLogic.defaultModel
   var gameSceneView: GameSceneView!
+  var controlPanelView: ControlPanelView!
   
   override func loadView() {
-    gameSceneView = UIView.viewFromNib(XibNames.GameSceneViewXibName) as! GameSceneView
+    // setup game scene
+    gameSceneView = UIView.viewFromNib(XibNames.GameSceneViewXibName, owner: self) as! GameSceneView
     self.view = gameSceneView
-    self.view.backgroundColor = UIColor.color(hexValue: 0xF4F4F4, alpha: 1.0)
+    setupControlPanel()
+  }
+  
+  private func setupControlPanel() {
+    controlPanelView = UIView.viewFromNib(XibNames.ControlPanelViewXibName, owner: self) as! ControlPanelView
+    self.view.addSubview(controlPanelView);
+    controlPanelView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    let views = ["controlPanel": controlPanelView]
+    let metrics = ["panelHeight": 60]
+    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+      "H:|[controlPanel]|", options: nil, metrics: nil, views: views))
+    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
+      "V:|[controlPanel(panelHeight)]", options: nil, metrics: metrics, views: views))
+  }
+  
+  private func setupControlPanelDropShadow() {
+    let shadowPath = UIBezierPath(rect: controlPanelView.bounds)
+    controlPanelView.layer.masksToBounds = false
+    controlPanelView.layer.shadowColor = UIColor.blackColor().CGColor
+    controlPanelView.layer.shadowOffset = CGSizeMake(0, 1)
+    controlPanelView.layer.shadowOpacity = 0.3
+    controlPanelView.layer.shadowPath = shadowPath.CGPath
+    controlPanelView.layer.shadowRadius = 1.5
   }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+    // Force layout immediately in order to get the views' actual frame after constraints being applied
+    gameSceneView.setNeedsLayout()
+    gameSceneView.layoutIfNeeded()
+    setupControlPanelDropShadow()
     createDisks()
   }
   
+  @IBAction func dotPressed() {
+    let menuVC = MenuViewController()
+    menuVC.view.frame = self.view.bounds
+    menuVC.transitioningDelegate = self
+    menuVC.modalPresentationStyle = .Custom
+    self.presentViewController(menuVC, animated: true, completion: nil)
+  }
+  
   func createDisks() {
-    // Force layout immediately in order to get the views' actual frame
-    gameSceneView.setNeedsLayout()
-    gameSceneView.layoutIfNeeded()
-    
     let poleBaseFrame = gameSceneView.originalPole.poleBase.frame
     let poleStickFrame = gameSceneView.originalPole.poleStick.frame
     
-    let poleBaseWidth = Double(poleBaseFrame.size.width);
-    let poleStickHeight = Double(poleStickFrame.size.height);
+    let poleBaseWidth = Double(poleBaseFrame.size.width)
+    let poleStickHeight = Double(poleStickFrame.size.height)
     let poleBaseCenterX = Double(poleBaseFrame.origin.x + poleBaseFrame.size.width / 2.0)
-    let numberOfDisks = 5; // TODO: from GameLogic
+    let numberOfDisks = 9; // TODO: from GameLogic
     
     model.createDisksData(largestDiskWidth: poleBaseWidth - DiskConstant.diskWidthOffset, numberOfDisks: numberOfDisks,
       maximumDiskPileHeight: poleStickHeight)
@@ -50,6 +84,32 @@ class GameViewController: UIViewController {
       
       
     }
+  }
+  
+  // MARK: UIViewControllerTransitioningDelegate methods
+  
+  func animationControllerForPresentedController(presented: UIViewController, presentingController
+    presenting: UIViewController, sourceController source: UIViewController)
+    -> UIViewControllerAnimatedTransitioning?
+  {
+    RippleTransitionAnimator.defaultAnimator.presenting = true
+    return RippleTransitionAnimator.defaultAnimator
+  }
+  
+  func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return nil
+  }
+  
+  func animationControllerForDismissedController(dismissed: UIViewController)
+    -> UIViewControllerAnimatedTransitioning?
+  {
+    RippleTransitionAnimator.defaultAnimator.presenting = false
+    return RippleTransitionAnimator.defaultAnimator
+  }
+  
+  
+  func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+    return nil
   }
 
 }

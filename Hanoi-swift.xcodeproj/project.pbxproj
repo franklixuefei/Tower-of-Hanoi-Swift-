@@ -23,6 +23,12 @@
 		151541BE1B84368C00071650 /* DiskView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541BD1B84368C00071650 /* DiskView.xib */; };
 		151541C01B8441A800071650 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541BF1B8441A800071650 /* Constants.swift */; };
 		151541C21B8442B000071650 /* DataStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541C11B8442B000071650 /* DataStructures.swift */; };
+		151541C81B851C8000071650 /* ControlPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541C71B851C8000071650 /* ControlPanelView.xib */; };
+		151541CA1B851C9500071650 /* ControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541C91B851C9500071650 /* ControlPanelView.swift */; };
+		151541CC1B85A22100071650 /* RippleTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541CB1B85A22100071650 /* RippleTransitionAnimator.swift */; };
+		151541CE1B85A39000071650 /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541CD1B85A39000071650 /* ViewControllerProtocol.swift */; };
+		151541D01B85A47900071650 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541CF1B85A47900071650 /* MenuView.xib */; };
+		151541D21B85A48700071650 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D11B85A48700071650 /* MenuView.swift */; };
 		5090118B633BBB64A9947E7D /* Pods_Hanoi_swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 156CFDA9F6D09CF4ADDFE351 /* Pods_Hanoi_swift.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
@@ -57,6 +63,12 @@
 		151541BD1B84368C00071650 /* DiskView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DiskView.xib; sourceTree = "<group>"; };
 		151541BF1B8441A800071650 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		151541C11B8442B000071650 /* DataStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStructures.swift; sourceTree = "<group>"; };
+		151541C71B851C8000071650 /* ControlPanelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlPanelView.xib; sourceTree = "<group>"; };
+		151541C91B851C9500071650 /* ControlPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlPanelView.swift; sourceTree = "<group>"; };
+		151541CB1B85A22100071650 /* RippleTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RippleTransitionAnimator.swift; sourceTree = "<group>"; };
+		151541CD1B85A39000071650 /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
+		151541CF1B85A47900071650 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
+		151541D11B85A48700071650 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		156CFDA9F6D09CF4ADDFE351 /* Pods_Hanoi_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hanoi_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A86F957248991EEE6515C33 /* Pods-Hanoi-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hanoi-swift.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hanoi-swift/Pods-Hanoi-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		E9845EB2D9FEAC76A640CF9F /* Pods-Hanoi-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hanoi-swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hanoi-swift/Pods-Hanoi-swift.release.xcconfig"; sourceTree = "<group>"; };
@@ -147,6 +159,8 @@
 			children = (
 				151541A11B805E2E00071650 /* GameViewController.swift */,
 				151541A21B805E2E00071650 /* MenuViewController.swift */,
+				151541CB1B85A22100071650 /* RippleTransitionAnimator.swift */,
+				151541CD1B85A39000071650 /* ViewControllerProtocol.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -169,6 +183,10 @@
 				151541B21B81875700071650 /* PoleView.xib */,
 				151541BB1B84368100071650 /* DiskView.swift */,
 				151541BD1B84368C00071650 /* DiskView.xib */,
+				151541C91B851C9500071650 /* ControlPanelView.swift */,
+				151541C71B851C8000071650 /* ControlPanelView.xib */,
+				151541D11B85A48700071650 /* MenuView.swift */,
+				151541CF1B85A47900071650 /* MenuView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -276,7 +294,9 @@
 			files = (
 				151541BE1B84368C00071650 /* DiskView.xib in Resources */,
 				151541B31B81875700071650 /* PoleView.xib in Resources */,
+				151541D01B85A47900071650 /* MenuView.xib in Resources */,
 				151541AC1B8130BA00071650 /* GameSceneView.xib in Resources */,
+				151541C81B851C8000071650 /* ControlPanelView.xib in Resources */,
 				151541831B8057AC00071650 /* LaunchScreen.xib in Resources */,
 				151541801B8057AC00071650 /* Images.xcassets in Resources */,
 			);
@@ -344,10 +364,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151541CE1B85A39000071650 /* ViewControllerProtocol.swift in Sources */,
 				151541B81B8402BC00071650 /* Extensions.swift in Sources */,
 				151541A51B805E2E00071650 /* GameViewController.swift in Sources */,
 				151541A61B805E2E00071650 /* MenuViewController.swift in Sources */,
+				151541CC1B85A22100071650 /* RippleTransitionAnimator.swift in Sources */,
+				151541CA1B851C9500071650 /* ControlPanelView.swift in Sources */,
 				151541B11B81872900071650 /* PoleView.swift in Sources */,
+				151541D21B85A48700071650 /* MenuView.swift in Sources */,
 				151541AA1B8130A600071650 /* GameSceneView.swift in Sources */,
 				151541C21B8442B000071650 /* DataStructures.swift in Sources */,
 				151541A81B805E5900071650 /* GameLogic.swift in Sources */,
