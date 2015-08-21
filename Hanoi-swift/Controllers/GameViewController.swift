@@ -9,13 +9,14 @@
 import UIKit
 
 class GameViewController: UIViewController, UIViewControllerTransitioningDelegate,
-ViewControllerProtocol, DiskViewDataSource, DiskViewDelegate {
+ViewControllerProtocol, DiskViewDelegate {
 
   @IBOutlet weak var dotButton: ControlPanelButton!
   
   var model = GameLogic.defaultModel
   var gameSceneView: GameSceneView!
   var controlPanelView: ControlPanelView!
+  var diskViewToDiskMap = [DiskView:Disk]()
   
   override func loadView() {
     // setup game scene
@@ -71,7 +72,7 @@ ViewControllerProtocol, DiskViewDataSource, DiskViewDelegate {
       numberOfDisks: numberOfDisks, maximumDiskPileHeight: Double(poleStickHeight))
     for disk in disks {
       let diskView = placeDisk(disk, onPole: .OriginalPole)
-      diskView.dataSource = self
+      diskViewToDiskMap[diskView] = disk
       diskView.delegate = self
     }
   }
@@ -129,10 +130,24 @@ ViewControllerProtocol, DiskViewDataSource, DiskViewDelegate {
   func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
     return nil
   }
-
-  // MARK: DiskViewDataSource methods
-  func getGameSceneView() -> GameSceneView? {
-    return gameSceneView
-  }
   
+  // MARK: DiskViewDelegate methods
+  
+  func gestureState(state: UIGestureRecognizerState, onDisk diskView: DiskView) {
+    if let disk = diskViewToDiskMap[diskView] {
+      switch state {
+      case .Ended:
+        // put the disk to the right pole according to its current location and size
+        
+        break
+      case .Failed, .Cancelled:
+        // revert disk to original place
+        
+        break
+      default:
+        break
+      }
+    }
+  }
+
 }

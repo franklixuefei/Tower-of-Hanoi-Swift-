@@ -12,6 +12,16 @@ enum PoleType : Int {
   case OriginalPole
   case BufferPole
   case DestinationPole
+  func description() -> String {
+    switch self {
+    case .OriginalPole:
+      return "OriginalPole"
+    case .BufferPole:
+      return "BufferPole"
+    case .DestinationPole:
+      return "DestinationPole"
+    }
+  }
 }
 
 class GameLogic: NSObject {

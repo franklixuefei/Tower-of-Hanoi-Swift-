@@ -9,8 +9,7 @@
 import UIKit
 
 class DiskView: UIView {
-
-  weak var dataSource: DiskViewDataSource?
+  
   weak var delegate: DiskViewDelegate?
   
   override func awakeFromNib() {
@@ -19,29 +18,21 @@ class DiskView: UIView {
   }
   
   func panned(gesture: UIPanGestureRecognizer) {
-    if let gameSceneView = dataSource?.getGameSceneView() {
-      switch gesture.state {
-      case .Began:
-        break
-      case .Changed:
-        let translation = gesture.translationInView(gameSceneView)
-        self.frame = CGRectMake(self.frame.origin.x + translation.x, self.frame.origin.y + translation.y,
-          self.frame.size.width, self.frame.size.height)
-        gesture.setTranslation(CGPointZero, inView: gameSceneView)
-      case .Ended, .Failed, .Cancelled:
-        println("ended, failed, cancelled")
-        break
-      default:
-        break
-      }
+    switch gesture.state {
+    case .Began:
+      self.superview?.bringSubviewToFront(self)
+    case .Changed:
+      let translation = gesture.translationInView(self.superview!)
+      self.frame = CGRectMake(self.frame.origin.x + translation.x, self.frame.origin.y + translation.y,
+        self.frame.size.width, self.frame.size.height)
+      gesture.setTranslation(CGPointZero, inView: self.superview!)
+    default:
+      break
     }
+    delegate?.gestureState(gesture.state, onDisk: self)
   }
 }
 
-protocol DiskViewDataSource: class {
-  func getGameSceneView() -> GameSceneView?
-}
-
 protocol DiskViewDelegate: class {
-  
+  func gestureState(state: UIGestureRecognizerState, onDisk diskView: DiskView)
 }
