@@ -53,7 +53,10 @@ ViewControllerProtocol, DiskViewDelegate {
     gameSceneView.setNeedsLayout()
     gameSceneView.layoutIfNeeded()
     setupControlPanelDropShadow()
-    initDisks()
+    let diskViews = createDisks()
+    for diskView in diskViews {
+      placeDisk(diskView, onPole: .OriginalPole, animated: false)
+    }
   }
   
   @IBAction func dotPressed() {
@@ -64,45 +67,54 @@ ViewControllerProtocol, DiskViewDelegate {
     self.presentViewController(menuVC, animated: true, completion: nil)
   }
   
-  func initDisks() {
+  func createDisks() -> [DiskView] {
     let numberOfDisks = 5; // TODO: from GameLogic
     let poleBaseWidth = gameSceneView.originalPole.poleBaseWidth
     let poleStickHeight = gameSceneView.originalPole.poleStickHeight
-    var disks = model.createDisks(largestDiskWidth: Double(poleBaseWidth) - DiskConstant.diskWidthOffset,
+    let disks = model.createDisks(largestDiskWidth: Double(poleBaseWidth) - DiskConstant.diskWidthOffset,
       numberOfDisks: numberOfDisks, maximumDiskPileHeight: Double(poleStickHeight))
+    var diskViews = [DiskView]()
     for disk in disks {
-      let diskView = placeDisk(disk, onPole: .OriginalPole)
+      let diskView = createDisk(disk: disk)
+      diskViews.append(diskView)
       diskViewToDiskMap[diskView] = disk
       diskView.delegate = self
     }
+    return diskViews
   }
   
-  func placeDisk(disk: Disk, onPole type: PoleType) -> DiskView {
-    let pole: PoleView
-    switch type {
-    case .OriginalPole:
-      pole = gameSceneView.originalPole
-    case .BufferPole:
-      pole = gameSceneView.bufferPole
-    case .DestinationPole:
-      pole = gameSceneView.destinationPole
-    }
-    let poleBaseFrame = pole.convertRect(pole.poleBase.frame, toView: gameSceneView)
-    let poleStickCenter = pole.convertPoint(pole.poleStick.center, toView: gameSceneView)
-    
-    let poleStickCenterX = poleStickCenter.x
-    
+  func createDisk(#disk: Disk) -> DiskView {
     let diskView = UIView.viewFromNib(XibNames.DiskViewXibName) as! DiskView
     let diskWidth = CGFloat(disk.width)
     let diskHeight = CGFloat(Disk.height)
-    let diskCenterX = poleStickCenterX
-    let diskCenterY = poleBaseFrame.origin.y -
-      CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
     gameSceneView.addSubview(diskView)
     diskView.frame = CGRectMake(0, 0, diskWidth, diskHeight)
-    diskView.center = CGPointMake(diskCenterX, diskCenterY)
-    model.placeDisk(disk, onPole: type)
     return diskView
+  }
+  
+  func placeDisk(diskView: DiskView, onPole type: PoleType, animated: Bool) {
+    if let disk = diskViewToDiskMap[diskView] {
+      let pole: PoleView
+      switch type {
+      case .OriginalPole:
+        pole = gameSceneView.originalPole
+      case .BufferPole:
+        pole = gameSceneView.bufferPole
+      case .DestinationPole:
+        pole = gameSceneView.destinationPole
+      }
+      if let removedDisk = model.removeDisk(disk) { // TODO: delete assertion in production
+        assert(removedDisk == disk, "removed disk should be disk")
+      }
+      let poleBaseFrame = pole.convertRect(pole.poleBase.frame, toView: gameSceneView)
+      let poleStickCenter = pole.convertPoint(pole.poleStick.center, toView: gameSceneView)
+      let poleStickCenterX = poleStickCenter.x
+      let diskCenterX = poleStickCenterX
+      let diskCenterY = poleBaseFrame.origin.y -
+        CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
+      diskView.center = CGPointMake(diskCenterX, diskCenterY)
+      model.placeDisk(disk, onPole: type)
+    }
   }
   
   // MARK: UIViewControllerTransitioningDelegate methods

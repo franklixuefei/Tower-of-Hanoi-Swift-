@@ -57,6 +57,22 @@ class GameLogic: NSObject {
     disk.onPole = type
   }
   
+  func removeDisk(disk: Disk) -> Disk? {
+    if let onPole = disk.onPole {
+      let removedDisk: Disk
+      switch onPole {
+      case .OriginalPole:
+        removedDisk = originalPoleStack.removeLast()
+      case .BufferPole:
+        removedDisk = bufferPoleStack.removeLast()
+      case .DestinationPole:
+        removedDisk = destinationPoleStack.removeLast()
+      }
+      return removedDisk
+    }
+    return nil
+  }
+  
   func pileHeight(poleType type: PoleType) -> Double {
     switch type {
     case .OriginalPole:
