@@ -16,4 +16,16 @@ class PoleView: UIView {
   
   var poleType: PoleType!
   
+  var poleBaseWidth: CGFloat {
+    get {
+      return CGRectGetWidth(poleBase.frame)
+    }
+  }
+  
+  var poleStickHeight: CGFloat {
+    get {
+      return CGRectGetHeight(poleStick.frame)
+    }
+  }
+  
 }

@@ -28,7 +28,6 @@ class DiskView: UIView {
         self.frame = CGRectMake(self.frame.origin.x + translation.x, self.frame.origin.y + translation.y,
           self.frame.size.width, self.frame.size.height)
         gesture.setTranslation(CGPointZero, inView: gameSceneView)
-        println(self.center)
       case .Ended, .Failed, .Cancelled:
         println("ended, failed, cancelled")
         break
