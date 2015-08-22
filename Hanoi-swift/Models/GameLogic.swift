@@ -82,5 +82,4 @@ class GameLogic: NSObject {
     }
     return true
   }
-
 }

@@ -1,2 +1,6 @@
-1. move disk to gamesceneview and translate the coordinates of disk in its superview to gamesceneview
+1. reset game
 2. build operation stack (stack of operations: from which pole to which pole, from which pole to which pole, ...)
+3. add timer and step counter
+4. level logic (max = 9, min = 2)
+5. menu page
+6. NSUserDefault to store the current status
