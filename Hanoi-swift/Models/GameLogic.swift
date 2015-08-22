@@ -68,5 +68,19 @@ class GameLogic: NSObject {
       return 0
     }
   }
+  
+  func shouldDiskMove(disk: Disk) -> Bool {
+    if let type = disk.onPole {
+      return poleStackForPoleType[type]?.last! == disk
+    }
+    return false
+  }
+  
+  func shouldDiskPlaceToPole(#disk: Disk, pole: PoleType) -> Bool {
+    if let topDisk = poleStackForPoleType[pole]?.last {
+      return topDisk.width > disk.width
+    }
+    return true
+  }
 
 }

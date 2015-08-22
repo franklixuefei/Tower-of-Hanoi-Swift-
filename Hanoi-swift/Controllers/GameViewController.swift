@@ -156,7 +156,11 @@ ViewControllerProtocol, DiskViewDelegate {
       case .Ended:
         // put the disk to the right pole according to its current location and size
         if let poleType = poleTypeForPoint(diskView.center) {
-          placeDisk(diskView, onPole: poleType, animated: true)
+          if model.shouldDiskPlaceToPole(disk: disk, pole: poleType) {
+            placeDisk(diskView, onPole: poleType, animated: true)
+          } else {
+            fallthrough
+          }
         } else {
           fallthrough
         }
@@ -171,7 +175,7 @@ ViewControllerProtocol, DiskViewDelegate {
   
   func shouldBeginRecognizingGestureForDisk(diskView: DiskView) -> Bool {
     if let disk = diskViewToDiskMap[diskView] {
-      return model.poleStackForPoleType[disk.onPole!]?.last! == disk
+      return model.shouldDiskMove(disk)
     } else {
       return false
     }
