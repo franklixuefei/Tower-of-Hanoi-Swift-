@@ -83,7 +83,7 @@ ViewControllerProtocol, DiskViewDelegate {
     return diskViews
   }
   
-  func createDisk(#disk: Disk) -> DiskView {
+  private func createDisk(#disk: Disk) -> DiskView {
     let diskView = UIView.viewFromNib(XibNames.DiskViewXibName) as! DiskView
     let diskWidth = CGFloat(disk.width)
     let diskHeight = CGFloat(Disk.height)
@@ -94,15 +94,7 @@ ViewControllerProtocol, DiskViewDelegate {
   
   func placeDisk(diskView: DiskView, onPole type: PoleType, animated: Bool) {
     if let disk = diskViewToDiskMap[diskView] {
-      let pole: PoleView
-      switch type {
-      case .OriginalPole:
-        pole = gameSceneView.originalPole
-      case .BufferPole:
-        pole = gameSceneView.bufferPole
-      case .DestinationPole:
-        pole = gameSceneView.destinationPole
-      }
+      let pole = gameSceneView.poleViewForPoleType(type)
       if let removedDisk = model.removeDisk(disk) { // TODO: delete assertion in production
         assert(removedDisk == disk, "removed disk should be disk")
       }
@@ -112,25 +104,23 @@ ViewControllerProtocol, DiskViewDelegate {
       let diskCenterX = poleStickCenterX
       let diskCenterY = poleBaseFrame.origin.y -
         CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
-      let destination = CGPointMake(diskCenterX, diskCenterY)
-      model.placeDisk(disk, onPole: type)
       UIView.animateWithDuration(animated ? 0.3 : 0, animations: { () -> Void in
-        diskView.center = destination
+        diskView.center = CGPointMake(diskCenterX, diskCenterY)
       })
+      model.placeDisk(disk, onPole: type)
     }
   }
   
-  func poleFrameForPoint(point: CGPoint) -> PoleType? {
-    if CGRectContainsPoint(gameSceneView.firstPoleContainer.frame, point) {
+  private func poleTypeForPoint(point: CGPoint) -> PoleType? {
+    if CGRectContainsPoint(gameSceneView.originalPole.frame, point) {
       return .OriginalPole
-    } else if CGRectContainsPoint(gameSceneView.secondPoleContainer.frame, point) {
+    } else if CGRectContainsPoint(gameSceneView.bufferPole.frame, point) {
       return .BufferPole
-    } else if CGRectContainsPoint(gameSceneView.thirdPoleContainer.frame, point) {
+    } else if CGRectContainsPoint(gameSceneView.destinationPole.frame, point) {
       return .DestinationPole
     }
     return nil
   }
-  
   
   // MARK: UIViewControllerTransitioningDelegate methods
   
@@ -165,7 +155,7 @@ ViewControllerProtocol, DiskViewDelegate {
       switch state {
       case .Ended:
         // put the disk to the right pole according to its current location and size
-        if let poleType = poleFrameForPoint(diskView.center) {
+        if let poleType = poleTypeForPoint(diskView.center) {
           placeDisk(diskView, onPole: poleType, animated: true)
         } else {
           fallthrough
@@ -176,6 +166,14 @@ ViewControllerProtocol, DiskViewDelegate {
       default:
         break
       }
+    }
+  }
+  
+  func shouldBeginRecognizingGestureForDisk(diskView: DiskView) -> Bool {
+    if let disk = diskViewToDiskMap[diskView] {
+      return model.poleStackForPoleType[disk.onPole!]?.last! == disk
+    } else {
+      return false
     }
   }
 

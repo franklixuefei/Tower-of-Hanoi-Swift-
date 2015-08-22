@@ -27,9 +27,12 @@ enum PoleType : Int {
 class GameLogic: NSObject {
   static let defaultModel = GameLogic()
   
-  lazy var originalPoleStack = [Disk]()
-  lazy var bufferPoleStack = [Disk]()
-  lazy var destinationPoleStack = [Disk]()
+  var poleStackForPoleType: [PoleType:[Disk]] = {
+    var originalPoleStack = [Disk]()
+    var bufferPoleStack = [Disk]()
+    var destinationPoleStack = [Disk]()
+    return [.OriginalPole:originalPoleStack, .BufferPole:bufferPoleStack, .DestinationPole:destinationPoleStack]
+  }()
   
   func createDisks(#largestDiskWidth: Double, numberOfDisks: Int, maximumDiskPileHeight: Double) -> [Disk] {
     let smallestDiskWidth = largestDiskWidth / DiskConstant.largeSmallDiskWidthRatio
@@ -46,41 +49,23 @@ class GameLogic: NSObject {
   }
   
   func placeDisk(disk: Disk, onPole type: PoleType) {
-    switch type {
-    case .OriginalPole:
-      originalPoleStack.append(disk)
-    case .BufferPole:
-      bufferPoleStack.append(disk)
-    case .DestinationPole:
-      destinationPoleStack.append(disk)
-    }
+    poleStackForPoleType[type]?.append(disk)
     disk.onPole = type
   }
   
   func removeDisk(disk: Disk) -> Disk? {
     if let onPole = disk.onPole {
-      let removedDisk: Disk
-      switch onPole {
-      case .OriginalPole:
-        removedDisk = originalPoleStack.removeLast()
-      case .BufferPole:
-        removedDisk = bufferPoleStack.removeLast()
-      case .DestinationPole:
-        removedDisk = destinationPoleStack.removeLast()
-      }
+      let removedDisk = poleStackForPoleType[onPole]?.removeLast()
       return removedDisk
     }
     return nil
   }
   
   func pileHeight(poleType type: PoleType) -> Double {
-    switch type {
-    case .OriginalPole:
-      return Double(originalPoleStack.count) * Disk.height
-    case .BufferPole:
-      return Double(bufferPoleStack.count) * Disk.height
-    case .DestinationPole:
-      return Double(destinationPoleStack.count) * Disk.height
+    if let stack = poleStackForPoleType[type] {
+      return Double(stack.count) * Disk.height
+    } else {
+      return 0
     }
   }
 

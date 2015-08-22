@@ -8,13 +8,15 @@
 
 import UIKit
 
-class DiskView: UIView {
+class DiskView: UIView, UIGestureRecognizerDelegate {
   
   weak var delegate: DiskViewDelegate?
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    self.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "panned:"))
+    let panGesture = UIPanGestureRecognizer(target: self, action: "panned:")
+    panGesture.delegate = self
+    self.addGestureRecognizer(panGesture)
   }
   
   func panned(gesture: UIPanGestureRecognizer) {
@@ -31,8 +33,17 @@ class DiskView: UIView {
     }
     delegate?.gestureState(gesture.state, onDisk: self)
   }
+  
+  // MARK: UIGestureRecognizerDelegate methods
+  override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+    if let delegate = self.delegate {
+      return delegate.shouldBeginRecognizingGestureForDisk(self)
+    }
+    return false
+  }
 }
 
 protocol DiskViewDelegate: class {
   func gestureState(state: UIGestureRecognizerState, onDisk diskView: DiskView)
+  func shouldBeginRecognizingGestureForDisk(diskView: DiskView) -> Bool
 }

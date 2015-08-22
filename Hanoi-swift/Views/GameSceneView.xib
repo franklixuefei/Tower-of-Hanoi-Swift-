@@ -13,15 +13,15 @@
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SIT-Ms-vZ7">
                     <rect key="frame" x="15" y="0.0" width="592" height="454"/>
                     <subviews>
-                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu4-jJ-qKp" userLabel="firstPole">
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu4-jJ-qKp" userLabel="originalPole" customClass="PoleView" customModule="Hanoi_swift" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="197" height="454"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2M-OA-jUn" userLabel="secondPole">
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2M-OA-jUn" userLabel="bufferPole" customClass="PoleView" customModule="Hanoi_swift" customModuleProvider="target">
                             <rect key="frame" x="197" y="0.0" width="198" height="454"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIO-xl-DB9" userLabel="thirdPole">
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIO-xl-DB9" userLabel="destinationPole" customClass="PoleView" customModule="Hanoi_swift" customModuleProvider="target">
                             <rect key="frame" x="395" y="0.0" width="197" height="454"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
@@ -55,9 +55,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="firstPoleContainer" destination="cu4-jJ-qKp" id="QRJ-0M-PSg"/>
-                <outlet property="secondPoleContainer" destination="f2M-OA-jUn" id="VZY-30-WTh"/>
-                <outlet property="thirdPoleContainer" destination="aIO-xl-DB9" id="CUp-lp-pov"/>
+                <outlet property="bufferPole" destination="f2M-OA-jUn" id="BlA-f1-LY5"/>
+                <outlet property="destinationPole" destination="aIO-xl-DB9" id="zKV-Rg-Rui"/>
+                <outlet property="originalPole" destination="cu4-jJ-qKp" id="vUn-fz-NLo"/>
             </connections>
             <point key="canvasLocation" x="231" y="285"/>
         </view>

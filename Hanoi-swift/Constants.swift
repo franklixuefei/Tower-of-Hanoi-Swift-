@@ -10,7 +10,7 @@ import Foundation
 
 struct XibNames {
   static let GameSceneViewXibName = "GameSceneView"
-  static let PoleContainerViewXibName = "PoleView"
+  static let PoleViewXibName = "PoleView"
   static let DiskViewXibName = "DiskView"
   static let ControlPanelViewXibName = "ControlPanelView"
   static let MenuViewXibName = "MenuView"
