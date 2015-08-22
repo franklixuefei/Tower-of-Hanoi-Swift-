@@ -26,4 +26,3 @@ class MenuViewController: UIViewController, ViewControllerProtocol {
     self.dismissViewControllerAnimated(true, completion: nil)
   }
 }
-

@@ -126,25 +126,25 @@ ViewControllerProtocol, DiskViewDelegate {
   
   func animationControllerForPresentedController(presented: UIViewController, presentingController
     presenting: UIViewController, sourceController source: UIViewController)
-    -> UIViewControllerAnimatedTransitioning?
-  {
+    -> UIViewControllerAnimatedTransitioning? {
     RippleTransitionAnimator.defaultAnimator.presenting = true
     return RippleTransitionAnimator.defaultAnimator
   }
   
-  func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  func interactionControllerForPresentation(animator: UIViewControllerAnimatedTransitioning)
+    -> UIViewControllerInteractiveTransitioning? {
     return nil
   }
   
   func animationControllerForDismissedController(dismissed: UIViewController)
-    -> UIViewControllerAnimatedTransitioning?
-  {
+    -> UIViewControllerAnimatedTransitioning? {
     RippleTransitionAnimator.defaultAnimator.presenting = false
     return RippleTransitionAnimator.defaultAnimator
   }
   
   
-  func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+  func interactionControllerForDismissal(animator: UIViewControllerAnimatedTransitioning)
+    -> UIViewControllerInteractiveTransitioning? {
     return nil
   }
   
