@@ -112,10 +112,25 @@ ViewControllerProtocol, DiskViewDelegate {
       let diskCenterX = poleStickCenterX
       let diskCenterY = poleBaseFrame.origin.y -
         CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
-      diskView.center = CGPointMake(diskCenterX, diskCenterY)
+      let destination = CGPointMake(diskCenterX, diskCenterY)
       model.placeDisk(disk, onPole: type)
+      UIView.animateWithDuration(animated ? 0.3 : 0, animations: { () -> Void in
+        diskView.center = destination
+      })
     }
   }
+  
+  func poleFrameForPoint(point: CGPoint) -> PoleType? {
+    if CGRectContainsPoint(gameSceneView.firstPoleContainer.frame, point) {
+      return .OriginalPole
+    } else if CGRectContainsPoint(gameSceneView.secondPoleContainer.frame, point) {
+      return .BufferPole
+    } else if CGRectContainsPoint(gameSceneView.thirdPoleContainer.frame, point) {
+      return .DestinationPole
+    }
+    return nil
+  }
+  
   
   // MARK: UIViewControllerTransitioningDelegate methods
   
@@ -150,12 +165,14 @@ ViewControllerProtocol, DiskViewDelegate {
       switch state {
       case .Ended:
         // put the disk to the right pole according to its current location and size
-        
-        break
+        if let poleType = poleFrameForPoint(diskView.center) {
+          placeDisk(diskView, onPole: poleType, animated: true)
+        } else {
+          fallthrough
+        }
       case .Failed, .Cancelled:
         // revert disk to original place
-        
-        break
+        placeDisk(diskView, onPole: disk.onPole!, animated: true)
       default:
         break
       }
