@@ -11,11 +11,6 @@ import Foundation
 class NotificationManager {
   static let defaultManager = NotificationManager()
   lazy private var observerTokens: [AnyObject] = []
-  lazy private var operationQueue: NSOperationQueue = {
-    var queue = NSOperationQueue()
-    queue.name = "Block Queue"
-    return queue
-  }()
   
   deinit {
     deregisterAll()
@@ -29,7 +24,7 @@ class NotificationManager {
   }
   
   func registerObserver(name: String!, block: (NSNotification!) -> Void) {
-    let newToken = NSNotificationCenter.defaultCenter().addObserverForName(name, object: nil, queue: operationQueue) {
+    let newToken = NSNotificationCenter.defaultCenter().addObserverForName(name, object: nil, queue: nil) {
       note in block(note)
     }
     
@@ -37,7 +32,7 @@ class NotificationManager {
   }
   
   func registerObserver(name: String!, forObject object: AnyObject!, block: (NSNotification!) -> Void) {
-    let newToken = NSNotificationCenter.defaultCenter().addObserverForName(name, object: object, queue: operationQueue)
+    let newToken = NSNotificationCenter.defaultCenter().addObserverForName(name, object: object, queue: nil)
       {note in block(note)}
     
     observerTokens.append(newToken)

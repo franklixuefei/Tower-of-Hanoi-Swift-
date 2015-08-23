@@ -13,28 +13,28 @@ ViewControllerProtocol, DiskViewDelegate {
 
   @IBOutlet weak var dotButton: ControlPanelButton!
   
-  var model = GameLogic.defaultModel
+  var menuViewController: MenuViewController?
+  lazy var model = GameLogic.defaultModel
   var gameSceneView: GameSceneView!
   var controlPanelView: ControlPanelView!
-  var diskViewToDiskMap = [DiskView:Disk]()
+  lazy var diskViewToDiskMap = [DiskView:Disk]()
   
-  override func loadView() {
-    // setup game scene
-    gameSceneView = UIView.viewFromNib(XibNames.GameSceneViewXibName, owner: self) as! GameSceneView
-    self.view = gameSceneView
-    setupControlPanel()
-  }
+  var controlPanelHorizontalPositionConstraint: NSLayoutConstraint!
   
   private func setupControlPanel() {
     controlPanelView = UIView.viewFromNib(XibNames.ControlPanelViewXibName, owner: self) as! ControlPanelView
     self.view.addSubview(controlPanelView);
     controlPanelView.setTranslatesAutoresizingMaskIntoConstraints(false)
     let views = ["controlPanel": controlPanelView]
-    let metrics = ["panelHeight": 60]
     self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
       "H:|[controlPanel]|", options: nil, metrics: nil, views: views))
-    self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "V:|[controlPanel(panelHeight)]", options: nil, metrics: metrics, views: views))
+    let heightConstraint = NSLayoutConstraint(item: controlPanelView, attribute: .Height, relatedBy: .Equal,
+      toItem: nil, attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.controlPanelHeight))
+    controlPanelView.addConstraint(heightConstraint)
+    controlPanelHorizontalPositionConstraint = NSLayoutConstraint(item: controlPanelView, attribute: .Top,
+      relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1,
+      constant: CGFloat(-UIConstant.controlPanelHeight))
+    self.view.addConstraint(controlPanelHorizontalPositionConstraint)
   }
   
   private func setupControlPanelDropShadow() {
@@ -45,6 +45,39 @@ ViewControllerProtocol, DiskViewDelegate {
     controlPanelView.layer.shadowOpacity = 0.3
     controlPanelView.layer.shadowPath = shadowPath.CGPath
     controlPanelView.layer.shadowRadius = 1.5
+  }
+  
+  override func loadView() {
+    // setup game scene
+    gameSceneView = UIView.viewFromNib(XibNames.GameSceneViewXibName, owner: self) as! GameSceneView
+    self.view = gameSceneView
+    setupControlPanel()
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    registerObserverForModel(notificationName: InfrastructureConstant.gameStateNotificationChannelName) {
+      (this) -> Void in
+      println("game state changed to: \(this.model.gameState.description())")
+      switch this.model.gameState {
+      case .Prepared:
+        this.prepareGame()
+      case .Started:
+        this.startGame()
+      case .Paused:
+        this.pauseGame()
+      case let .Ended(hasWon):
+        this.endGame(hasWon)
+      }
+    }
+    registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
+      (this) -> Void in
+      println("game mode changed to: \(this.model.gameMode.description())")
+    }
+    registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {
+      (this) -> Void in
+      println("game level changed to: \(this.model.gameLevel)")
+    }
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -59,12 +92,37 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    showMenu(hideDotButton: true)
+  }
+  
+  private func registerObserverForModel(#notificationName: String!, block: (GameViewController) -> Void) {
+    NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
+      [weak self](notification) -> Void in
+      if let strongSelf = self {
+        block(strongSelf)
+      }
+    }
+  }
+  
   @IBAction func dotPressed() {
-    let menuVC = MenuViewController()
-    menuVC.view.frame = self.view.bounds
-    menuVC.transitioningDelegate = self
-    menuVC.modalPresentationStyle = .Custom
-    self.presentViewController(menuVC, animated: true, completion: nil)
+    showMenu()
+  }
+  
+  private func showMenu(hideDotButton hide: Bool = false) {
+    if menuViewController == nil {
+      menuViewController = MenuViewController()
+      menuViewController!.view.frame = self.view.bounds
+      menuViewController!.transitioningDelegate = self
+      menuViewController!.modalPresentationStyle = .Custom
+    }
+    if hide {
+      menuViewController!.dotButtonHidden = true
+    } else {
+      menuViewController!.dotButtonHidden = false
+    }
+    self.presentViewController(menuViewController!, animated: true, completion: nil)
   }
   
   func createDisks() -> [DiskView] {
@@ -96,7 +154,7 @@ ViewControllerProtocol, DiskViewDelegate {
     if let disk = diskViewToDiskMap[diskView] {
       let pole = gameSceneView.poleViewForPoleType(type)
       if let removedDisk = model.removeDisk(disk) { // TODO: delete assertion in production
-        assert(removedDisk == disk, "removed disk should be disk")
+        assert(removedDisk === disk, "removed disk should be disk")
       }
       let poleBaseFrame = pole.convertRect(pole.poleBase.frame, toView: gameSceneView)
       let poleStickCenter = pole.convertPoint(pole.poleStick.center, toView: gameSceneView)
@@ -109,6 +167,38 @@ ViewControllerProtocol, DiskViewDelegate {
       })
       model.placeDisk(disk, onPole: type)
     }
+  }
+  
+  func prepareGame() {
+    
+  }
+  
+  func startGame() {
+    dispatch_async(dispatch_get_main_queue(), { [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.view.layoutIfNeeded()
+        strongSelf.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
+        UIView.animateWithDuration(0.4, delay: UIConstant.rippleAnimatorTransitionDuration,
+          usingSpringWithDamping: 0.45, initialSpringVelocity: 1,
+          options: nil, animations: { [weak strongSelf]() -> Void in
+            if let this = strongSelf {
+              this.view.layoutIfNeeded()
+            }}, completion: nil)
+      }
+    })
+  }
+  
+  func resetGame() {
+    prepareGame()
+    startGame()
+  }
+  
+  func pauseGame() {
+    
+  }
+  
+  func endGame(hasWon: Bool) {
+    
   }
   
   private func poleTypeForPoint(point: CGPoint) -> PoleType? {
@@ -180,5 +270,4 @@ ViewControllerProtocol, DiskViewDelegate {
       return false
     }
   }
-
 }

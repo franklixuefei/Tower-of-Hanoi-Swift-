@@ -30,7 +30,16 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <action selector="dotPressed" destination="-1" eventType="touchUpInside" id="lel-bo-JmR"/>
+                        <action selector="dotPressed" destination="-1" eventType="touchUpInside" id="Zp5-M4-UL5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVd-IK-abW">
+                    <rect key="frame" x="312" y="161" width="46" height="30"/>
+                    <state key="normal" title="Button">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="startPressed" destination="-1" eventType="touchUpInside" id="xun-UV-Ygu"/>
                     </connections>
                 </button>
             </subviews>

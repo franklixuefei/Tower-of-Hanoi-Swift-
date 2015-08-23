@@ -19,7 +19,7 @@ class DiskView: UIView, UIGestureRecognizerDelegate {
     self.addGestureRecognizer(panGesture)
   }
   
-  func panned(gesture: UIPanGestureRecognizer) {
+  @objc private func panned(gesture: UIPanGestureRecognizer) {
     switch gesture.state {
     case .Began:
       self.superview?.bringSubviewToFront(self)

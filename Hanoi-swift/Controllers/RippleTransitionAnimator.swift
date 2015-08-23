@@ -16,7 +16,7 @@ class RippleTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
   var presenting = true
   
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
-    return 0.4;
+    return UIConstant.rippleAnimatorTransitionDuration;
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {

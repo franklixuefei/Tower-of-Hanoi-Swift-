@@ -24,5 +24,18 @@ struct DiskConstant {
 }
 
 struct LogicConstant {
+  static let defaultLevel = 5
   static let maximumLevel = 9
+  static let minimumLevel = 2
+}
+
+struct InfrastructureConstant {
+  static let gameStateNotificationChannelName = "gameState"
+  static let gameModeNotificationChannelName = "gameMode"
+  static let gameLevelNotificationChannelName = "gameLevel"
+}
+
+struct UIConstant {
+  static let controlPanelHeight = 120.0
+  static let rippleAnimatorTransitionDuration = 0.4
 }

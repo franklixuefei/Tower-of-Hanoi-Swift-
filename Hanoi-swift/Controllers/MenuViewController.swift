@@ -12,14 +12,25 @@ class MenuViewController: UIViewController, ViewControllerProtocol {
   
   @IBOutlet weak var dotButton: ControlPanelButton!
   
+  var dotButtonHidden = false
+  lazy var model = GameLogic.defaultModel
+  
   override func loadView() {
     let menuView = UIView.viewFromNib(XibNames.MenuViewXibName, owner: self) as! MenuView
     self.view = menuView
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    if dotButtonHidden {
+      dotButton.hidden = true
+    } else {
+      dotButton.hidden = false
+    }
+  }
+  @IBAction func startPressed() {
+    model.gameState = .Started
+    dotPressed()
   }
 
   @IBAction func dotPressed() {

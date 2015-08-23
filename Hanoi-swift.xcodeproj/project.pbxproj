@@ -30,6 +30,7 @@
 		151541D21B85A48700071650 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D11B85A48700071650 /* MenuView.swift */; };
 		151541D41B867EF200071650 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 151541D31B867EF200071650 /* Todo */; };
 		151541D81B86904D00071650 /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D71B86904D00071650 /* Disk.swift */; };
+		151541DA1B89A15100071650 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D91B89A15100071650 /* NotificationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		151541D11B85A48700071650 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		151541D31B867EF200071650 /* Todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Todo; sourceTree = "<group>"; };
 		151541D71B86904D00071650 /* Disk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disk.swift; sourceTree = "<group>"; };
+		151541D91B89A15100071650 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 			children = (
 				151541A71B805E5900071650 /* GameLogic.swift */,
 				151541D71B86904D00071650 /* Disk.swift */,
+				151541D91B89A15100071650 /* NotificationManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				151541AA1B8130A600071650 /* GameSceneView.swift in Sources */,
 				151541A81B805E5900071650 /* GameLogic.swift in Sources */,
 				151541791B8057AC00071650 /* AppDelegate.swift in Sources */,
+				151541DA1B89A15100071650 /* NotificationManager.swift in Sources */,
 				151541BC1B84368100071650 /* DiskView.swift in Sources */,
 				151541C01B8441A800071650 /* Constants.swift in Sources */,
 			);
@@ -434,7 +438,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -448,7 +452,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
