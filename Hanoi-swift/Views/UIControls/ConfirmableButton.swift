@@ -41,6 +41,9 @@ class ConfirmableButton: UIButton {
     self.addTarget(self, action: "presentConfirmation", forControlEvents: .TouchUpInside)
     noButton?.addTarget(self, action: "dismissConfirmation", forControlEvents: .TouchUpInside)
     addtargetActionsToYesButton(allActions)
+    self.superview?.addSubview(yesButton!)
+    self.superview?.addSubview(noButton!)
+    self.superview?.bringSubviewToFront(self)
   }
   
   override func layoutSubviews() {
@@ -61,10 +64,10 @@ class ConfirmableButton: UIButton {
   private func setup() {
     yesButton = (UIButton.buttonWithType(.Custom) as! UIButton)
     noButton = (UIButton.buttonWithType(.Custom) as! UIButton)
-    yesButton!.setTitle(yesButtonText, forState: .Normal)
-    noButton!.setTitle(noButtonText, forState: .Normal)
-    yesButton!.layer.opacity = 0
-    noButton!.layer.opacity = 0
+    yesButton?.setTitle(yesButtonText, forState: .Normal)
+    noButton?.setTitle(noButtonText, forState: .Normal)
+    yesButton?.layer.opacity = 0
+    noButton?.layer.opacity = 0
   }
   
   private func allTargetActionsPair() -> [NSObject:[AnyObject]]? {
@@ -106,20 +109,39 @@ class ConfirmableButton: UIButton {
   }
   
   @objc private func presentConfirmation() {
-    self.superview!.addSubview(yesButton!)
-    self.superview!.addSubview(noButton!)
-    UIView.crossFadeViews(viewsToFadeOut: [self], viewsToFadeIn: [yesButton!, noButton!], animationDuration: 0,
-      completionBlock:nil)
+    UIView.animateWithDuration(0.1, animations: { [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.yesButton?.layer.opacity = 1
+        strongSelf.noButton?.layer.opacity = 1
+      }
+    })
+    UIView.animateWithDuration(0.2, animations: { [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.layer.opacity = 0
+      }
+    }) { [weak self](completed) -> Void in
+      if let strongSelf = self {
+        strongSelf.superview?.bringSubviewToFront(strongSelf.yesButton!)
+        strongSelf.superview?.bringSubviewToFront(strongSelf.noButton!)
+      }
+    }
   }
   
   @objc private func dismissConfirmation() {
-    UIView.crossFadeViews(viewsToFadeOut: [yesButton!, noButton!], viewsToFadeIn: [self], animationDuration: 0) {
-      [weak self]() -> Void in
+    UIView.animateWithDuration(0.1, animations: { [weak self]() -> Void in
       if let strongSelf = self {
-        strongSelf.yesButton!.removeFromSuperview()
-        strongSelf.noButton!.removeFromSuperview()
+        strongSelf.layer.opacity = 1
       }
-      
+    })
+    UIView.animateWithDuration(0.2, animations: { [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.yesButton?.layer.opacity = 0
+        strongSelf.noButton?.layer.opacity = 0
+      }
+    }) { [weak self](completed) -> Void in
+      if let strongSelf = self {
+        strongSelf.superview?.bringSubviewToFront(strongSelf)
+      }
     }
   }
   

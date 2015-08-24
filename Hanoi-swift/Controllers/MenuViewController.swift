@@ -27,6 +27,15 @@ class MenuViewController: UIViewController, ViewControllerProtocol {
     } else {
       dotButton.hidden = false
     }
+
+    for family in UIFont.familyNames()
+    {
+      println("\(family as! String)")
+      for names in UIFont.fontNamesForFamilyName(family as! String)
+      {
+        println("== \(names as! String)")
+      }
+    }
   }
   @IBAction func startPressed() {
     model.gameState = .Started

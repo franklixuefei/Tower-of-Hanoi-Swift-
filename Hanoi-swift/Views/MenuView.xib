@@ -3,6 +3,14 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="Ayuthaya.ttf">
+            <string>Ayuthaya</string>
+        </mutableArray>
+        <mutableArray key="Lucida Handwriting Italic.ttf">
+            <string>LucidaHandwriting-Italic</string>
+        </mutableArray>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MenuViewController" customModule="Hanoi_swift" customModuleProvider="target">
             <connections>
@@ -34,18 +42,18 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tower of Hanoi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-rN-q2w">
-                    <rect key="frame" x="0.0" y="26" width="671" height="48"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                    <rect key="frame" x="0.0" y="26" width="671" height="63"/>
+                    <fontDescription key="fontDescription" name="LucidaHandwriting-Italic" family="Lucida Handwriting" pointSize="45"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Yd-M6e" userLabel="Menu container view">
+                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Yd-M6e" userLabel="Menu container view">
                     <rect key="frame" x="0.0" y="74" width="671" height="277"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucY-7T-yA3" customClass="ConfirmableButton" customModule="Hanoi_swift" customModuleProvider="target">
                             <rect key="frame" x="226" y="57" width="218" height="44"/>
                             <color key="backgroundColor" white="0.33333333333333331" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <fontDescription key="fontDescription" name="Ayuthaya" family="Ayuthaya" pointSize="25"/>
                             <state key="normal" title="Button">
                                 <color key="titleColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>

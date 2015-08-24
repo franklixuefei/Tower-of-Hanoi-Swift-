@@ -33,6 +33,7 @@
 		151541DD1B8AF38000071650 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 151541DC1B8AF38000071650 /* Images.xcassets */; };
 		151541DF1B8AF3A800071650 /* Lucida Handwriting Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 151541DE1B8AF3A800071650 /* Lucida Handwriting Italic.ttf */; };
 		151541E41B8B088B00071650 /* ConfirmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541E31B8B088B00071650 /* ConfirmableButton.swift */; };
+		151541E61B8BA58400071650 /* Ayuthaya.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 151541E51B8BA58400071650 /* Ayuthaya.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		151541DC1B8AF38000071650 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		151541DE1B8AF3A800071650 /* Lucida Handwriting Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Handwriting Italic.ttf"; sourceTree = "<group>"; };
 		151541E31B8B088B00071650 /* ConfirmableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmableButton.swift; sourceTree = "<group>"; };
+		151541E51B8BA58400071650 /* Ayuthaya.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ayuthaya.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				151541DE1B8AF3A800071650 /* Lucida Handwriting Italic.ttf */,
+				151541E51B8BA58400071650 /* Ayuthaya.ttf */,
 				151541DC1B8AF38000071650 /* Images.xcassets */,
 			);
 			path = Resources;
@@ -295,6 +298,7 @@
 			files = (
 				151541BE1B84368C00071650 /* DiskView.xib in Resources */,
 				151541DD1B8AF38000071650 /* Images.xcassets in Resources */,
+				151541E61B8BA58400071650 /* Ayuthaya.ttf in Resources */,
 				151541B31B81875700071650 /* PoleView.xib in Resources */,
 				151541D41B867EF200071650 /* Todo in Resources */,
 				151541D01B85A47900071650 /* MenuView.xib in Resources */,
