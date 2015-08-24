@@ -46,6 +46,22 @@ extension UIView {
     let views = NSBundle.mainBundle().loadNibNamed(nib, owner: owner, options: nil)
     return views.first as? UIView
   }
+  
+  class func crossFadeViews(viewsToFadeOut views1: [UIView], viewsToFadeIn views2: [UIView],
+    animationDuration duration: Double, completionBlock: (() -> Void)?) {
+    UIView.animateWithDuration(duration, animations: { () -> Void in
+      for view in views1 {
+        view.layer.opacity = 0
+      }
+      for view in views2 {
+        view.layer.opacity = 1
+      }
+    }) { (completed) -> Void in
+      if completed {
+        completionBlock?()
+      }
+    }
+  }
 }
 
 extension UIColor {

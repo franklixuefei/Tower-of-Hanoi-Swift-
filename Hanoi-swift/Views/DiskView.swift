@@ -12,8 +12,17 @@ class DiskView: UIView, UIGestureRecognizerDelegate {
   
   weak var delegate: DiskViewDelegate?
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setup()
+  }
+  
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    setup()
+  }
+  
+  private func setup() {
     let panGesture = UIPanGestureRecognizer(target: self, action: "panned:")
     panGesture.delegate = self
     self.addGestureRecognizer(panGesture)

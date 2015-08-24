@@ -33,25 +33,59 @@
                         <action selector="dotPressed" destination="-1" eventType="touchUpInside" id="Zp5-M4-UL5"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aVd-IK-abW">
-                    <rect key="frame" x="312" y="161" width="46" height="30"/>
-                    <state key="normal" title="Button">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="startPressed" destination="-1" eventType="touchUpInside" id="xun-UV-Ygu"/>
-                    </connections>
-                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tower of Hanoi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-rN-q2w">
+                    <rect key="frame" x="0.0" y="26" width="671" height="48"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                    <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Yd-M6e" userLabel="Menu container view">
+                    <rect key="frame" x="0.0" y="74" width="671" height="277"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucY-7T-yA3" customClass="ConfirmableButton" customModule="Hanoi_swift" customModuleProvider="target">
+                            <rect key="frame" x="226" y="57" width="218" height="44"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <state key="normal" title="Button">
+                                <color key="titleColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted">
+                                <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="3"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="startPressed" destination="-1" eventType="touchUpInside" id="45J-BT-6cL"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="yz1-yx-6mR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="8hn-J3-VXF"/>
+                <constraint firstItem="9Ge-rN-q2w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8sG-wd-m27"/>
+                <constraint firstAttribute="bottom" secondItem="wHL-Yd-M6e" secondAttribute="bottom" id="EBW-1c-nBH"/>
+                <constraint firstAttribute="centerX" secondItem="9Ge-rN-q2w" secondAttribute="centerX" id="IYI-6U-jXt"/>
+                <constraint firstItem="9Ge-rN-q2w" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="26" id="N4A-Q8-04z"/>
+                <constraint firstAttribute="trailing" secondItem="wHL-Yd-M6e" secondAttribute="trailing" id="W32-uz-ZHC"/>
+                <constraint firstItem="wHL-Yd-M6e" firstAttribute="top" secondItem="9Ge-rN-q2w" secondAttribute="bottom" id="Zk3-X3-yJB"/>
+                <constraint firstItem="wHL-Yd-M6e" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ejt-Nm-8WH"/>
                 <constraint firstItem="yz1-yx-6mR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="fw9-L0-Kef"/>
+                <constraint firstAttribute="trailing" secondItem="9Ge-rN-q2w" secondAttribute="trailing" id="s1B-Td-nGx"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="gameTitle" destination="9Ge-rN-q2w" id="blc-hy-Mdx"/>
+            </connections>
             <point key="canvasLocation" x="264.5" y="331.5"/>
         </view>
     </objects>

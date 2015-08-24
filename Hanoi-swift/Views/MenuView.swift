@@ -9,5 +9,11 @@
 import UIKit
 
 class MenuView: UIView {
+  @IBOutlet weak var gameTitle: UILabel!
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    gameTitle.font = UIFont(name: "LucidaHandwriting-Italic", size: 45)
+  }
+  
 }

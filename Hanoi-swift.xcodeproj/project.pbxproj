@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		151541791B8057AC00071650 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541781B8057AC00071650 /* AppDelegate.swift */; };
-		151541801B8057AC00071650 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1515417F1B8057AC00071650 /* Images.xcassets */; };
 		151541831B8057AC00071650 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541811B8057AC00071650 /* LaunchScreen.xib */; };
 		1515418F1B8057AC00071650 /* Hanoi_swiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1515418E1B8057AC00071650 /* Hanoi_swiftTests.swift */; };
 		151541A51B805E2E00071650 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A11B805E2E00071650 /* GameViewController.swift */; };
@@ -31,6 +30,9 @@
 		151541D41B867EF200071650 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 151541D31B867EF200071650 /* Todo */; };
 		151541D81B86904D00071650 /* Disk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D71B86904D00071650 /* Disk.swift */; };
 		151541DA1B89A15100071650 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D91B89A15100071650 /* NotificationManager.swift */; };
+		151541DD1B8AF38000071650 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 151541DC1B8AF38000071650 /* Images.xcassets */; };
+		151541DF1B8AF3A800071650 /* Lucida Handwriting Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 151541DE1B8AF3A800071650 /* Lucida Handwriting Italic.ttf */; };
+		151541E41B8B088B00071650 /* ConfirmableButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541E31B8B088B00071650 /* ConfirmableButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +49,6 @@
 		151541731B8057AC00071650 /* Hanoi-swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hanoi-swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		151541771B8057AC00071650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		151541781B8057AC00071650 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1515417F1B8057AC00071650 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		151541821B8057AC00071650 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		151541881B8057AC00071650 /* Hanoi-swiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Hanoi-swiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1515418D1B8057AC00071650 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,6 +73,9 @@
 		151541D31B867EF200071650 /* Todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Todo; sourceTree = "<group>"; };
 		151541D71B86904D00071650 /* Disk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Disk.swift; sourceTree = "<group>"; };
 		151541D91B89A15100071650 /* NotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		151541DC1B8AF38000071650 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		151541DE1B8AF3A800071650 /* Lucida Handwriting Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lucida Handwriting Italic.ttf"; sourceTree = "<group>"; };
+		151541E31B8B088B00071650 /* ConfirmableButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmableButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +123,8 @@
 				151541A41B805E2E00071650 /* Views */,
 				151541781B8057AC00071650 /* AppDelegate.swift */,
 				151541BF1B8441A800071650 /* Constants.swift */,
-				1515417F1B8057AC00071650 /* Images.xcassets */,
 				151541811B8057AC00071650 /* LaunchScreen.xib */,
+				151541DB1B8AF38000071650 /* Resources */,
 				151541761B8057AC00071650 /* Supporting Files */,
 			);
 			path = "Hanoi-swift";
@@ -186,8 +190,26 @@
 				151541C71B851C8000071650 /* ControlPanelView.xib */,
 				151541D11B85A48700071650 /* MenuView.swift */,
 				151541CF1B85A47900071650 /* MenuView.xib */,
+				151541E01B8B083F00071650 /* UIControls */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		151541DB1B8AF38000071650 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				151541DE1B8AF3A800071650 /* Lucida Handwriting Italic.ttf */,
+				151541DC1B8AF38000071650 /* Images.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		151541E01B8B083F00071650 /* UIControls */ = {
+			isa = PBXGroup;
+			children = (
+				151541E31B8B088B00071650 /* ConfirmableButton.swift */,
+			);
+			path = UIControls;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,13 +294,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				151541BE1B84368C00071650 /* DiskView.xib in Resources */,
+				151541DD1B8AF38000071650 /* Images.xcassets in Resources */,
 				151541B31B81875700071650 /* PoleView.xib in Resources */,
 				151541D41B867EF200071650 /* Todo in Resources */,
 				151541D01B85A47900071650 /* MenuView.xib in Resources */,
 				151541AC1B8130BA00071650 /* GameSceneView.xib in Resources */,
+				151541DF1B8AF3A800071650 /* Lucida Handwriting Italic.ttf in Resources */,
 				151541C81B851C8000071650 /* ControlPanelView.xib in Resources */,
 				151541831B8057AC00071650 /* LaunchScreen.xib in Resources */,
-				151541801B8057AC00071650 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151541E41B8B088B00071650 /* ConfirmableButton.swift in Sources */,
 				151541CE1B85A39000071650 /* ViewControllerProtocol.swift in Sources */,
 				151541B81B8402BC00071650 /* Extensions.swift in Sources */,
 				151541A51B805E2E00071650 /* GameViewController.swift in Sources */,

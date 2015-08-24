@@ -29,8 +29,17 @@ class PoleView: UIView {
     }
   }
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setup()
+  }
+  
+  required init(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    setup()
+  }
+  
+  private func setup() {
     poleView = UIView.viewFromNib(XibNames.PoleViewXibName, owner: self)
     self.addSubview(poleView)
     poleView.setTranslatesAutoresizingMaskIntoConstraints(false)
