@@ -37,16 +37,6 @@ ViewControllerProtocol, DiskViewDelegate {
     self.view.addConstraint(controlPanelHorizontalPositionConstraint)
   }
   
-  private func setupControlPanelDropShadow() {
-    let shadowPath = UIBezierPath(rect: controlPanelView.bounds)
-    controlPanelView.layer.masksToBounds = false
-    controlPanelView.layer.shadowColor = UIColor.blackColor().CGColor
-    controlPanelView.layer.shadowOffset = CGSizeMake(0, 1)
-    controlPanelView.layer.shadowOpacity = 0.3
-    controlPanelView.layer.shadowPath = shadowPath.CGPath
-    controlPanelView.layer.shadowRadius = 1.5
-  }
-  
   override func loadView() {
     // setup game scene
     gameSceneView = UIView.viewFromNib(XibNames.GameSceneViewXibName, owner: self) as! GameSceneView
@@ -73,10 +63,12 @@ ViewControllerProtocol, DiskViewDelegate {
     registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
       (this) -> Void in
       println("game mode changed to: \(this.model.gameMode.description())")
+      // do not need to do anything here actually...
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {
       (this) -> Void in
       println("game level changed to: \(this.model.gameLevel)")
+      // TODO: change the # of disks in real time
     }
   }
   
@@ -85,7 +77,7 @@ ViewControllerProtocol, DiskViewDelegate {
     // Force layout immediately in order to get the views' actual frame after constraints being applied
     gameSceneView.setNeedsLayout()
     gameSceneView.layoutIfNeeded()
-    setupControlPanelDropShadow()
+    controlPanelView.applyDropShadow(bezierPathEnabled: true)
     let diskViews = createDisks()
     for diskView in diskViews {
       placeDisk(diskView, onPole: .OriginalPole, animated: false)
@@ -100,14 +92,18 @@ ViewControllerProtocol, DiskViewDelegate {
   private func registerObserverForModel(#notificationName: String!, block: (GameViewController) -> Void) {
     NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
       [weak self](notification) -> Void in
-      if let strongSelf = self {
-        block(strongSelf)
-      }
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        if let strongSelf = self {
+          block(strongSelf)
+        }
+      })
     }
   }
   
   @IBAction func dotPressed() {
-    showMenu()
+    if model.gameState == .Started {
+      model.gameState = .Paused
+    }
   }
   
   private func showMenu() {
@@ -164,35 +160,38 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  func prepareGame() {
+  // MARK: Game Lifecycle
+  
+  private func prepareGame() {
     
   }
   
   func startGame() {
-    dispatch_async(dispatch_get_main_queue(), { [weak self]() -> Void in
-      if let strongSelf = self {
-        strongSelf.view.layoutIfNeeded()
-        strongSelf.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
-        UIView.animateWithDuration(0.4, delay: UIConstant.rippleAnimatorTransitionDuration,
-          usingSpringWithDamping: 0.45, initialSpringVelocity: 1,
-          options: nil, animations: { [weak strongSelf]() -> Void in
-            if let this = strongSelf {
-              this.view.layoutIfNeeded()
-            }}, completion: nil)
-      }
-    })
+    if model.previousGameState == .Prepared {
+      self.view.layoutIfNeeded()
+      self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
+      UIView.animateWithDuration(0.4, delay: UIConstant.rippleAnimatorTransitionDuration,
+        usingSpringWithDamping: 0.45, initialSpringVelocity: 1, options: nil, animations: {[weak self]() -> Void in
+          if let strongSelf = self {
+            strongSelf.view.layoutIfNeeded()
+          }
+        }, completion: nil)
+      // TODO: start counting steps and kick off timer
+    } else if model.previousGameState == .Paused {
+      // TODO: resume counting steps and resume timer
+    }
   }
   
-  func resetGame() {
+  private func resetGame() {
     prepareGame()
     startGame()
   }
   
-  func pauseGame() {
-    
+  private func pauseGame() {
+    showMenu()
   }
   
-  func endGame(hasWon: Bool) {
+  private func endGame(hasWon: Bool) {
     
   }
   

@@ -91,8 +91,8 @@ class GameLogic: NSObject {
     }
     didSet {
       if !validateState() {
-        println("invalid state")
-        return
+        fatalError("Invalid state: \(previousGameState?.description()) state is not "
+          + "a prior state to \(gameState.description()) state.")
       }
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
         object: self)

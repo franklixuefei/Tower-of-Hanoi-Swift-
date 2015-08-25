@@ -135,11 +135,11 @@
 		151541751B8057AC00071650 /* Hanoi-swift */ = {
 			isa = PBXGroup;
 			children = (
-				151541B71B8402BC00071650 /* Extensions.swift */,
 				151541A01B805E2E00071650 /* Controllers */,
 				151541A31B805E2E00071650 /* Models */,
 				151541A41B805E2E00071650 /* Views */,
 				151541781B8057AC00071650 /* AppDelegate.swift */,
+				151541B71B8402BC00071650 /* Extensions.swift */,
 				151541BF1B8441A800071650 /* Constants.swift */,
 				151541811B8057AC00071650 /* LaunchScreen.xib */,
 				151541DB1B8AF38000071650 /* Resources */,

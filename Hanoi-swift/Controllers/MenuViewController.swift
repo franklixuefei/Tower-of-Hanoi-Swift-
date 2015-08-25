@@ -33,20 +33,27 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     self.pageViewController.didMoveToParentViewController(self)
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
     let gameState = model.gameState
     switch gameState {
     case .Prepared:
+      menuView.titleLabel.text = LogicConstant.gameTitle
       dotButton.hidden = true
       initialMenuPage.delegate = self
       settingsMenuPage.delegate = self
       pageViewController.setViewControllers([initialMenuPage], direction: .Forward, animated: false, completion: nil)
     case .Paused:
+      menuView.titleLabel.text = LogicConstant.pausedTitle
       dotButton.hidden = false
       pausedMenuPage.delegate = self
       pageViewController.setViewControllers([pausedMenuPage], direction: .Forward, animated: false, completion: nil)
     case let .Ended(hasWon):
+      if hasWon {
+        menuView.titleLabel.text = LogicConstant.winTitle
+      } else {
+        menuView.titleLabel.text = LogicConstant.loseTitle
+      }
       dotButton.hidden = true
       resultMenuPage.delegate = self
       // TODO: pass the result data to resultMenuPage, e.g., hasWon, time elapsed, steps taken, # disks on dest pole...
@@ -55,28 +62,15 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
       break
     }
   }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-//
-//    for family in UIFont.familyNames()
-//    {
-//      println("\(family as! String)")
-//      for names in UIFont.fontNamesForFamilyName(family as! String)
-//      {
-//        println("== \(names as! String)")
-//      }
-//    }
-  }
 
   @IBAction func dotPressed() {
     self.dismissViewControllerAnimated(true, completion: nil)
+    model.gameState = .Started
   }
   
   // MARK: - MenuInitialViewControllerDelegate methods
   
   func startButtonPressed() {
-    model.gameState = .Started
     dotPressed()
   }
   

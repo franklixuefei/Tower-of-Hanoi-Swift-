@@ -32,6 +32,11 @@ class BaseButton: UIButton {
     // setup drop shadow
   }
   
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    self.applyDropShadow(bezierPathEnabled: false)
+  }
+  
   override var highlighted: Bool {
     get {
       return super.highlighted

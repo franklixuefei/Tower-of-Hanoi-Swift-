@@ -20,6 +20,10 @@ struct LogicConstant {
   static let defaultLevel = 5
   static let maximumLevel = 9
   static let minimumLevel = 2
+  static let gameTitle = "Tower of Hanoi"
+  static let pausedTitle = "Paused"
+  static let winTitle = "You Win!"
+  static let loseTitle = "You Lose..."
 }
 
 struct InfrastructureConstant {

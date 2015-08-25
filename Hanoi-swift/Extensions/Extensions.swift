@@ -46,6 +46,17 @@ extension UIView {
     let views = NSBundle.mainBundle().loadNibNamed(nib, owner: owner, options: nil)
     return views.first as? UIView
   }
+  
+  func applyDropShadow(#bezierPathEnabled: Bool) {
+    self.layer.masksToBounds = false
+    self.layer.shadowColor = UIColor.blackColor().CGColor
+    self.layer.shadowOffset = CGSizeMake(0, 1)
+    self.layer.shadowOpacity = 0.3
+    self.layer.shadowRadius = 1.5
+    if bezierPathEnabled {
+      self.layer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
+    }
+  }
 }
 
 extension UIColor {

@@ -12,19 +12,20 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  var gameViewController: GameViewController?
+  
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?)
     -> Bool {
     window = UIWindow(frame: UIScreen.mainScreen().bounds)
     window?.backgroundColor = UIColor.whiteColor()
     window?.makeKeyAndVisible()
-    let gameViewController = GameViewController()
+    gameViewController = GameViewController()
     window?.rootViewController = gameViewController
     return true
   }
 
   func applicationWillResignActive(application: UIApplication) {
-    // TODO: Pause game
+    gameViewController?.dotPressed()
   }
 
   func applicationWillTerminate(application: UIApplication) {
