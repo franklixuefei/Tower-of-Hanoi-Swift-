@@ -1,9 +1,8 @@
 1. reset game
-2. build operation stack (stack of operations: from which pole to which pole, from which pole to which pole, ...)
-3. add timer and step counter
-4. level logic (max = 9, min = 2)
-5. menu page
-6. NSUserDefault to store the current status
-7. Win page and lose page
-8. pause game
-9. evaluate game result according to # of disks on the destination pole
+2. add timer and step counter
+3. level logic (max = 9, min = 2)
+4. mode logic
+5. NSUserDefault to store the current status
+6. menu pages
+7. pause game
+8. evaluate game result according to # of disks on the destination pole

@@ -48,7 +48,7 @@ ViewControllerProtocol, DiskViewDelegate {
     super.viewDidLoad()
     registerObserverForModel(notificationName: InfrastructureConstant.gameStateNotificationChannelName) {
       (this) -> Void in
-      println("game state changed to: \(this.model.gameState.description())")
+      println("game state changed to: \(this.model.gameState.description)")
       switch this.model.gameState {
       case .Prepared:
         this.prepareGame()
@@ -62,7 +62,7 @@ ViewControllerProtocol, DiskViewDelegate {
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
       (this) -> Void in
-      println("game mode changed to: \(this.model.gameMode.description())")
+      println("game mode changed to: \(this.model.gameMode.description)")
       // do not need to do anything here actually...
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {

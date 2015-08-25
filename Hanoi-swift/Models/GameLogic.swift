@@ -12,7 +12,7 @@ enum PoleType : Int {
   case OriginalPole
   case BufferPole
   case DestinationPole
-  func description() -> String {
+  var description: String {
     switch self {
     case .OriginalPole:
       return "OriginalPole"
@@ -29,7 +29,7 @@ enum GameState: Hashable, Equatable {
   case Started
   case Paused
   case Ended(hasWon: Bool)
-  func description() -> String {
+  var description: String {
     switch self {
     case .Prepared:
       return "Prepared"
@@ -47,18 +47,18 @@ enum GameState: Hashable, Equatable {
   }
   var hashValue: Int {
     get {
-      return self.description().hashValue
+      return self.description.hashValue
     }
   }
 }
 func ==(lhs:GameState, rhs:GameState) -> Bool {
-  return lhs.description() == rhs.description()
+  return lhs.description == rhs.description
 }
 
 enum GameMode {
   case Casual
   case Challenge
-  func description() -> String {
+  var description: String {
     switch self {
     case .Casual:
       return "Casual"
@@ -91,8 +91,8 @@ class GameLogic: NSObject {
     }
     didSet {
       if !validateState() {
-        fatalError("Invalid state: \(previousGameState?.description()) state is not "
-          + "a prior state to \(gameState.description()) state.")
+        fatalError("Invalid state: \(previousGameState?.description) state is not "
+          + "a prior state to \(gameState.description) state.")
       }
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
         object: self)
@@ -126,6 +126,8 @@ class GameLogic: NSObject {
     return [.OriginalPole:originalPoleStack, .BufferPole:bufferPoleStack, .DestinationPole:destinationPoleStack]
   }()
   
+  lazy var operationStack : [(from: PoleType, to: PoleType)] = []
+  
   private func validateState() -> Bool {
     if let prevStates = gameStateNFA[gameState] {
       return previousGameState == nil || contains(prevStates, previousGameState!)
@@ -148,6 +150,11 @@ class GameLogic: NSObject {
   }
   
   func placeDisk(disk: Disk, onPole type: PoleType) {
+    if let fromPole = disk.onPole {
+      if fromPole != type {
+        operationStack.append((from: fromPole, to: type))
+      }
+    }
     poleStackForPoleType[type]?.append(disk)
     disk.onPole = type
   }
@@ -181,4 +188,5 @@ class GameLogic: NSObject {
     }
     return true
   }
+  
 }
