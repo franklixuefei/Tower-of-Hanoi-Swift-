@@ -46,22 +46,6 @@ extension UIView {
     let views = NSBundle.mainBundle().loadNibNamed(nib, owner: owner, options: nil)
     return views.first as? UIView
   }
-  
-  class func crossFadeViews(viewsToFadeOut views1: [UIView], viewsToFadeIn views2: [UIView],
-    animationDuration duration: Double, completionBlock: (() -> Void)?) {
-    UIView.animateWithDuration(duration, animations: { () -> Void in
-      for view in views1 {
-        view.layer.opacity = 0
-      }
-      for view in views2 {
-        view.layer.opacity = 1
-      }
-    }) { (completed) -> Void in
-      if completed {
-        completionBlock?()
-      }
-    }
-  }
 }
 
 extension UIColor {
@@ -72,5 +56,29 @@ extension UIColor {
   
   class func color(#r: UInt, g: UInt, b: UInt, a: CGFloat) -> UIColor {
     return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a)
+  }
+}
+
+extension UIFont {
+  class func ayuthayaFontWithSize(size: CGFloat) -> UIFont? {
+    return self(name: "ayuthaya", size: size)
+  }
+}
+
+extension NSLayoutConstraint {
+  
+  // reference: https://github.com/evgenyneu/center-vfl
+  class func centerViewToSuperview(#view: UIView, superview: UIView) {
+    assert(contains(superview.subviews as! [UIView], view), "view is not a subview of superview")
+    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    let views = ["superview":superview, "view":view]
+    let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[superview]-(<=1)-[view]",
+      options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: views)
+    superview.addConstraints(verticalConstraints)
+    
+    let horizontalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("H:[superview]-(<=1)-[view]",
+      options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: views)
+    
+    superview.addConstraints(horizontalConstraints)
   }
 }

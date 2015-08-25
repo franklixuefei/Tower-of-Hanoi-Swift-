@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConfirmableButton: UIButton {
+class ConfirmableButton: MenuButton {
   
   var yesButton: UIButton?
   var noButton: UIButton?
@@ -50,9 +50,10 @@ class ConfirmableButton: UIButton {
     super.layoutSubviews()
     // TODO: setup YES and NO buttons' appearance according to self
     let frame = self.frame
-    let confirmationButtonSize = CGSizeMake(frame.width / 2.0 - 5.0, frame.height)
+    let confirmationButtonSize = CGSizeMake((frame.width-CGFloat(UIConstant.buttonsVerticalSpacing))/2.0, frame.height)
     let yesButtonOrigin = frame.origin
-    let noButtonOrigin = CGPointMake(frame.origin.x + frame.width / 2.0 + 5.0, frame.origin.y)
+    let noButtonOrigin = CGPointMake(frame.origin.x+(frame.width+CGFloat(UIConstant.buttonsVerticalSpacing))/2.0,
+      frame.origin.y)
     yesButton?.frame = CGRectMake(yesButtonOrigin.x, yesButtonOrigin.y,
       confirmationButtonSize.width, confirmationButtonSize.height)
     noButton?.frame = CGRectMake(noButtonOrigin.x, noButtonOrigin.y,
@@ -100,16 +101,16 @@ class ConfirmableButton: UIButton {
     func setAppearanceForState(state: UIControlState) {
       button?.setTitleColor(self.titleColorForState(state), forState: state)
       button?.setTitleShadowColor(self.titleColorForState(state), forState: state)
+      button?.setBackgroundImage(self.backgroundImageForState(state), forState: state)
     }
     setAppearanceForState(.Normal)
     setAppearanceForState(.Highlighted)
     setAppearanceForState(.Disabled)
     setAppearanceForState(.Selected)
-    setAppearanceForState(.Highlighted)
   }
   
   @objc private func presentConfirmation() {
-    UIView.animateWithDuration(0.1, animations: { [weak self]() -> Void in
+    UIView.animateWithDuration(0.125, animations: { [weak self]() -> Void in
       if let strongSelf = self {
         strongSelf.yesButton?.layer.opacity = 1
         strongSelf.noButton?.layer.opacity = 1
@@ -128,7 +129,7 @@ class ConfirmableButton: UIButton {
   }
   
   @objc private func dismissConfirmation() {
-    UIView.animateWithDuration(0.1, animations: { [weak self]() -> Void in
+    UIView.animateWithDuration(0.125, animations: { [weak self]() -> Void in
       if let strongSelf = self {
         strongSelf.layer.opacity = 1
       }

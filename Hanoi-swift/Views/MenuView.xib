@@ -4,9 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="Ayuthaya.ttf">
-            <string>Ayuthaya</string>
-        </mutableArray>
         <mutableArray key="Lucida Handwriting Italic.ttf">
             <string>LucidaHandwriting-Italic</string>
         </mutableArray>
@@ -22,14 +19,14 @@
             <rect key="frame" x="0.0" y="0.0" width="671" height="351"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yz1-yx-6mR" userLabel="dot" customClass="ControlPanelButton" customModule="Hanoi_swift" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yz1-yx-6mR" userLabel="dot" customClass="BaseButton" customModule="Hanoi_swift" customModuleProvider="target">
                     <rect key="frame" x="20" y="12" width="36" height="36"/>
                     <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="Ibe-P3-Ji4"/>
                         <constraint firstAttribute="width" constant="36" id="tof-uo-AJe"/>
                     </constraints>
-                    <state key="normal" title="Button">
+                    <state key="normal">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -42,35 +39,16 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tower of Hanoi" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Ge-rN-q2w">
-                    <rect key="frame" x="0.0" y="26" width="671" height="63"/>
+                    <rect key="frame" x="0.0" y="26" width="671" height="55"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="55" id="ulE-fz-Qgn"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name="LucidaHandwriting-Italic" family="Lucida Handwriting" pointSize="45"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Yd-M6e" userLabel="Menu container view">
-                    <rect key="frame" x="0.0" y="74" width="671" height="277"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucY-7T-yA3" customClass="ConfirmableButton" customModule="Hanoi_swift" customModuleProvider="target">
-                            <rect key="frame" x="226" y="57" width="218" height="44"/>
-                            <color key="backgroundColor" white="0.33333333333333331" alpha="0.80000000000000004" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="Ayuthaya" family="Ayuthaya" pointSize="25"/>
-                            <state key="normal" title="Button">
-                                <color key="titleColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted">
-                                <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="3"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="startPressed" destination="-1" eventType="touchUpInside" id="45J-BT-6cL"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wHL-Yd-M6e" userLabel="Menu container view">
+                    <rect key="frame" x="0.0" y="81" width="671" height="270"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
@@ -92,7 +70,8 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="gameTitle" destination="9Ge-rN-q2w" id="blc-hy-Mdx"/>
+                <outlet property="menuContainerView" destination="wHL-Yd-M6e" id="jVN-Tf-hCU"/>
+                <outlet property="titleLabel" destination="9Ge-rN-q2w" id="lPm-kk-AkK"/>
             </connections>
             <point key="canvasLocation" x="264.5" y="331.5"/>
         </view>

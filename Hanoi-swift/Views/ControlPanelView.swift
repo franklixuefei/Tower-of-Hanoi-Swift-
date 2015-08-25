@@ -12,18 +12,3 @@ class ControlPanelView: UIView {
   
 }
 
-class ControlPanelButton: UIButton {
-  override var highlighted: Bool {
-    get {
-      return super.highlighted
-    }
-    set {
-      if newValue { // highlighted = true
-        backgroundColor = UIColor.color(hexValue: 0x777777, alpha: 1)
-      } else {
-        backgroundColor = UIColor.color(hexValue: 0x999999, alpha: 1)
-      }
-      super.highlighted = newValue
-    }
-  }
-}

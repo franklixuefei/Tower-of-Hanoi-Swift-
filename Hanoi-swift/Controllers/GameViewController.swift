@@ -11,7 +11,7 @@ import UIKit
 class GameViewController: UIViewController, UIViewControllerTransitioningDelegate,
 ViewControllerProtocol, DiskViewDelegate {
 
-  @IBOutlet weak var dotButton: ControlPanelButton!
+  @IBOutlet weak var dotButton: BaseButton!
   
   var menuViewController: MenuViewController?
   lazy var model = GameLogic.defaultModel
@@ -94,7 +94,7 @@ ViewControllerProtocol, DiskViewDelegate {
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
-    showMenu(hideDotButton: true)
+    showMenu()
   }
   
   private func registerObserverForModel(#notificationName: String!, block: (GameViewController) -> Void) {
@@ -110,17 +110,12 @@ ViewControllerProtocol, DiskViewDelegate {
     showMenu()
   }
   
-  private func showMenu(hideDotButton hide: Bool = false) {
+  private func showMenu() {
     if menuViewController == nil {
       menuViewController = MenuViewController()
       menuViewController!.view.frame = self.view.bounds
       menuViewController!.transitioningDelegate = self
       menuViewController!.modalPresentationStyle = .Custom
-    }
-    if hide {
-      menuViewController!.dotButtonHidden = true
-    } else {
-      menuViewController!.dotButtonHidden = false
     }
     self.presentViewController(menuViewController!, animated: true, completion: nil)
   }
@@ -129,7 +124,7 @@ ViewControllerProtocol, DiskViewDelegate {
     let numberOfDisks = 5; // TODO: from GameLogic
     let poleBaseWidth = gameSceneView.originalPole.poleBaseWidth
     let poleStickHeight = gameSceneView.originalPole.poleStickHeight
-    let disks = model.createDisks(largestDiskWidth: Double(poleBaseWidth) - DiskConstant.diskWidthOffset,
+    let disks = model.createDisks(largestDiskWidth: Double(poleBaseWidth) - UIConstant.diskWidthOffset,
       numberOfDisks: numberOfDisks, maximumDiskPileHeight: Double(poleStickHeight))
     var diskViews = [DiskView]()
     for disk in disks {

@@ -14,14 +14,14 @@
             <rect key="frame" x="0.0" y="0.0" width="735" height="120"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hh-PX-geK" userLabel="dot" customClass="ControlPanelButton" customModule="Hanoi_swift" customModuleProvider="target">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hh-PX-geK" userLabel="dot" customClass="BaseButton" customModule="Hanoi_swift" customModuleProvider="target">
                     <rect key="frame" x="20" y="72" width="36" height="36"/>
                     <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="36" id="24E-SI-vxx"/>
                         <constraint firstAttribute="height" constant="36" id="ca4-XG-uJQ"/>
                     </constraints>
-                    <state key="normal" title="Button">
+                    <state key="normal">
                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </state>
                     <userDefinedRuntimeAttributes>

@@ -9,6 +9,6 @@
 import UIKit
 
 protocol ViewControllerProtocol {
-  var dotButton: ControlPanelButton! { get set }
+  var dotButton: BaseButton! { get set }
   func dotPressed()
 }

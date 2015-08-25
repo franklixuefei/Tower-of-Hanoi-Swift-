@@ -9,11 +9,17 @@
 import UIKit
 
 class MenuView: UIView {
-  @IBOutlet weak var gameTitle: UILabel!
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    gameTitle.font = UIFont(name: "LucidaHandwriting-Italic", size: 45)
+  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var menuContainerView: UIView!
+  
+  func pinViewToContainerView(view: UIView) {
+    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    let views = ["view": view]
+    menuContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: nil,
+      metrics: nil, views: views))
+    menuContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: nil,
+      metrics: nil, views: views))
   }
   
 }

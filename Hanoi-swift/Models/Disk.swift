@@ -9,7 +9,7 @@
 import Foundation
 
 class Disk: NSObject {
-  static var height = DiskConstant.maximumDiskHeight
+  static var height = UIConstant.maximumDiskHeight
   var width: Double
   var onPole: PoleType?
   init(width: Double) {

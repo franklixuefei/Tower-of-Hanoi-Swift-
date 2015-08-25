@@ -134,8 +134,8 @@ class GameLogic: NSObject {
   }
   
   func createDisks(#largestDiskWidth: Double, numberOfDisks: Int, maximumDiskPileHeight: Double) -> [Disk] {
-    let smallestDiskWidth = largestDiskWidth / DiskConstant.largeSmallDiskWidthRatio
-    if Double(numberOfDisks) * Disk.height > maximumDiskPileHeight - DiskConstant.diskHeightOffset {
+    let smallestDiskWidth = largestDiskWidth / UIConstant.largeSmallDiskWidthRatio
+    if Double(numberOfDisks) * Disk.height > maximumDiskPileHeight - UIConstant.diskHeightOffset {
       Disk.height = (maximumDiskPileHeight - Disk.height) / Double(numberOfDisks)
     }
     let increment = (largestDiskWidth - smallestDiskWidth) / (Double(numberOfDisks - 1))

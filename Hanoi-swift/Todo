@@ -6,3 +6,4 @@
 6. NSUserDefault to store the current status
 7. Win page and lose page
 8. pause game
+9. evaluate game result according to # of disks on the destination pole
