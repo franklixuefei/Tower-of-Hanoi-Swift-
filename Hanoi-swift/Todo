@@ -1,4 +1,4 @@
-1. reset game
+1. reset game (everything back to original state, and disks animate back to original state according to operationStack)
 2. add timer and step counter
 3. level logic (max = 9, min = 2)
 4. mode logic
