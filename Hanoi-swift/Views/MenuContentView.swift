@@ -13,6 +13,7 @@ class MenuContentView: UIView {
   var contentViews = [UIView]()
   
   var bottomConstraint: NSLayoutConstraint!
+  var widthConstraint: NSLayoutConstraint!
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -25,8 +26,9 @@ class MenuContentView: UIView {
   }
   
   private func setup() {
-    self.addConstraint(NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil,
-      attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.menuContentViewWidth)))
+    widthConstraint = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil,
+      attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.menuContentViewWidthSmall))
+    self.addConstraint(widthConstraint)
     bottomConstraint = NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: self,
       attribute: .Bottom, multiplier: 1, constant: 0)
     self.addConstraint(bottomConstraint)

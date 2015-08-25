@@ -80,6 +80,10 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   // MARK: - MenuPausedViewControllerDelegate methods
   
+  func backButtonPressed() {
+    pageViewController.setViewControllers([initialMenuPage], direction: .Reverse, animated: true, completion: nil)
+  }
+  
   // MARK: - MenuSettingsViewControllerDelegate methods
   
   // MARK: - MenuResultViewControllerDelegate methods

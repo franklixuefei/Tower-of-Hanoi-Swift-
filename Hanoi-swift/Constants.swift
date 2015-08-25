@@ -41,7 +41,8 @@ struct UIConstant {
   static let rippleAnimatorTransitionDuration = 0.4
   static let buttonsVerticalSpacing = 10.0
   static let buttonsHorizontalSpacing = 20.0
-  static let menuContentViewWidth = 220.0
+  static let menuContentViewWidthSmall = 220.0
+  static let menuContentViewWidthLarge = 300.0
   static let buttonHeight = 44.0
   static let buttonWidth = 200.0
   static let buttonCornerRadius = 3.0

@@ -9,15 +9,25 @@
 import UIKit
 
 protocol MenuSettingsViewControllerDelegate: class {
-  
+  func backButtonPressed()
 }
 
 class MenuSettingsViewController: MenuBaseViewController {
 
+  var backButton: MenuButton!
   weak var delegate: MenuSettingsViewControllerDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    contentView.widthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
+    backButton = MenuButton.buttonWithType(.Custom) as! MenuButton
+    backButton.setTitle("Back", forState: .Normal)
+    contentView.addSubview(backButton)
+    backButton.addTarget(self, action: "backPressed", forControlEvents: .TouchUpInside)
+  }
+  
+  @objc private func backPressed() {
+    delegate?.backButtonPressed()
   }
 
 }
