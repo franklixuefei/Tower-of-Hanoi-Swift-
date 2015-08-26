@@ -33,45 +33,98 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     self.pageViewController.didMoveToParentViewController(self)
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    registerObserverForModel(notificationName: InfrastructureConstant.gameStateNotificationChannelName) {
+      (this) -> Void in
+      switch this.model.gameState {
+      case .Prepared:
+        this.prepareGame()
+      case .Started:
+        this.startGame()
+      case .Paused:
+        this.pauseGame()
+      case .Resumed:
+        this.resumeGame()
+      case let .Ended(hasWon):
+        this.endGame(hasWon)
+      default:
+        break
+      }
+    }
+  }
+
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     let gameState = model.gameState
     switch gameState {
     case .Prepared:
-      menuView.titleLabel.text = LogicConstant.gameTitle
-      dotButton.hidden = true
+      prepareGame()
       initialMenuPage.delegate = self
       settingsMenuPage.delegate = self
       pageViewController.setViewControllers([initialMenuPage], direction: .Forward, animated: false, completion: nil)
     case .Paused:
-      menuView.titleLabel.text = LogicConstant.pausedTitle
-      dotButton.hidden = false
+      pauseGame()
       pausedMenuPage.delegate = self
       pageViewController.setViewControllers([pausedMenuPage], direction: .Forward, animated: false, completion: nil)
     case let .Ended(hasWon):
-      if hasWon {
-        menuView.titleLabel.text = LogicConstant.winTitle
-      } else {
-        menuView.titleLabel.text = LogicConstant.loseTitle
-      }
-      dotButton.hidden = true
+      endGame(hasWon)
       resultMenuPage.delegate = self
-      // TODO: pass the result data to resultMenuPage, e.g., hasWon, time elapsed, steps taken, # disks on dest pole...
+      // TODO: let the model to evaluate the result data, and then pass the result data to resultMenuPage, 
+      // e.g., hasWon, time elapsed, steps taken, # disks on dest pole...
+      // and then maybe save the evaluated data to NSUserDefault
       pageViewController.setViewControllers([resultMenuPage], direction: .Forward, animated: false, completion: nil)
     default:
       break
     }
   }
+  
+  private func registerObserverForModel(#notificationName: String!, block: (MenuViewController) -> Void) {
+    NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
+      [weak self](notification) -> Void in
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        if let strongSelf = self {
+          block(strongSelf)
+        }
+      })
+    }
+  }
+  
+  private func prepareGame() {
+    menuView.titleLabel.text = LogicConstant.gameTitle
+    dotButton.hidden = true
+  }
+  
+  private func startGame() {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  private func pauseGame() {
+    menuView.titleLabel.text = LogicConstant.pausedTitle
+    dotButton.hidden = false
+  }
+  
+  private func resumeGame() {
+    self.dismissViewControllerAnimated(true, completion: nil)
+  }
+  
+  private func endGame(hasWon: Bool) {
+    if hasWon {
+      menuView.titleLabel.text = LogicConstant.winTitle
+    } else {
+      menuView.titleLabel.text = LogicConstant.loseTitle
+    }
+    dotButton.hidden = true
+  }
 
   @IBAction func dotPressed() {
-    self.dismissViewControllerAnimated(true, completion: nil)
-    model.gameState = .Started
+    model.gameState = .Resumed
   }
   
   // MARK: - MenuInitialViewControllerDelegate methods
   
   func startButtonPressed() {
-    dotPressed()
+    model.gameState = .Started
   }
   
   func settingsButtonPressed() {
@@ -87,11 +140,12 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   // MARK: - MenuSettingsViewControllerDelegate methods
   
   func restartButtonPressed() {
-    println("restarting")
+    model.gameState = .Started
   }
   
   func quitButtonPressed() {
-    println("quiting")
+    pageViewController.setViewControllers([initialMenuPage], direction: .Reverse, animated: true, completion: nil)
+    model.gameState = .Prepared
   }
   
   // MARK: - MenuResultViewControllerDelegate methods

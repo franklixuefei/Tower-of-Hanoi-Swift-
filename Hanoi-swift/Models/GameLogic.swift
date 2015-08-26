@@ -25,16 +25,22 @@ enum PoleType : Int {
 }
 
 enum GameState: Hashable, Equatable {
+  case Empty
   case Prepared
   case Started
+  case Resumed
   case Paused
   case Ended(hasWon: Bool)
   var description: String {
     switch self {
+    case .Empty:
+      return "Empty"
     case .Prepared:
       return "Prepared"
     case .Started:
       return "Started"
+    case .Resumed:
+      return "Resumed"
     case .Paused:
       return "Paused"
     case let .Ended(hasWon):
@@ -73,25 +79,28 @@ class GameLogic: NSObject {
   static let defaultModel = GameLogic()
   
   private let gameStateNFA: [GameState:[GameState]] = {
-    let preparePrevStates = [GameState.Ended(hasWon: true), GameState.Ended(hasWon: false), GameState.Paused]
+    // Prepared -> Prepared holds in cases like adjusting game level
+    let preparePrevStates = [GameState.Empty, GameState.Prepared, GameState.Ended(hasWon: true),
+      GameState.Ended(hasWon: false), GameState.Paused]
     let startedPrevStates = [GameState.Prepared, GameState.Paused]
-    let pausedPrevStates = [GameState.Started]
-    let wonPrevStates = [GameState.Started]
-    let lostPrevStates = [GameState.Started]
+    let pausedPrevStates = [GameState.Started, GameState.Resumed]
+    let resumedPrevStates = [GameState.Paused]
+    let wonPrevStates = [GameState.Started, GameState.Resumed]
+    let lostPrevStates = [GameState.Started, GameState.Resumed]
     return [GameState.Prepared:preparePrevStates, GameState.Started:startedPrevStates,
-      GameState.Paused:pausedPrevStates, GameState.Ended(hasWon: true):wonPrevStates,
-      GameState.Ended(hasWon: false):lostPrevStates]
-  }() // state -> list of possible previous states
+      GameState.Paused:pausedPrevStates, GameState.Resumed:resumedPrevStates,
+      GameState.Ended(hasWon: true):wonPrevStates, GameState.Ended(hasWon: false):lostPrevStates]
+    }() // state -> list of possible previous states
   
-  var previousGameState: GameState?
+  var previousGameState = GameState.Empty
   
-  var gameState: GameState = .Prepared {
+  var gameState: GameState = .Empty {
     willSet {
       previousGameState = gameState
     }
     didSet {
       if !validateState() {
-        fatalError("Invalid state: \(previousGameState?.description) state is not "
+        fatalError("Invalid state: \(previousGameState.description) state is not "
           + "a prior state to \(gameState.description) state.")
       }
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
@@ -120,17 +129,14 @@ class GameLogic: NSObject {
   }
   
   var poleStackForPoleType: [PoleType:[Disk]] = {
-    var originalPoleStack = [Disk]()
-    var bufferPoleStack = [Disk]()
-    var destinationPoleStack = [Disk]()
-    return [.OriginalPole:originalPoleStack, .BufferPole:bufferPoleStack, .DestinationPole:destinationPoleStack]
+    return [.OriginalPole:[], .BufferPole:[], .DestinationPole:[]]
   }()
   
   lazy var operationStack : [(from: PoleType, to: PoleType)] = []
   
   private func validateState() -> Bool {
     if let prevStates = gameStateNFA[gameState] {
-      return previousGameState == nil || contains(prevStates, previousGameState!)
+      return contains(prevStates, previousGameState)
     }
     return false
   }
@@ -165,6 +171,17 @@ class GameLogic: NSObject {
       return removedDisk
     }
     return nil
+  }
+  
+  func clearDisks() {
+    poleStackForPoleType[.OriginalPole]?.removeAll(keepCapacity: false)
+    poleStackForPoleType[.BufferPole]?.removeAll(keepCapacity: false)
+    poleStackForPoleType[.DestinationPole]?.removeAll(keepCapacity: false)
+    operationStack.removeAll(keepCapacity: false)
+    println("originalPoleStack count: \(poleStackForPoleType[.OriginalPole]?.count)")
+    println("bufferPoleStack count: \(poleStackForPoleType[.BufferPole]?.count)")
+    println("destinationPoleStack count: \(poleStackForPoleType[.DestinationPole]?.count)")
+    println("operationStack count: \(operationStack.count)")
   }
   
   func pileHeight(poleType type: PoleType) -> Double {

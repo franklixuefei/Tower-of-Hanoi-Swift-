@@ -74,6 +74,7 @@ class ConfirmableButton: MenuButton {
     yesButton?.layer.opacity = 0
     noButton?.layer.opacity = 0
     self.addTarget(self, action: "presentConfirmation", forControlEvents: .TouchUpInside)
+    yesButton?.addTarget(self, action: "yesButtonPressed", forControlEvents: .TouchUpInside)
     noButton?.addTarget(self, action: "dismissConfirmation", forControlEvents: .TouchUpInside)
   }
   
@@ -108,6 +109,10 @@ class ConfirmableButton: MenuButton {
     yesButton?.layer.opacity = 0
     noButton?.layer.opacity = 0
     self.superview?.bringSubviewToFront(self)
+  }
+  
+  @objc private func yesButtonPressed() {
+    dismissConfirmation()
   }
   
 }

@@ -56,8 +56,12 @@ ViewControllerProtocol, DiskViewDelegate {
         this.startGame()
       case .Paused:
         this.pauseGame()
+      case .Resumed:
+        this.resumeGame()
       case let .Ended(hasWon):
         this.endGame(hasWon)
+      default:
+        break
       }
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
@@ -78,10 +82,7 @@ ViewControllerProtocol, DiskViewDelegate {
     gameSceneView.setNeedsLayout()
     gameSceneView.layoutIfNeeded()
     controlPanelView.applyDropShadow(bezierPathEnabled: true)
-    let diskViews = createDisks()
-    for diskView in diskViews {
-      placeDisk(diskView, onPole: .OriginalPole, animated: false)
-    }
+    model.gameState = .Prepared
   }
   
   override func viewDidAppear(animated: Bool) {
@@ -101,9 +102,7 @@ ViewControllerProtocol, DiskViewDelegate {
   }
   
   @IBAction func dotPressed() {
-    if model.gameState == .Started {
-      model.gameState = .Paused
-    }
+    model.gameState = .Paused
   }
   
   private func showMenu() {
@@ -116,8 +115,15 @@ ViewControllerProtocol, DiskViewDelegate {
     self.presentViewController(menuViewController!, animated: true, completion: nil)
   }
   
+  func initiateDisks() {
+    let diskViews = createDisks()
+    for diskView in diskViews {
+      placeDisk(diskView, onPole: .OriginalPole, animated: false)
+    }
+  }
+  
   func createDisks() -> [DiskView] {
-    let numberOfDisks = 5; // TODO: from GameLogic
+    let numberOfDisks = model.gameLevel
     let poleBaseWidth = gameSceneView.originalPole.poleBaseWidth
     let poleStickHeight = gameSceneView.originalPole.poleStickHeight
     let disks = model.createDisks(largestDiskWidth: Double(poleBaseWidth) - UIConstant.diskWidthOffset,
@@ -160,13 +166,32 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  // MARK: Game Lifecycle
-  
-  private func prepareGame() {
-    
+  func clearDisks() {
+    let diskViews = diskViewToDiskMap.keys.array
+    for diskView in diskViews {
+      diskView.removeFromSuperview()
+    }
+    diskViewToDiskMap.removeAll(keepCapacity: false)
+    println("diskViewToDiskMap count: \(diskViewToDiskMap.count)")
+    model.clearDisks()
   }
   
-  func startGame() {
+  // MARK: Game Lifecycle
+  
+  // gameState has changed to .Prepared
+  private func prepareGame() {
+    if model.previousGameState != .Empty && model.previousGameState != .Prepared {
+      // TODO: animate the control panel back
+      // TODO: reset timer and step counter
+    }
+    if model.previousGameState != .Empty {
+      clearDisks()
+    }
+    initiateDisks()
+  }
+  
+  // gameState has changed to .Started
+  private func startGame() {
     if model.previousGameState == .Prepared {
       self.view.layoutIfNeeded()
       self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
@@ -176,23 +201,28 @@ ViewControllerProtocol, DiskViewDelegate {
             strongSelf.view.layoutIfNeeded()
           }
         }, completion: nil)
-      // TODO: start counting steps and kick off timer
     } else if model.previousGameState == .Paused {
-      // TODO: resume counting steps and resume timer
+      // TODO: reset timer and counter
+      clearDisks()
+      initiateDisks()
     }
+    // TODO: start counting steps and kick off timer
   }
   
-  private func resetGame() {
-    prepareGame()
-    startGame()
-  }
-  
+  // gameState has changed to .Paused
   private func pauseGame() {
     showMenu()
+    // TODO: pause timer and step counter
   }
   
+  // gameState has changed to .Resumed
+  private func resumeGame() {
+    // TODO: resume counting steps and resume timer
+  }
+  
+  // gameState has changed to let .Ended(hasWon)
   private func endGame(hasWon: Bool) {
-    
+    // TODO: stop the timer and step counter
   }
   
   private func poleTypeForPoint(point: CGPoint) -> PoleType? {
