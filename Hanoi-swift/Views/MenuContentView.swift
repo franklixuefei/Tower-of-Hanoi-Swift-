@@ -11,6 +11,7 @@ import UIKit
 class MenuContentView: UIView {
   
   var contentViews = [UIView]()
+  private var innerContentView: UIView!
   
   var bottomConstraint: NSLayoutConstraint!
   var widthConstraint: NSLayoutConstraint!
@@ -26,33 +27,46 @@ class MenuContentView: UIView {
   }
   
   private func setup() {
-    widthConstraint = NSLayoutConstraint(item: self, attribute: .Width, relatedBy: .Equal, toItem: nil,
+    innerContentView = UIView()
+    self.addSubview(innerContentView)
+    innerContentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    let views = ["innerView":innerContentView]
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[innerView]|", options: nil, metrics: nil,
+      views: views))
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[innerView]|", options: nil, metrics: nil,
+      views: views))
+    widthConstraint = NSLayoutConstraint(item: innerContentView, attribute: .Width, relatedBy: .Equal, toItem: nil,
       attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.menuContentViewWidthSmall))
-    self.addConstraint(widthConstraint)
-    bottomConstraint = NSLayoutConstraint(item: self, attribute: .Top, relatedBy: .Equal, toItem: self,
-      attribute: .Bottom, multiplier: 1, constant: 0)
-    self.addConstraint(bottomConstraint)
+    innerContentView.addConstraint(widthConstraint)
+    bottomConstraint = NSLayoutConstraint(item: innerContentView, attribute: .Top, relatedBy: .Equal,
+      toItem: innerContentView, attribute: .Bottom, multiplier: 1, constant: 0)
+    innerContentView.addConstraint(bottomConstraint)
   }
   
   override func addSubview(view: UIView) {
-    super.addSubview(view)
-    self.removeConstraint(bottomConstraint)
+    if view === innerContentView {
+      super.addSubview(view)
+      return
+    } else {
+      innerContentView.addSubview(view)
+    }
+    innerContentView.removeConstraint(bottomConstraint)
     view.setTranslatesAutoresizingMaskIntoConstraints(false)
     let views = ["view": view]
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: nil, metrics: nil,
-      views: views))
+    innerContentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: nil,
+      metrics: nil, views: views))
     if let lastView = contentViews.last as UIView? {
       // pin view's top to lastView's bottom
-      self.addConstraint(NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: lastView,
-        attribute: .Bottom, multiplier: 1, constant: CGFloat(UIConstant.buttonsVerticalSpacing)))
+      innerContentView.addConstraint(NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal,
+        toItem: lastView, attribute: .Bottom, multiplier: 1, constant: CGFloat(UIConstant.buttonsVerticalSpacing)))
     } else {
       // pin view's top to self's top
-      self.addConstraint(NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal, toItem: self,
-        attribute: .Top, multiplier: 1, constant: 0))
+      innerContentView.addConstraint(NSLayoutConstraint(item: view, attribute: .Top, relatedBy: .Equal,
+        toItem: innerContentView, attribute: .Top, multiplier: 1, constant: 0))
     }
-    bottomConstraint = NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: self,
+    bottomConstraint = NSLayoutConstraint(item: view, attribute: .Bottom, relatedBy: .Equal, toItem: innerContentView,
       attribute: .Bottom, multiplier: 1, constant: 0)
-    self.addConstraint(bottomConstraint)
+    innerContentView.addConstraint(bottomConstraint)
     contentViews.append(view)
   }
 

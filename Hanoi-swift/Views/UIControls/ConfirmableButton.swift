@@ -10,8 +10,11 @@ import UIKit
 
 class ConfirmableButton: MenuButton {
   
-  var yesButton: UIButton?
-  var noButton: UIButton?
+  lazy var targetActionsMap = [NSObject, [AnyObject]]()
+  
+  var yesButton: BaseButton?
+  var noButton: BaseButton?
+  var token: dispatch_once_t = 0
   var yesButtonText = "Yes" {
     didSet {
       yesButton?.setTitle(yesButtonText, forState: .Normal)
@@ -33,22 +36,23 @@ class ConfirmableButton: MenuButton {
     setup()
   }
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    let allActions = allTargetActionsPair()
-    // removes all target actions for all events
-    self.removeTarget(nil, action: nil, forControlEvents: UIControlEvents.AllEvents)
-    self.addTarget(self, action: "presentConfirmation", forControlEvents: .TouchUpInside)
-    noButton?.addTarget(self, action: "dismissConfirmation", forControlEvents: .TouchUpInside)
-    addtargetActionsToYesButton(allActions)
-    self.superview?.addSubview(yesButton!)
-    self.superview?.addSubview(noButton!)
-    self.superview?.bringSubviewToFront(self)
+  override func addTarget(target: AnyObject?, action: Selector, forControlEvents controlEvents: UIControlEvents) {
+    if target != nil && target! === self {
+      super.addTarget(target, action: action, forControlEvents: controlEvents)
+    } else {
+      yesButton?.addTarget(target, action: action, forControlEvents: controlEvents)
+    }
   }
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    // TODO: setup YES and NO buttons' appearance according to self
+    dispatch_once(&token, { [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.superview?.addSubview(strongSelf.yesButton!)
+        strongSelf.superview?.addSubview(strongSelf.noButton!)
+        strongSelf.superview?.bringSubviewToFront(strongSelf)
+      }
+    })
     let frame = self.frame
     let confirmationButtonSize = CGSizeMake((frame.width-CGFloat(UIConstant.buttonsVerticalSpacing))/2.0, frame.height)
     let yesButtonOrigin = frame.origin
@@ -63,32 +67,14 @@ class ConfirmableButton: MenuButton {
   }
   
   private func setup() {
-    yesButton = (UIButton.buttonWithType(.Custom) as! UIButton)
-    noButton = (UIButton.buttonWithType(.Custom) as! UIButton)
+    yesButton = (BaseButton.buttonWithType(.Custom) as! BaseButton)
+    noButton = (BaseButton.buttonWithType(.Custom) as! BaseButton)
     yesButton?.setTitle(yesButtonText, forState: .Normal)
     noButton?.setTitle(noButtonText, forState: .Normal)
     yesButton?.layer.opacity = 0
     noButton?.layer.opacity = 0
-  }
-  
-  private func allTargetActionsPair() -> [NSObject:[AnyObject]]? {
-    let targets = self.allTargets()
-    var targetActionsMap = [NSObject:[AnyObject]]()
-    for target in targets {
-      let actions = self.actionsForTarget(target, forControlEvent: UIControlEvents.TouchUpInside)
-      targetActionsMap[target] = actions
-    }
-    return targetActionsMap
-  }
-  
-  private func addtargetActionsToYesButton(targetActionsPairs: [NSObject:[AnyObject]]?) {
-    if let targetActions = targetActionsPairs {
-      for (target, actions) in targetActions {
-        for action in actions {
-          yesButton?.addTarget(target, action: Selector(action as! String), forControlEvents: .TouchUpInside)
-        }
-      }
-    }
+    self.addTarget(self, action: "presentConfirmation", forControlEvents: .TouchUpInside)
+    noButton?.addTarget(self, action: "dismissConfirmation", forControlEvents: .TouchUpInside)
   }
   
   private func applyAppearanceSettingsToButton(button: UIButton?) {
@@ -110,40 +96,18 @@ class ConfirmableButton: MenuButton {
   }
   
   @objc private func presentConfirmation() {
-    UIView.animateWithDuration(0.125, animations: { [weak self]() -> Void in
-      if let strongSelf = self {
-        strongSelf.yesButton?.layer.opacity = 1
-        strongSelf.noButton?.layer.opacity = 1
-      }
-    })
-    UIView.animateWithDuration(0.2, animations: { [weak self]() -> Void in
-      if let strongSelf = self {
-        strongSelf.layer.opacity = 0
-      }
-    }) { [weak self](completed) -> Void in
-      if let strongSelf = self {
-        strongSelf.superview?.bringSubviewToFront(strongSelf.yesButton!)
-        strongSelf.superview?.bringSubviewToFront(strongSelf.noButton!)
-      }
-    }
+    self.yesButton?.layer.opacity = 1
+    self.noButton?.layer.opacity = 1
+    self.layer.opacity = 0
+    self.superview?.bringSubviewToFront(yesButton!)
+    self.superview?.bringSubviewToFront(noButton!)
   }
   
   @objc private func dismissConfirmation() {
-    UIView.animateWithDuration(0.125, animations: { [weak self]() -> Void in
-      if let strongSelf = self {
-        strongSelf.layer.opacity = 1
-      }
-    })
-    UIView.animateWithDuration(0.2, animations: { [weak self]() -> Void in
-      if let strongSelf = self {
-        strongSelf.yesButton?.layer.opacity = 0
-        strongSelf.noButton?.layer.opacity = 0
-      }
-    }) { [weak self](completed) -> Void in
-      if let strongSelf = self {
-        strongSelf.superview?.bringSubviewToFront(strongSelf)
-      }
-    }
+    self.layer.opacity = 1
+    yesButton?.layer.opacity = 0
+    noButton?.layer.opacity = 0
+    self.superview?.bringSubviewToFront(self)
   }
   
 }

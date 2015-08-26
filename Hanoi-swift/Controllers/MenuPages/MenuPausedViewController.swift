@@ -9,15 +9,33 @@
 import UIKit
 
 protocol MenuPausedViewControllerDelegate: class {
-  
+  func restartButtonPressed()
+  func quitButtonPressed()
 }
 
 class MenuPausedViewController: MenuBaseViewController {
 
+  var restartButton: ConfirmableButton!
+  var quitButton: ConfirmableButton!
   weak var delegate: MenuPausedViewControllerDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    restartButton = ConfirmableButton.buttonWithType(.Custom) as! ConfirmableButton
+    restartButton.setTitle("Restart", forState: .Normal)
+    contentView.addSubview(restartButton)
+    restartButton.addTarget(self, action: "restartPressed", forControlEvents: .TouchUpInside)
+    quitButton = ConfirmableButton.buttonWithType(.Custom) as! ConfirmableButton
+    quitButton.setTitle("Quit", forState: .Normal)
+    contentView.addSubview(quitButton)
+    quitButton.addTarget(self, action: "quitPressed", forControlEvents: .TouchUpInside)
   }
-
+  
+  @objc private func restartPressed() {
+    delegate?.restartButtonPressed()
+  }
+  
+  @objc private func quitPressed() {
+    delegate?.quitButtonPressed()
+  }
 }

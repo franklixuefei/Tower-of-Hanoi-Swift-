@@ -86,6 +86,14 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   // MARK: - MenuSettingsViewControllerDelegate methods
   
+  func restartButtonPressed() {
+    println("restarting")
+  }
+  
+  func quitButtonPressed() {
+    println("quiting")
+  }
+  
   // MARK: - MenuResultViewControllerDelegate methods
   
   

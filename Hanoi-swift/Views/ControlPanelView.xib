@@ -36,8 +36,8 @@
             </subviews>
             <color key="backgroundColor" red="0.83529411764705885" green="1" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="0hh-PX-geK" secondAttribute="bottom" constant="12" id="4iD-Yu-VAs"/>
                 <constraint firstItem="0hh-PX-geK" firstAttribute="leading" secondItem="d3v-Wi-b5B" secondAttribute="leading" constant="20" id="F9l-nu-bMm"/>
-                <constraint firstItem="0hh-PX-geK" firstAttribute="top" secondItem="d3v-Wi-b5B" secondAttribute="top" constant="72" id="G0D-71-vRq"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
