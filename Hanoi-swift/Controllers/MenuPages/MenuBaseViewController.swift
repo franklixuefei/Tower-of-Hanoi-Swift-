@@ -10,7 +10,11 @@ import UIKit
 
 class MenuBaseViewController: UIViewController {
   
-  var contentView = MenuContentView()
+  var contentView: MenuContentView = {
+    var mcv = MenuContentView()
+    mcv.viewSpacing = CGFloat(UIConstant.buttonsVerticalSpacing)
+    return mcv
+  }()
   
   var contentViewWidthConstraint: NSLayoutConstraint!
   

@@ -9,7 +9,14 @@
 import UIKit
 
 class MenuScrollView: UIScrollView {
-  var contentView = MenuContentView()
+  var verticalDirection: Bool = true
+  private var contentView: MenuContentView!
+  
+  init(verticalDirection: Bool) {
+    super.init(frame:CGRectZero)
+    self.verticalDirection = verticalDirection
+    setup()
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -17,25 +24,32 @@ class MenuScrollView: UIScrollView {
   }
   
   required init(coder aDecoder: NSCoder) {
-    super.init(coder:aDecoder)
-    setup()
+    fatalError("init(coder:) has not been implemented")
+  }
+
+  override func addSubview(view: UIView) {
+    view.opaque = false
+    if view === contentView {
+      super.addSubview(view)
+      return
+    } else {
+      contentView.addSubview(view)
+    }
   }
   
   private func setup() {
     self.opaque = false
     self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.menuScrollViewBackgroundColor), alpha: 0.8)
     self.layer.cornerRadius = CGFloat(UIConstant.menuScrollViewCornerRadius)
+    contentView = MenuContentView(verticalDirection: verticalDirection)
     self.addSubview(contentView)
     contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
     let views = ["contentView":contentView, "self":self]
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[contentView(self)]|", options: nil,
-      metrics: nil, views: views))
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[contentView]|", options: nil, metrics: nil,
+    let hFormatString = verticalDirection ? "H:|[contentView(self)]|" : "H:|[contentView]|"
+    let vFormatString = verticalDirection ? "V:|[contentView]|" : "V:|[contentView(self)]|"
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(hFormatString, options: nil, metrics: nil,
       views: views))
-    self.setTranslatesAutoresizingMaskIntoConstraints(false)
-    let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil,
-      attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeight))
-    self.addConstraint(heightConstraint)
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(vFormatString, options: nil, metrics: nil,
+      views: views))
   }
-  
 }

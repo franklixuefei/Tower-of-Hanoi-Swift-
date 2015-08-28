@@ -97,6 +97,7 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   private func startGame() {
     self.dismissViewControllerAnimated(true, completion: nil)
+    dotButton.hidden = true
   }
   
   private func pauseGame() {
@@ -106,6 +107,7 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   private func resumeGame() {
     self.dismissViewControllerAnimated(true, completion: nil)
+    dotButton.hidden = false
   }
   
   private func endGame(hasWon: Bool) {
@@ -149,6 +151,9 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   }
   
   // MARK: - MenuResultViewControllerDelegate methods
-  
+  func okButtonPressed() {
+    pageViewController.setViewControllers([initialMenuPage], direction: .Reverse, animated: true, completion: nil)
+    model.gameState = .Prepared
+  }
   
 }

@@ -22,6 +22,9 @@ class MenuSettingsViewController: MenuBaseViewController {
     super.viewDidLoad()
     self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
     scrollView = MenuScrollView()
+    scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    scrollView.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil,
+      attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeightSmall)))
     contentView.addSubview(scrollView)
     backButton = MenuButton.buttonWithType(.Custom) as! MenuButton
     backButton.setTitle("Back", forState: .Normal)

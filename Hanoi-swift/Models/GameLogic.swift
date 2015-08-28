@@ -33,7 +33,7 @@ enum GameState: Hashable, Equatable {
   case Ended(hasWon: Bool)
   var description: String {
     switch self {
-    case .Empty:
+    case .Empty: // The initial state, no semantic meaning
       return "Empty"
     case .Prepared:
       return "Prepared"
