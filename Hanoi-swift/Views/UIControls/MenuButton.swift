@@ -28,7 +28,7 @@ class MenuButton: BaseButton {
       attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.buttonWidth))
     // relatively lower priority (default is 1000). If the superview adds some constraints that affect the 
     // button's width, then let them affect.
-    widthConstraint.priority = 500
+    widthConstraint.priority = 999
     self.addConstraint(widthConstraint)
     let heightConstraint = NSLayoutConstraint(item: self, attribute: .Height, relatedBy: .Equal, toItem: nil,
       attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.buttonHeight))

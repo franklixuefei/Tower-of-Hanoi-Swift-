@@ -12,10 +12,16 @@ class MenuBaseViewController: UIViewController {
   
   var contentView = MenuContentView()
   
+  var contentViewWidthConstraint: NSLayoutConstraint!
+  
   override func loadView() {
     let view = UIView()
     self.view = view
     self.view.addSubview(contentView)
+    contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    contentViewWidthConstraint = NSLayoutConstraint(item: contentView, attribute: .Width, relatedBy: .Equal,
+      toItem: nil, attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.menuContentViewWidthSmall))
+    contentView.addConstraint(contentViewWidthConstraint)
     NSLayoutConstraint.centerViewToSuperview(view: contentView, superview: self.view)
   }
 

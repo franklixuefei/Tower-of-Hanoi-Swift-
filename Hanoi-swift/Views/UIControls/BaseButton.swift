@@ -21,7 +21,6 @@ class BaseButton: UIButton {
   }
   
   private func setup() {
-    self.opaque = false
     self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.buttonBackgroundColorForNormalState), alpha: 1)
     self.titleLabel?.font = UIFont.ayuthayaFontWithSize(CGFloat(UIConstant.buttonTitleFontSize))
     self.setTitleColor(UIColor.color(hexValue: UInt(UIConstant.buttonTitleColorForNormalState), alpha: 1),

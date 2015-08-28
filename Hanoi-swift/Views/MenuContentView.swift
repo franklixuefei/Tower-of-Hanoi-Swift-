@@ -13,8 +13,7 @@ class MenuContentView: UIView {
   var contentViews = [UIView]()
   private var innerContentView: UIView!
   
-  var bottomConstraint: NSLayoutConstraint!
-  var widthConstraint: NSLayoutConstraint!
+  private var bottomConstraint: NSLayoutConstraint!
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -27,7 +26,9 @@ class MenuContentView: UIView {
   }
   
   private func setup() {
+    self.opaque = false
     innerContentView = UIView()
+    innerContentView.opaque = false
     self.addSubview(innerContentView)
     innerContentView.setTranslatesAutoresizingMaskIntoConstraints(false)
     let views = ["innerView":innerContentView]
@@ -35,15 +36,13 @@ class MenuContentView: UIView {
       views: views))
     self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[innerView]|", options: nil, metrics: nil,
       views: views))
-    widthConstraint = NSLayoutConstraint(item: innerContentView, attribute: .Width, relatedBy: .Equal, toItem: nil,
-      attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.menuContentViewWidthSmall))
-    innerContentView.addConstraint(widthConstraint)
-    bottomConstraint = NSLayoutConstraint(item: innerContentView, attribute: .Top, relatedBy: .Equal,
-      toItem: innerContentView, attribute: .Bottom, multiplier: 1, constant: 0)
+    bottomConstraint = NSLayoutConstraint(item: innerContentView, attribute: .Bottom, relatedBy: .GreaterThanOrEqual,
+      toItem: innerContentView, attribute: .Top, multiplier: 1, constant: 0)
     innerContentView.addConstraint(bottomConstraint)
   }
   
   override func addSubview(view: UIView) {
+    view.opaque = false
     if view === innerContentView {
       super.addSubview(view)
       return

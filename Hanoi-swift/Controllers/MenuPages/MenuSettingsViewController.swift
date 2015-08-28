@@ -15,11 +15,14 @@ protocol MenuSettingsViewControllerDelegate: class {
 class MenuSettingsViewController: MenuBaseViewController {
 
   var backButton: MenuButton!
+  var scrollView: MenuScrollView!
   weak var delegate: MenuSettingsViewControllerDelegate?
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    contentView.widthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
+    self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
+    scrollView = MenuScrollView()
+    contentView.addSubview(scrollView)
     backButton = MenuButton.buttonWithType(.Custom) as! MenuButton
     backButton.setTitle("Back", forState: .Normal)
     contentView.addSubview(backButton)

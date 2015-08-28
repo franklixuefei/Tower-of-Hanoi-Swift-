@@ -42,6 +42,7 @@
 		151541F31B8C210C00071650 /* MenuResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541F21B8C210C00071650 /* MenuResultViewController.swift */; };
 		151541F91B8C30E400071650 /* MenuBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541F81B8C30E400071650 /* MenuBaseViewController.swift */; };
 		151541FB1B8C428200071650 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541FA1B8C428200071650 /* BaseButton.swift */; };
+		151541FD1B8EBC7000071650 /* MenuScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541FC1B8EBC7000071650 /* MenuScrollView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		151541F21B8C210C00071650 /* MenuResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuResultViewController.swift; sourceTree = "<group>"; };
 		151541F81B8C30E400071650 /* MenuBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBaseViewController.swift; sourceTree = "<group>"; };
 		151541FA1B8C428200071650 /* BaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		151541FC1B8EBC7000071650 /* MenuScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuScrollView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 				151541D11B85A48700071650 /* MenuView.swift */,
 				151541CF1B85A47900071650 /* MenuView.xib */,
 				151541E91B8BBB1F00071650 /* MenuContentView.swift */,
+				151541FC1B8EBC7000071650 /* MenuScrollView.swift */,
 				151541E01B8B083F00071650 /* UIControls */,
 			);
 			path = Views;
@@ -355,6 +358,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151541FD1B8EBC7000071650 /* MenuScrollView.swift in Sources */,
 				151541E41B8B088B00071650 /* ConfirmableButton.swift in Sources */,
 				151541CE1B85A39000071650 /* ViewControllerProtocol.swift in Sources */,
 				151541B81B8402BC00071650 /* Extensions.swift in Sources */,

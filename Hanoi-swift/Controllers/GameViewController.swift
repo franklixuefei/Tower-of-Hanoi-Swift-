@@ -81,7 +81,7 @@ ViewControllerProtocol, DiskViewDelegate {
     // Force layout immediately in order to get the views' actual frame after constraints being applied
     gameSceneView.setNeedsLayout()
     gameSceneView.layoutIfNeeded()
-    controlPanelView.applyDropShadow(bezierPathEnabled: true)
+    controlPanelView.applyDropShadow()
     model.gameState = .Prepared
   }
   
@@ -161,6 +161,10 @@ ViewControllerProtocol, DiskViewDelegate {
         CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
       UIView.animateWithDuration(animated ? 0.3 : 0, animations: { () -> Void in
         diskView.center = CGPointMake(diskCenterX, diskCenterY)
+        }, completion: { [weak self](completed) -> Void in
+          if let strongSelf = self {
+            strongSelf.model.hasWon()
+          }
       })
       model.placeDisk(disk, onPole: type)
     }
@@ -223,6 +227,7 @@ ViewControllerProtocol, DiskViewDelegate {
   // gameState has changed to let .Ended(hasWon)
   private func endGame(hasWon: Bool) {
     // TODO: stop the timer and step counter
+    showMenu()
   }
   
   private func poleTypeForPoint(point: CGPoint) -> PoleType? {

@@ -206,4 +206,16 @@ class GameLogic: NSObject {
     return true
   }
   
+  func hasWon() {
+    if poleStackForPoleType[.DestinationPole]?.count == gameLevel {
+      gameState = .Ended(hasWon: true)
+    }
+  }
+  
+  func hasLost() {
+    if true /* TODO: timer has gone off */ {
+      gameState = .Ended(hasWon: false)
+    }
+  }
+  
 }

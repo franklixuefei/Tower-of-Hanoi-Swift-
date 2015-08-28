@@ -47,7 +47,7 @@ extension UIView {
     return views.first as? UIView
   }
   
-  func applyDropShadow(#bezierPathEnabled: Bool) {
+  func applyDropShadow(bezierPathEnabled: Bool = true) {
     self.layer.masksToBounds = false
     self.layer.shadowColor = UIColor.blackColor().CGColor
     self.layer.shadowOffset = CGSizeMake(0, 1)

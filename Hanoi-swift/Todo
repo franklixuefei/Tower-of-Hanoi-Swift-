@@ -1,8 +1,8 @@
-1. reset game (everything back to original state, and disks animate back to original state according to operationStack)
+1. operationStack for replay and AI solving animations
 2. add timer and step counter
 3. level logic (max = 9, min = 2)
 4. mode logic
 5. NSUserDefault to store the current status
-6. menu pages
-7. pause game
-8. evaluate game result according to # of disks on the destination pole
+6. menu pages (settings and result)
+7. evaluate game result according to # of disks on the destination pole
+8. check for game end. (destinationPoleStack.count == model.gameLevel in casual mode, or time up in challenge mode)

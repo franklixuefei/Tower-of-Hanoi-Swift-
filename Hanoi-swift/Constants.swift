@@ -51,4 +51,7 @@ struct UIConstant {
   static let buttonTitleColorForNormalState = 0xefefef
   static let buttonTitleColorForHighlightedState = 0xdedede
   static let buttonTitleFontSize = 22.0
+  static let menuScrollViewHeight = 140.0
+  static let menuScrollViewCornerRadius = 3.0
+  static let menuScrollViewBackgroundColor = 0x888888
 }
