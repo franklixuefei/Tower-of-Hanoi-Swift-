@@ -192,6 +192,7 @@ ViewControllerProtocol, DiskViewDelegate {
       clearDisks()
     }
     initiateDisks()
+    controlPanelView.level = model.gameLevel
   }
   
   // gameState has changed to .Started

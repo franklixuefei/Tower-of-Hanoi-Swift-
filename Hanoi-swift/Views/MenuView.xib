@@ -20,7 +20,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yz1-yx-6mR" userLabel="dot" customClass="BaseButton" customModule="Hanoi_swift" customModuleProvider="target">
-                    <rect key="frame" x="20" y="12" width="36" height="36"/>
+                    <rect key="frame" x="20" y="14" width="36" height="36"/>
                     <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="36" id="Ibe-P3-Ji4"/>
@@ -54,7 +54,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="yz1-yx-6mR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="8hn-J3-VXF"/>
+                <constraint firstItem="yz1-yx-6mR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="8hn-J3-VXF"/>
                 <constraint firstItem="9Ge-rN-q2w" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8sG-wd-m27"/>
                 <constraint firstAttribute="bottom" secondItem="wHL-Yd-M6e" secondAttribute="bottom" id="EBW-1c-nBH"/>
                 <constraint firstAttribute="centerX" secondItem="9Ge-rN-q2w" secondAttribute="centerX" id="IYI-6U-jXt"/>
