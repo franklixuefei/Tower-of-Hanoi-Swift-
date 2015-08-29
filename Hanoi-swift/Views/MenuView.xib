@@ -69,6 +69,11 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="IYI-6U-jXt"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="menuContainerView" destination="wHL-Yd-M6e" id="jVN-Tf-hCU"/>
                 <outlet property="titleLabel" destination="9Ge-rN-q2w" id="lPm-kk-AkK"/>
