@@ -97,7 +97,11 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   private func startGame() {
     self.dismissViewControllerAnimated(true, completion: nil)
-    dotButton.hidden = true
+    if model.previousGameState == .Paused {
+      dotButton.hidden = false
+    } else if model.previousGameState == .Prepared {
+      dotButton.hidden = true
+    }
   }
   
   private func pauseGame() {
