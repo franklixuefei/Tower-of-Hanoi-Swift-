@@ -9,12 +9,16 @@
 import UIKit
 
 class MenuScrollView: UIScrollView {
-  var verticalDirection: Bool = true
-  private var contentView: MenuContentView!
+  lazy var contents = [UIView]()
   
-  init(verticalDirection: Bool) {
+  private var verticalDirection = true
+  private var contentView: MenuContentView!
+  private var clearAppearance = false
+  
+  init(verticalDirection: Bool, clearAppearance: Bool = false) {
     super.init(frame:CGRectZero)
     self.verticalDirection = verticalDirection
+    self.clearAppearance = clearAppearance
     setup()
   }
   
@@ -31,17 +35,27 @@ class MenuScrollView: UIScrollView {
     view.opaque = false
     if view === contentView {
       super.addSubview(view)
-      return
     } else {
       contentView.addSubview(view)
+      contents.append(view)
     }
   }
   
   private func setup() {
     self.opaque = false
-    self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.menuScrollViewBackgroundColor), alpha: 0.8)
-    self.layer.cornerRadius = CGFloat(UIConstant.menuScrollViewCornerRadius)
+    self.showsHorizontalScrollIndicator = false
+    self.showsVerticalScrollIndicator = false
     contentView = MenuContentView(verticalDirection: verticalDirection)
+    if !clearAppearance {
+      if verticalDirection {
+        self.contentInset = UIEdgeInsetsMake(CGFloat(UIConstant.menuScrollViewInset), 0, 0, 0)
+      } else {
+        self.contentInset = UIEdgeInsetsMake(0, CGFloat(UIConstant.menuScrollViewInset), 0, 0)
+      }
+      self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.menuScrollViewBackgroundColor), alpha: 0.8)
+      self.layer.cornerRadius = CGFloat(UIConstant.menuScrollViewCornerRadius)
+      contentView.viewSpacing = CGFloat(UIConstant.menuScrollViewSpacing)
+    }
     self.addSubview(contentView)
     contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
     let views = ["contentView":contentView, "self":self]

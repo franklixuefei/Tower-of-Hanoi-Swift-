@@ -14,6 +14,8 @@ struct XibNames {
   static let DiskViewXibName = "DiskView"
   static let ControlPanelViewXibName = "ControlPanelView"
   static let MenuViewXibName = "MenuView"
+  static let MenuSettingsControlViewXibName = "MenuSettingsControlView"
+  static let MenuSettingsModeContentViewXibName = "MenuSettingsModeContentView"
 }
 
 struct LogicConstant {
@@ -24,6 +26,8 @@ struct LogicConstant {
   static let pausedTitle = "Paused"
   static let winTitle = "You Win!"
   static let loseTitle = "You Lose..."
+  static let casualModeString = "Casual"
+  static let challengeModeString = "Challenge"
 }
 
 struct InfrastructureConstant {
@@ -51,8 +55,14 @@ struct UIConstant {
   static let buttonTitleColorForNormalState = 0xefefef
   static let buttonTitleColorForHighlightedState = 0xdedede
   static let buttonTitleFontSize = 22.0
-  static let menuScrollViewHeightSmall = 120.0
-  static let menuScrollViewHeightLarge = 140.0
+  static let menuScrollViewHeightSmall = 110.0
+  static let menuScrollViewHeightLarge = 130.0
   static let menuScrollViewCornerRadius = 3.0
   static let menuScrollViewBackgroundColor = 0x888888
+  static let menuScrollViewSpacing = 15.0
+  static let menuScrollViewInset = 15.0
+  static let menuSliderTrackHeight = 5.0
+  static let menuThumbSquareSideLength = 24.0
+  static let menuThumbSquareBorderWidth = 6.0
+  static let menuThumbSquareBorderColor = 0x777777
 }

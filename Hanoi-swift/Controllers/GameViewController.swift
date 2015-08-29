@@ -72,7 +72,7 @@ ViewControllerProtocol, DiskViewDelegate {
     registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {
       (this) -> Void in
       println("game level changed to: \(this.model.gameLevel)")
-      // TODO: change the # of disks in real time
+      this.model.gameState = .Prepared
     }
   }
   

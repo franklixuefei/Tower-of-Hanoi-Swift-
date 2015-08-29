@@ -93,3 +93,39 @@ extension NSLayoutConstraint {
     superview.addConstraints(horizontalConstraints)
   }
 }
+
+// Code reference: https://github.com/honghaoz/2048-Solver-AI
+extension UIImage {
+  class func imageWithColor(color: UIColor) -> UIImage {
+    let rect = CGRectMake(0.0, 0.0, 1.0, 1.0)
+    UIGraphicsBeginImageContext(rect.size)
+    let context = UIGraphicsGetCurrentContext()
+    
+    CGContextSetFillColorWithColor(context, color.CGColor)
+    CGContextFillRect(context, rect)
+    
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return image
+  }
+  
+  class func imageWithBorderRectangle(size: CGSize, borderWidth: CGFloat, borderColor: UIColor,
+    fillColor: UIColor = UIColor.clearColor()) -> UIImage {
+    UIGraphicsBeginImageContext(size)
+    let context = UIGraphicsGetCurrentContext()
+    let rect = CGRect(origin: CGPointZero, size: size)
+    
+    CGContextSetFillColorWithColor(context, fillColor.CGColor)
+    CGContextFillRect(context, rect)
+    
+    CGContextSetStrokeColorWithColor(context, borderColor.CGColor)
+    CGContextSetLineWidth(context, borderWidth)
+    CGContextStrokeRect(context, rect)
+    
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return image
+  }
+}

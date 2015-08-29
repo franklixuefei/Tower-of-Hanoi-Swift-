@@ -61,7 +61,7 @@ func ==(lhs:GameState, rhs:GameState) -> Bool {
   return lhs.description == rhs.description
 }
 
-enum GameMode {
+enum GameMode: Int {
   case Casual
   case Challenge
   var description: String {
@@ -108,15 +108,31 @@ class GameLogic: NSObject {
     }
   }
   
+  var previousGameMode = GameMode.Casual
+  
   var gameMode: GameMode = .Casual {
+    willSet {
+      previousGameMode = gameMode
+    }
     didSet {
+      if previousGameMode == gameMode {
+        return
+      }
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameModeNotificationChannelName,
         object: self)
     }
   }
   
-  var gameLevel = LogicConstant.defaultLevel {
+  var previousGameLevel:Int = LogicConstant.defaultLevel
+  
+  var gameLevel:Int = LogicConstant.defaultLevel {
+    willSet {
+      previousGameLevel = gameLevel
+    }
     didSet {
+      if previousGameLevel == gameLevel {
+        return
+      }
       if gameLevel < LogicConstant.minimumLevel {
         gameLevel = LogicConstant.minimumLevel
       }
@@ -124,7 +140,7 @@ class GameLogic: NSObject {
         gameLevel = LogicConstant.maximumLevel
       }
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameLevelNotificationChannelName,
-        object: nil)
+        object: self)
     }
   }
   

@@ -133,14 +133,31 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     pageViewController.setViewControllers([settingsMenuPage], direction: .Forward, animated: true, completion: nil)
   }
   
-  // MARK: - MenuPausedViewControllerDelegate methods
-  
+  // MARK: - MenuSettingsViewControllerDelegate methods
   func backButtonPressed() {
     pageViewController.setViewControllers([initialMenuPage], direction: .Reverse, animated: true, completion: nil)
   }
   
-  // MARK: - MenuSettingsViewControllerDelegate methods
+  func modeSelected(mode: String) {
+    switch mode {
+    case LogicConstant.casualModeString:
+      model.gameMode = .Casual
+    case LogicConstant.challengeModeString:
+      model.gameMode = .Challenge
+    default:
+      break
+    }
+  }
   
+  func currentGameLevel() -> Int {
+    return model.gameLevel
+  }
+  
+  func gameLevelSliderChanged(level: Int) {
+    model.gameLevel = level
+  }
+ 
+  // MARK: - MenuPausedViewControllerDelegate methods
   func restartButtonPressed() {
     model.gameState = .Started
   }
