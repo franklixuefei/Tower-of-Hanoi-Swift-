@@ -185,7 +185,7 @@ ViewControllerProtocol, DiskViewDelegate {
   // gameState has changed to .Prepared
   private func prepareGame() {
     if model.previousGameState != .Empty && model.previousGameState != .Prepared {
-      // TODO: animate the control panel back
+      hideControlPanel()
       // TODO: reset timer and step counter
     }
     if model.previousGameState != .Empty {
@@ -197,14 +197,7 @@ ViewControllerProtocol, DiskViewDelegate {
   // gameState has changed to .Started
   private func startGame() {
     if model.previousGameState == .Prepared {
-      self.view.layoutIfNeeded()
-      self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
-      UIView.animateWithDuration(0.4, delay: UIConstant.rippleAnimatorTransitionDuration,
-        usingSpringWithDamping: 0.45, initialSpringVelocity: 1, options: nil, animations: {[weak self]() -> Void in
-          if let strongSelf = self {
-            strongSelf.view.layoutIfNeeded()
-          }
-        }, completion: nil)
+      showControlPanel()
     } else if model.previousGameState == .Paused {
       // TODO: reset timer and counter
       clearDisks()
@@ -228,6 +221,30 @@ ViewControllerProtocol, DiskViewDelegate {
   private func endGame(hasWon: Bool) {
     // TODO: stop the timer and step counter
     showMenu()
+  }
+  
+  private func showControlPanel() {
+    let damping = CGFloat(UIConstant.animationSpringWithDamping)
+    let velocity = CGFloat(UIConstant.animationSpringVelocity)
+    let delay = UIConstant.rippleAnimatorTransitionDuration
+    self.view.layoutIfNeeded()
+    self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
+    UIView.animateWithDuration(0.4, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity,
+      options: nil, animations: { [weak self]() -> Void in
+        if let strongSelf = self {
+          strongSelf.view.layoutIfNeeded()
+        }
+      }, completion: nil)
+  }
+  
+  private func hideControlPanel() {
+    self.view.layoutIfNeeded()
+    self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-1.0*UIConstant.controlPanelHeight)
+    UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {  [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.view.layoutIfNeeded()
+      }
+    }, completion: nil)
   }
   
   private func poleTypeForPoint(point: CGPoint) -> PoleType? {

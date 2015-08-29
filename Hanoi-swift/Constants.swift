@@ -37,6 +37,8 @@ struct InfrastructureConstant {
 }
 
 struct UIConstant {
+  static let animationSpringWithDamping = 0.45
+  static let animationSpringVelocity = 1.0
   static let maximumDiskHeight = 25.0
   static let largeSmallDiskWidthRatio = 3.0
   static let diskWidthOffset = 20.0
