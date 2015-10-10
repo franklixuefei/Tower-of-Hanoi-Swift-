@@ -25,7 +25,7 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
     super.viewDidLoad()
     self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
     scrollView = MenuScrollView()
-    scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil,
       attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeightSmall)))
     
@@ -33,7 +33,7 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
     setupLevelSettingsView()
 
     contentView.addSubview(scrollView)
-    backButton = MenuButton.buttonWithType(.Custom) as! MenuButton
+    backButton = MenuButton(type: .Custom) 
     backButton.setTitle("Back", forState: .Normal)
     contentView.addSubview(backButton)
     backButton.addTarget(self, action: "backPressed", forControlEvents: .TouchUpInside)
@@ -88,7 +88,7 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
     if let menuScrollView = scrollView as? MenuScrollView {
       let contents = menuScrollView.contents
       let width = menuScrollView.frame.size.width
-      var index = Int((menuScrollView.contentOffset.x + width / 2.0) / width)
+      let index = Int((menuScrollView.contentOffset.x + width / 2.0) / width)
       delegate?.modeSelected((contents[index] as! MenuSettingsModeContentView).modeName!)
     }
   }

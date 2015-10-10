@@ -14,11 +14,11 @@ class MenuView: UIView {
   @IBOutlet weak var menuContainerView: UIView!
   
   func pinViewToContainerView(view: UIView) {
-    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.translatesAutoresizingMaskIntoConstraints = false
     let views = ["view": view]
-    menuContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: nil,
+    menuContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [],
       metrics: nil, views: views))
-    menuContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: nil,
+    menuContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: [],
       metrics: nil, views: views))
   }
   

@@ -27,7 +27,7 @@ class MenuScrollView: UIScrollView {
     setup()
   }
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
 
@@ -57,13 +57,13 @@ class MenuScrollView: UIScrollView {
       contentView.viewSpacing = CGFloat(UIConstant.menuScrollViewSpacing)
     }
     self.addSubview(contentView)
-    contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    contentView.translatesAutoresizingMaskIntoConstraints = false
     let views = ["contentView":contentView, "self":self]
     let hFormatString = verticalDirection ? "H:|[contentView(self)]|" : "H:|[contentView]|"
     let vFormatString = verticalDirection ? "V:|[contentView]|" : "V:|[contentView(self)]|"
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(hFormatString, options: nil, metrics: nil,
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(hFormatString, options: [], metrics: nil,
       views: views))
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(vFormatString, options: nil, metrics: nil,
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(vFormatString, options: [], metrics: nil,
       views: views))
   }
 }

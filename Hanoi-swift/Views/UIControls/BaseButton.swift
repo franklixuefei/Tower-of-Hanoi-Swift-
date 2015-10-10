@@ -15,7 +15,7 @@ class BaseButton: UIButton {
     setup()
   }
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -34,7 +34,7 @@ class BaseButton: UIButton {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    self.applyDropShadow(bezierPathEnabled: false)
+    self.applyDropShadow(false)
   }
   
   override var highlighted: Bool {

@@ -21,7 +21,7 @@ class MenuContentView: UIView {
     setup()
   }
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
@@ -36,11 +36,11 @@ class MenuContentView: UIView {
     innerContentView = UIView()
     innerContentView.opaque = false
     self.addSubview(innerContentView)
-    innerContentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    innerContentView.translatesAutoresizingMaskIntoConstraints = false
     let views = ["innerView":innerContentView]
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[innerView]|", options: nil, metrics: nil,
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[innerView]|", options: [], metrics: nil,
       views: views))
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[innerView]|", options: nil, metrics: nil,
+    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[innerView]|", options: [], metrics: nil,
       views: views))
     let topOrLeadingAttribute = verticalDirection ? NSLayoutAttribute.Top : NSLayoutAttribute.Leading
     let bottomOrTrailingAttribute = verticalDirection ? NSLayoutAttribute.Bottom : NSLayoutAttribute.Trailing
@@ -59,10 +59,10 @@ class MenuContentView: UIView {
       innerContentView.addSubview(view)
     }
     innerContentView.removeConstraint(bottomConstraint)
-    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+    view.translatesAutoresizingMaskIntoConstraints = false
     let views = ["view": view]
     let formatString = verticalDirection ? "H:|[view]|" : "V:|[view]|"
-    innerContentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(formatString, options: nil,
+    innerContentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(formatString, options: [],
       metrics: nil, views: views))
     let topOrLeadingAttribute = verticalDirection ? NSLayoutAttribute.Top : NSLayoutAttribute.Leading
     let bottomOrTrailingAttribute = verticalDirection ? NSLayoutAttribute.Bottom : NSLayoutAttribute.Trailing

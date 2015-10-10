@@ -17,10 +17,10 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   var pageViewController: UIPageViewController!
   
   lazy var model = GameLogic.defaultModel
-  lazy var initialMenuPage = MenuInitialViewController()
-  lazy var pausedMenuPage = MenuPausedViewController()
-  lazy var settingsMenuPage = MenuSettingsViewController()
-  lazy var resultMenuPage = MenuResultViewController()
+  lazy var initialMenuPage:MenuInitialViewController = MenuInitialViewController()
+  lazy var pausedMenuPage:MenuPausedViewController = MenuPausedViewController()
+  lazy var settingsMenuPage:MenuSettingsViewController = MenuSettingsViewController()
+  lazy var resultMenuPage:MenuResultViewController = MenuResultViewController()
   
   override func loadView() {
     menuView = UIView.viewFromNib(XibNames.MenuViewXibName, owner: self) as! MenuView
@@ -79,7 +79,7 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     }
   }
   
-  private func registerObserverForModel(#notificationName: String!, block: (MenuViewController) -> Void) {
+  private func registerObserverForModel(notificationName notificationName: String!, block: (MenuViewController) -> Void) {
     NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
       [weak self](notification) -> Void in
       dispatch_async(dispatch_get_main_queue(), { () -> Void in

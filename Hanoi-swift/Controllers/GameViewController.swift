@@ -24,10 +24,10 @@ ViewControllerProtocol, DiskViewDelegate {
   private func setupControlPanel() {
     controlPanelView = UIView.viewFromNib(XibNames.ControlPanelViewXibName, owner: self) as! ControlPanelView
     self.view.addSubview(controlPanelView);
-    controlPanelView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    controlPanelView.translatesAutoresizingMaskIntoConstraints = false
     let views = ["controlPanel": controlPanelView]
     self.view.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "H:|[controlPanel]|", options: nil, metrics: nil, views: views))
+      "H:|[controlPanel]|", options: [], metrics: nil, views: views))
     let heightConstraint = NSLayoutConstraint(item: controlPanelView, attribute: .Height, relatedBy: .Equal,
       toItem: nil, attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.controlPanelHeight))
     controlPanelView.addConstraint(heightConstraint)
@@ -48,7 +48,7 @@ ViewControllerProtocol, DiskViewDelegate {
     super.viewDidLoad()
     registerObserverForModel(notificationName: InfrastructureConstant.gameStateNotificationChannelName) {
       (this) -> Void in
-      println("game state changed to: \(this.model.gameState.description)")
+      print("game state changed to: \(this.model.gameState.description)")
       switch this.model.gameState {
       case .Prepared:
         this.prepareGame()
@@ -66,12 +66,12 @@ ViewControllerProtocol, DiskViewDelegate {
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
       (this) -> Void in
-      println("game mode changed to: \(this.model.gameMode.description)")
+      print("game mode changed to: \(this.model.gameMode.description)")
       // do not need to do anything here actually...
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {
       (this) -> Void in
-      println("game level changed to: \(this.model.gameLevel)")
+      print("game level changed to: \(this.model.gameLevel)")
       this.model.gameState = .Prepared
     }
   }
@@ -90,7 +90,7 @@ ViewControllerProtocol, DiskViewDelegate {
     showMenu()
   }
   
-  private func registerObserverForModel(#notificationName: String!, block: (GameViewController) -> Void) {
+  private func registerObserverForModel(notificationName notificationName: String!, block: (GameViewController) -> Void) {
     NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
       [weak self](notification) -> Void in
       dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -138,7 +138,7 @@ ViewControllerProtocol, DiskViewDelegate {
     return diskViews
   }
   
-  private func createDisk(#disk: Disk) -> DiskView {
+  private func createDisk(disk disk: Disk) -> DiskView {
     let diskView = UIView.viewFromNib(XibNames.DiskViewXibName) as! DiskView
     let diskWidth = CGFloat(disk.width)
     let diskHeight = CGFloat(Disk.height)
@@ -171,12 +171,12 @@ ViewControllerProtocol, DiskViewDelegate {
   }
   
   func clearDisks() {
-    let diskViews = diskViewToDiskMap.keys.array
+    let diskViews = diskViewToDiskMap.keys.elements
     for diskView in diskViews {
       diskView.removeFromSuperview()
     }
     diskViewToDiskMap.removeAll(keepCapacity: false)
-    println("diskViewToDiskMap count: \(diskViewToDiskMap.count)")
+    print("diskViewToDiskMap count: \(diskViewToDiskMap.count)")
     model.clearDisks()
   }
   
@@ -231,7 +231,7 @@ ViewControllerProtocol, DiskViewDelegate {
     self.view.layoutIfNeeded()
     self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
     UIView.animateWithDuration(0.4, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity,
-      options: nil, animations: { [weak self]() -> Void in
+      options: [], animations: { [weak self]() -> Void in
         if let strongSelf = self {
           strongSelf.view.layoutIfNeeded()
         }

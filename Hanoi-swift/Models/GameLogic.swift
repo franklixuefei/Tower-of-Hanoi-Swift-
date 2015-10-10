@@ -100,8 +100,8 @@ class GameLogic: NSObject {
     }
     didSet {
       if !validateState() {
-        println("Invalid state: \(previousGameState.description) state is not "
-          + "a prior state to \(gameState.description) state.")
+        print("Invalid state: \(previousGameState.description) state is not "
+          + "a prior state to \(gameState.description) state.", terminator: "")
         gameState = previousGameState
         return
       }
@@ -154,12 +154,12 @@ class GameLogic: NSObject {
   
   private func validateState() -> Bool {
     if let prevStates = gameStateNFA[gameState] {
-      return contains(prevStates, previousGameState)
+      return prevStates.contains(previousGameState)
     }
     return false
   }
   
-  func createDisks(#largestDiskWidth: Double, numberOfDisks: Int, maximumDiskPileHeight: Double) -> [Disk] {
+  func createDisks(largestDiskWidth largestDiskWidth: Double, numberOfDisks: Int, maximumDiskPileHeight: Double) -> [Disk] {
     let smallestDiskWidth = largestDiskWidth / UIConstant.largeSmallDiskWidthRatio
     if Double(numberOfDisks) * Disk.height > maximumDiskPileHeight - UIConstant.diskHeightOffset {
       Disk.height = (maximumDiskPileHeight - Disk.height) / Double(numberOfDisks)
@@ -196,10 +196,10 @@ class GameLogic: NSObject {
     poleStackForPoleType[.BufferPole]?.removeAll(keepCapacity: false)
     poleStackForPoleType[.DestinationPole]?.removeAll(keepCapacity: false)
     operationStack.removeAll(keepCapacity: false)
-    println("originalPoleStack count: \(poleStackForPoleType[.OriginalPole]?.count)")
-    println("bufferPoleStack count: \(poleStackForPoleType[.BufferPole]?.count)")
-    println("destinationPoleStack count: \(poleStackForPoleType[.DestinationPole]?.count)")
-    println("operationStack count: \(operationStack.count)")
+    print("originalPoleStack count: \(poleStackForPoleType[.OriginalPole]?.count)")
+    print("bufferPoleStack count: \(poleStackForPoleType[.BufferPole]?.count)")
+    print("destinationPoleStack count: \(poleStackForPoleType[.DestinationPole]?.count)")
+    print("operationStack count: \(operationStack.count)")
   }
   
   func pileHeight(poleType type: PoleType) -> Double {
@@ -217,7 +217,7 @@ class GameLogic: NSObject {
     return false
   }
   
-  func shouldDiskPlaceToPole(#disk: Disk, pole: PoleType) -> Bool {
+  func shouldDiskPlaceToPole(disk disk: Disk, pole: PoleType) -> Bool {
     if let topDisk = poleStackForPoleType[pole]?.last {
       return topDisk.width > disk.width
     }

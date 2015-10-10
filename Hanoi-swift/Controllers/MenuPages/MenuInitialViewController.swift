@@ -21,11 +21,11 @@ class MenuInitialViewController: MenuBaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    startButton = MenuButton.buttonWithType(.Custom) as! MenuButton
+    startButton = MenuButton(type: .Custom) 
     startButton.setTitle("Start", forState: .Normal)
     contentView.addSubview(startButton)
     startButton.addTarget(self, action: "startPressed", forControlEvents: .TouchUpInside)
-    settingsButton = MenuButton.buttonWithType(.Custom) as! MenuButton
+    settingsButton = MenuButton(type: .Custom) 
     settingsButton.setTitle("Settings", forState: .Normal)
     contentView.addSubview(settingsButton)
     settingsButton.addTarget(self, action: "settingsPressed", forControlEvents: .TouchUpInside)

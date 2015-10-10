@@ -9,9 +9,7 @@
 import UIKit
 
 class ConfirmableButton: MenuButton {
-  
-  lazy var targetActionsMap = [NSObject, [AnyObject]]()
-  
+
   var yesButton: BaseButton?
   var noButton: BaseButton?
   var token: dispatch_once_t = 0
@@ -31,7 +29,7 @@ class ConfirmableButton: MenuButton {
     setup()
   }
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -67,8 +65,8 @@ class ConfirmableButton: MenuButton {
   }
   
   private func setup() {
-    yesButton = (BaseButton.buttonWithType(.Custom) as! BaseButton)
-    noButton = (BaseButton.buttonWithType(.Custom) as! BaseButton)
+    yesButton = BaseButton(type: .Custom)
+    noButton = BaseButton(type: .Custom)
     yesButton?.setTitle(yesButtonText, forState: .Normal)
     noButton?.setTitle(noButtonText, forState: .Normal)
     yesButton?.layer.opacity = 0

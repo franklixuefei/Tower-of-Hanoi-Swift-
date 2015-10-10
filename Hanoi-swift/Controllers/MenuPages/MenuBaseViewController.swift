@@ -22,7 +22,7 @@ class MenuBaseViewController: UIViewController {
     let view = UIView()
     self.view = view
     self.view.addSubview(contentView)
-    contentView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    contentView.translatesAutoresizingMaskIntoConstraints = false
     contentViewWidthConstraint = NSLayoutConstraint(item: contentView, attribute: .Width, relatedBy: .Equal,
       toItem: nil, attribute: .Width, multiplier: 0, constant: CGFloat(UIConstant.menuContentViewWidthSmall))
     contentView.addConstraint(contentViewWidthConstraint)

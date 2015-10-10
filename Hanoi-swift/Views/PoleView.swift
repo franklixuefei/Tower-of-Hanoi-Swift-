@@ -34,7 +34,7 @@ class PoleView: UIView {
     setup()
   }
   
-  required init(coder aDecoder: NSCoder) {
+  required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
     setup()
   }
@@ -42,12 +42,12 @@ class PoleView: UIView {
   private func setup() {
     poleView = UIView.viewFromNib(XibNames.PoleViewXibName, owner: self)
     self.addSubview(poleView)
-    poleView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    poleView.translatesAutoresizingMaskIntoConstraints = false
     let viewsDict = ["pole": poleView]
     self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "H:|[pole]|", options: nil, metrics: nil, views: viewsDict))
+      "H:|[pole]|", options: [], metrics: nil, views: viewsDict))
     self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "V:|[pole]|", options: nil, metrics: nil, views: viewsDict))
+      "V:|[pole]|", options: [], metrics: nil, views: viewsDict))
   }
   
 }

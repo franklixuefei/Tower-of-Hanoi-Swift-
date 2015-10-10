@@ -21,11 +21,11 @@ class MenuPausedViewController: MenuBaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    restartButton = ConfirmableButton.buttonWithType(.Custom) as! ConfirmableButton
+    restartButton = ConfirmableButton(type: .Custom) 
     restartButton.setTitle("Restart", forState: .Normal)
     contentView.addSubview(restartButton)
     restartButton.addTarget(self, action: "restartPressed", forControlEvents: .TouchUpInside)
-    quitButton = ConfirmableButton.buttonWithType(.Custom) as! ConfirmableButton
+    quitButton = ConfirmableButton(type: .Custom) 
     quitButton.setTitle("Quit", forState: .Normal)
     contentView.addSubview(quitButton)
     quitButton.addTarget(self, action: "quitPressed", forControlEvents: .TouchUpInside)

@@ -24,11 +24,11 @@ class MenuResultViewController: MenuBaseViewController {
     super.viewDidLoad()
     self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
     scrollView = MenuScrollView()
-    scrollView.setTranslatesAutoresizingMaskIntoConstraints(false)
+    scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil,
       attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeightLarge)))
     contentView.addSubview(scrollView)
-    okButton = MenuButton.buttonWithType(.Custom) as! MenuButton
+    okButton = MenuButton(type: .Custom) 
     if hasWon {
       okButton.setTitle("Got It!", forState: .Normal)
       // TODO: result wording textView added as a subview to scrollView

@@ -15,34 +15,34 @@ class RippleTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
   weak var transitionContext: UIViewControllerContextTransitioning?
   var presenting = true
   
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning) -> NSTimeInterval {
+  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
     return UIConstant.rippleAnimatorTransitionDuration;
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     self.transitionContext = transitionContext
     
-    var containerView = transitionContext.containerView()
-    var fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-    var toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-    var button = (fromViewController as! ViewControllerProtocol).dotButton
-    
-    if presenting {
-      containerView.addSubview(toViewController.view)
-    } else {
-      containerView.addSubview(fromViewController.view)
-    }
-    
-    var circleMaskPathInitial = UIBezierPath(ovalInRect: button.frame)
+    let containerView = transitionContext.containerView()
+    let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+    let button = (fromViewController as! ViewControllerProtocol).dotButton
+    if let containerView = containerView {
+      if presenting {
+        containerView.addSubview(toViewController.view)
+      } else {
+        containerView.addSubview(fromViewController.view)
+      }
+    }    
+    let circleMaskPathInitial = UIBezierPath(ovalInRect: button.frame)
     let viewBoundWidth = CGRectGetWidth(toViewController.view.bounds)
     let viewBoundHeight = CGRectGetHeight(toViewController.view.bounds)
     let buttonBoundWidth = CGRectGetWidth(button.bounds)
     let buttonBoundHeight = CGRectGetHeight(button.bounds)
     let radius = sqrt(pow(viewBoundWidth - button.center.x, 2) + pow(viewBoundHeight - button.center.y, 2))
     let dx = -(radius-0.5*buttonBoundWidth), dy = -(radius-0.5*buttonBoundHeight)
-    var circleMaskPathFinal = UIBezierPath(ovalInRect: CGRectInset(button.frame, dx, dy))
+    let circleMaskPathFinal = UIBezierPath(ovalInRect: CGRectInset(button.frame, dx, dy))
     
-    var maskLayer = CAShapeLayer()
+    let maskLayer = CAShapeLayer()
     maskLayer.path = circleMaskPathFinal.CGPath
     if presenting {
       toViewController.view.layer.mask = maskLayer
@@ -51,7 +51,7 @@ class RippleTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
     }
     
     
-    var maskLayerAnimation = CABasicAnimation(keyPath: "path")
+    let maskLayerAnimation = CABasicAnimation(keyPath: "path")
     maskLayerAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
     if presenting {
       maskLayerAnimation.fromValue = circleMaskPathInitial.CGPath
@@ -72,7 +72,7 @@ class RippleTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
     maskLayer.addAnimation(maskLayerAnimation, forKey: "path")
   }
   
-  override func animationDidStop(anim: CAAnimation!, finished flag: Bool) {
+  override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
     self.transitionContext?.completeTransition(!self.transitionContext!.transitionWasCancelled())
     let key = presenting ? UITransitionContextToViewControllerKey : UITransitionContextFromViewControllerKey
     self.transitionContext?.viewControllerForKey(key)?.view.layer.mask = nil

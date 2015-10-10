@@ -26,11 +26,11 @@ class MenuSettingsControlView: UIView {
   var controlView: UIView? {
     didSet {
       controlContainerView.addSubview(controlView!)
-      controlView!.setTranslatesAutoresizingMaskIntoConstraints(false)
+      controlView!.translatesAutoresizingMaskIntoConstraints = false
       let views = ["view": controlView!]
-      controlContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: nil,
+      controlContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [],
         metrics: nil, views: views))
-      controlContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: nil,
+      controlContainerView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: [],
         metrics: nil, views: views))
     }
   }

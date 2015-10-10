@@ -28,7 +28,7 @@ extension UIView {
   }
   @IBInspectable var borderColor: UIColor? {
     get {
-      return UIColor(CGColor: layer.borderColor)
+      return UIColor(CGColor: layer.borderColor!)
     }
     set {
       layer.borderColor = newValue?.CGColor
@@ -60,28 +60,28 @@ extension UIView {
 }
 
 extension UIColor {
-  class func color(#hexValue: UInt, alpha: CGFloat) -> UIColor {
+  class func color(hexValue hexValue: UInt, alpha: CGFloat) -> UIColor {
     return UIColor(red: CGFloat((hexValue & 0xFF0000) >> 16) / 255.0, green: CGFloat((hexValue & 0xFF00) >> 8) / 255.0,
       blue: CGFloat((hexValue & 0xFF)) / 255.0, alpha: alpha)
   }
   
-  class func color(#r: UInt, g: UInt, b: UInt, a: CGFloat) -> UIColor {
+  class func color(r r: UInt, g: UInt, b: UInt, a: CGFloat) -> UIColor {
     return UIColor(red: CGFloat(r)/255.0, green: CGFloat(g)/255.0, blue: CGFloat(b)/255.0, alpha: a)
   }
 }
 
 extension UIFont {
   class func ayuthayaFontWithSize(size: CGFloat) -> UIFont? {
-    return self(name: "ayuthaya", size: size)
+    return self.init(name: "ayuthaya", size: size)
   }
 }
 
 extension NSLayoutConstraint {
   
   // reference: https://github.com/evgenyneu/center-vfl
-  class func centerViewToSuperview(#view: UIView, superview: UIView) {
-    assert(contains(superview.subviews as! [UIView], view), "view is not a subview of superview")
-    view.setTranslatesAutoresizingMaskIntoConstraints(false)
+  class func centerViewToSuperview(view view: UIView, superview: UIView) {
+    assert((superview.subviews ).contains(view), "view is not a subview of superview")
+    view.translatesAutoresizingMaskIntoConstraints = false
     let views = ["superview":superview, "view":view]
     let verticalConstraints = NSLayoutConstraint.constraintsWithVisualFormat("V:[superview]-(<=1)-[view]",
       options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: views)
