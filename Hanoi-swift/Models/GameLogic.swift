@@ -230,10 +230,4 @@ class GameLogic: NSObject {
     }
   }
   
-  func hasLost() {
-    if true /* TODO: timer has gone off */ {
-      gameState = .Ended(hasWon: false)
-    }
-  }
-  
 }

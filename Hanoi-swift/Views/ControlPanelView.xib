@@ -7,6 +7,8 @@
     <customFonts key="customFonts">
         <mutableArray key="Ayuthaya.ttf">
             <string>Ayuthaya</string>
+            <string>Ayuthaya</string>
+            <string>Ayuthaya</string>
         </mutableArray>
     </customFonts>
     <objects>
@@ -62,21 +64,41 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:12:12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe6-yo-hvf">
+                    <rect key="frame" x="302" y="73" width="130" height="38"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Ayuthaya" family="Ayuthaya" pointSize="27"/>
+                    <color key="textColor" white="0.40468236019736842" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVf-UY-rsx">
+                    <rect key="frame" x="693" y="73" width="17" height="38"/>
+                    <animations/>
+                    <fontDescription key="fontDescription" name="Ayuthaya" family="Ayuthaya" pointSize="27"/>
+                    <color key="textColor" white="0.39710629111842105" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <animations/>
             <color key="backgroundColor" red="0.83529411764705885" green="1" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="0hh-PX-geK" secondAttribute="bottom" constant="10" id="4iD-Yu-VAs"/>
                 <constraint firstItem="0hh-PX-geK" firstAttribute="leading" secondItem="d3v-Wi-b5B" secondAttribute="leading" constant="20" id="F9l-nu-bMm"/>
+                <constraint firstItem="CVf-UY-rsx" firstAttribute="centerY" secondItem="qe6-yo-hvf" secondAttribute="centerY" id="Nc9-0m-rYj"/>
+                <constraint firstItem="qe6-yo-hvf" firstAttribute="centerY" secondItem="YBN-Qe-drW" secondAttribute="centerY" id="WD8-PJ-fEZ"/>
+                <constraint firstItem="qe6-yo-hvf" firstAttribute="centerX" secondItem="d3v-Wi-b5B" secondAttribute="centerX" id="Wjt-rr-PLY"/>
                 <constraint firstAttribute="bottom" secondItem="YBN-Qe-drW" secondAttribute="bottom" constant="9" id="Z46-ym-uHs"/>
                 <constraint firstItem="YBN-Qe-drW" firstAttribute="leading" secondItem="0hh-PX-geK" secondAttribute="trailing" constant="40" id="fmA-fj-4EN"/>
+                <constraint firstAttribute="trailing" secondItem="CVf-UY-rsx" secondAttribute="trailing" constant="25" id="osb-gO-GBK"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="counterLabel" destination="CVf-UY-rsx" id="wvk-yl-4V8"/>
                 <outlet property="levelLabel" destination="YBN-Qe-drW" id="w3H-Ty-W9h"/>
+                <outlet property="timerLabel" destination="qe6-yo-hvf" id="S0q-uX-TdW"/>
             </connections>
             <point key="canvasLocation" x="401.5" y="374"/>
         </view>

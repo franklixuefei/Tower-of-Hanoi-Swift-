@@ -19,6 +19,12 @@ ViewControllerProtocol, DiskViewDelegate {
   var controlPanelView: ControlPanelView!
   lazy var diskViewToDiskMap = [DiskView:Disk]()
   
+  var intervalPoller: NSTimer?
+  var timer = Timer()
+  var timerCountUp = true
+  
+  var counter = 0
+  
   var controlPanelHorizontalPositionConstraint: NSLayoutConstraint!
   
   private func setupControlPanel() {
@@ -67,7 +73,12 @@ ViewControllerProtocol, DiskViewDelegate {
     registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
       (this) -> Void in
       print("game mode changed to: \(this.model.gameMode.description)")
-      // do not need to do anything here actually...
+      switch this.model.gameMode {
+      case .Casual:
+        this.timerCountUp = true
+      case .Challenge:
+        this.timerCountUp = false
+      }
     }
     registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {
       (this) -> Void in
@@ -163,6 +174,7 @@ ViewControllerProtocol, DiskViewDelegate {
         diskView.center = CGPointMake(diskCenterX, diskCenterY)
         }, completion: { [weak self](completed) -> Void in
           if let strongSelf = self {
+            // check game won after placing the disk
             strongSelf.model.hasWon()
           }
       })
@@ -186,7 +198,8 @@ ViewControllerProtocol, DiskViewDelegate {
   private func prepareGame() {
     if model.previousGameState != .Empty && model.previousGameState != .Prepared {
       hideControlPanel()
-      // TODO: reset timer and step counter
+      resetTimer()
+      resetCounter()
     }
     if model.previousGameState != .Empty {
       clearDisks()
@@ -200,27 +213,28 @@ ViewControllerProtocol, DiskViewDelegate {
     if model.previousGameState == .Prepared {
       showControlPanel()
     } else if model.previousGameState == .Paused {
-      // TODO: reset timer and counter
+      resetTimer()
+      resetCounter()
       clearDisks()
       initiateDisks()
     }
-    // TODO: start counting steps and kick off timer
+    startTimer()
   }
   
   // gameState has changed to .Paused
   private func pauseGame() {
+    pauseTimer()
     showMenu()
-    // TODO: pause timer and step counter
   }
   
   // gameState has changed to .Resumed
   private func resumeGame() {
-    // TODO: resume counting steps and resume timer
+    resumeTimer()
   }
   
   // gameState has changed to let .Ended(hasWon)
   private func endGame(hasWon: Bool) {
-    // TODO: stop the timer and step counter
+    pauseTimer()
     showMenu()
   }
   
@@ -246,6 +260,42 @@ ViewControllerProtocol, DiskViewDelegate {
         strongSelf.view.layoutIfNeeded()
       }
     }, completion: nil)
+  }
+  
+  private func resetTimer() {
+    pauseTimer()
+    timer.invalidate(countUp: timerCountUp, level: model.gameLevel)
+    controlPanelView.timerString = timer.toString()
+  }
+  
+  private func startTimer() {
+    resetTimer()
+    intervalPoller = NSTimer.schedule(repeatInterval: 1.0, handler: poll)
+  }
+  
+  private func pauseTimer() {
+    if let poller = intervalPoller {
+      poller.invalidate()
+      intervalPoller = nil
+    }
+  }
+  
+  private func resumeTimer() {
+    pauseTimer()
+    intervalPoller = NSTimer.schedule(repeatInterval: 1.0, handler: poll)
+  }
+  
+  private func resetCounter() {
+    counter = 0;
+    controlPanelView.count = counter;
+  }
+  
+  private func incrementCounter() {
+    controlPanelView.count = ++counter
+  }
+  
+  private func decrementCounter() {
+    controlPanelView.count = --counter
   }
   
   private func poleTypeForPoint(point: CGPoint) -> PoleType? {
@@ -295,6 +345,7 @@ ViewControllerProtocol, DiskViewDelegate {
         if let poleType = poleTypeForPoint(diskView.center) {
           if model.shouldDiskPlaceToPole(disk: disk, pole: poleType) {
             placeDisk(diskView, onPole: poleType, animated: true)
+            incrementCounter()
           } else {
             fallthrough
           }
@@ -317,4 +368,15 @@ ViewControllerProtocol, DiskViewDelegate {
       return false
     }
   }
+  
+  // MARK: NSTimer closure
+  private func poll(nsTimer:NSTimer!) {
+    let timerStatus = timerCountUp ? timer.increment() : timer.decrement()
+    controlPanelView.timerString = timer.toString()
+    if !timerStatus {
+      // game lost
+      model.gameState = .Ended(hasWon: false)
+    }
+  }
+  
 }

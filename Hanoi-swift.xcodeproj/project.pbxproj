@@ -48,6 +48,7 @@
 		151541F31B8C210C00071650 /* MenuResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541F21B8C210C00071650 /* MenuResultViewController.swift */; };
 		151541F91B8C30E400071650 /* MenuBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541F81B8C30E400071650 /* MenuBaseViewController.swift */; };
 		151541FB1B8C428200071650 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541FA1B8C428200071650 /* BaseButton.swift */; };
+		15A4F9BB1BD31618009F813A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A4F9BA1BD31618009F813A /* Timer.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		151541F21B8C210C00071650 /* MenuResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuResultViewController.swift; sourceTree = "<group>"; };
 		151541F81B8C30E400071650 /* MenuBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBaseViewController.swift; sourceTree = "<group>"; };
 		151541FA1B8C428200071650 /* BaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		15A4F9BA1BD31618009F813A /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				151541A71B805E5900071650 /* GameLogic.swift */,
+				15A4F9BA1BD31618009F813A /* Timer.swift */,
 				151541D71B86904D00071650 /* Disk.swift */,
 				151541D91B89A15100071650 /* NotificationManager.swift */,
 			);
@@ -390,6 +393,7 @@
 				150DF0BF1B917F6100080B91 /* MenuScrollView.swift in Sources */,
 				151541A61B805E2E00071650 /* MenuViewController.swift in Sources */,
 				151541CC1B85A22100071650 /* RippleTransitionAnimator.swift in Sources */,
+				15A4F9BB1BD31618009F813A /* Timer.swift in Sources */,
 				151541CA1B851C9500071650 /* ControlPanelView.swift in Sources */,
 				151541FB1B8C428200071650 /* BaseButton.swift in Sources */,
 				150DF0C11B9181C300080B91 /* MenuSlider.swift in Sources */,

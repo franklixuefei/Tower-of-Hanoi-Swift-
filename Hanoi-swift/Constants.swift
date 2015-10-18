@@ -28,6 +28,9 @@ struct LogicConstant {
   static let loseTitle = "You Lose..."
   static let casualModeString = "Casual"
   static let challengeModeString = "Challenge"
+  static let timerHourUpperBound = 99
+  static let secondBase = 60
+  static let minuteBase = 60
 }
 
 struct InfrastructureConstant {
