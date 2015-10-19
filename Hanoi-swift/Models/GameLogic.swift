@@ -230,4 +230,31 @@ class GameLogic: NSObject {
     }
   }
   
+  /*
+  var trackmove = function(orig, origPile, des, desPile) { // helper
+  var topDisk = orig.pop();
+  changingArray.push([origPile, [desPile, des.length], topDisk]);
+  des.push(topDisk);
+  };
+  var calcHanoi = function(orig, des, buf, origPile, desPile, bufPile, n) { //
+  if (!n) return;
+  calcHanoi(orig, buf, des, origPile, bufPile, desPile, n-1);
+  trackmove(orig, origPile, des, desPile);
+  calcHanoi(buf, des, orig, bufPile, desPile, origPile, n-1);
+  };
+  */
+  
+  private func trackmove(original original: PoleType, destination: PoleType) {
+    operationStack.append((from: original, to: destination))
+  }
+  
+  func solve(original original: PoleType, buffer: PoleType, destination: PoleType, numDisks: Int) {
+    if numDisks <= 0 {
+      return
+    }
+    solve(original: original, buffer: destination, destination: buffer, numDisks: numDisks-1)
+    trackmove(original: original, destination: destination)
+    solve(original: buffer, buffer: original, destination: destination, numDisks: numDisks-1)
+  }
+  
 }

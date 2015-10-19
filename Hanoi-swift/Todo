@@ -1,7 +1,5 @@
-1. operationStack for replay and AI solving animations
-2. add timer and step counter
-3. mode logic
+1. replay mode - when in this mode, don't record operations, and disable user interaction and timer. UI also applies to this mode
+2. add timer and step counter -- done
 4. NSUserDefault to store the current status
 5. result menu pages
 6. evaluate game result according to # of disks on the destination pole
-7. check for game end. (destinationPoleStack.count == model.gameLevel in casual mode, or time up in challenge mode)

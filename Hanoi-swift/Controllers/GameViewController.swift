@@ -18,6 +18,7 @@ ViewControllerProtocol, DiskViewDelegate {
   var gameSceneView: GameSceneView!
   var controlPanelView: ControlPanelView!
   lazy var diskViewToDiskMap = [DiskView:Disk]()
+  lazy var diskViewsForPole = [PoleType:[DiskView]]() // the last element in each array is the top diskview
   
   var intervalPoller: NSTimer?
   var timer = Timer()
@@ -41,6 +42,11 @@ ViewControllerProtocol, DiskViewDelegate {
       relatedBy: .Equal, toItem: self.view, attribute: .Top, multiplier: 1,
       constant: CGFloat(-UIConstant.controlPanelHeight))
     self.view.addConstraint(controlPanelHorizontalPositionConstraint)
+    
+    let doubleTap = UITapGestureRecognizer(target: self, action: "timerLabelTapped")
+    doubleTap.numberOfTapsRequired = 2
+    controlPanelView.timerLabel.userInteractionEnabled = true
+    controlPanelView.timerLabel.addGestureRecognizer(doubleTap)
   }
   
   override func loadView() {
@@ -158,6 +164,35 @@ ViewControllerProtocol, DiskViewDelegate {
     return diskView
   }
   
+  func moveDisk(diskView: DiskView, toPole type: PoleType, animated: Bool) {
+    if let disk = diskViewToDiskMap[diskView] {
+      let fromPole = gameSceneView.poleViewForPoleType(disk.onPole!)
+      let toPole = gameSceneView.poleViewForPoleType(type)
+      
+      let poleBaseFrame = fromPole.convertRect(fromPole.poleBase.frame, toView: gameSceneView)
+      var poleStickCenter = fromPole.convertPoint(fromPole.poleStick.center, toView: gameSceneView)
+      var poleStickCenterX = poleStickCenter.x
+      var diskCenterX = poleStickCenterX
+      let diskCenterY = poleBaseFrame.origin.y - (fromPole.poleStickHeight + CGFloat(0.5*Disk.height))
+      
+      UIView.animateWithDuration(animated ? 0.3 : 0, delay: 0, options: .CurveEaseIn,
+        animations: { () -> Void in
+          diskView.center = CGPointMake(diskCenterX, diskCenterY)
+        }, completion: nil
+      )
+      
+      poleStickCenter = toPole.convertPoint(toPole.poleStick.center, toView: gameSceneView)
+      poleStickCenterX = poleStickCenter.x
+      diskCenterX = poleStickCenterX
+      
+      UIView.animateWithDuration(animated ? 0.3 : 0, delay: animated ? 0.3 : 0, options: .CurveLinear,
+        animations: { () -> Void in
+          diskView.center = CGPointMake(diskCenterX, diskCenterY)
+        }, completion: nil
+      )
+    }
+  }
+  
   func placeDisk(diskView: DiskView, onPole type: PoleType, animated: Bool) {
     if let disk = diskViewToDiskMap[diskView] {
       let pole = gameSceneView.poleViewForPoleType(type)
@@ -168,17 +203,29 @@ ViewControllerProtocol, DiskViewDelegate {
       let poleStickCenter = pole.convertPoint(pole.poleStick.center, toView: gameSceneView)
       let poleStickCenterX = poleStickCenter.x
       let diskCenterX = poleStickCenterX
-      let diskCenterY = poleBaseFrame.origin.y -
-        CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
-      UIView.animateWithDuration(animated ? 0.3 : 0, animations: { () -> Void in
-        diskView.center = CGPointMake(diskCenterX, diskCenterY)
-        }, completion: { [weak self](completed) -> Void in
+      let diskCenterY = poleBaseFrame.origin.y - CGFloat(model.pileHeight(poleType: type) + 0.5*Disk.height)
+      UIView.animateWithDuration(animated ? 0.3 : 0, delay: 0, options: .CurveEaseOut,
+        animations: { () -> Void in
+          diskView.center = CGPointMake(diskCenterX, diskCenterY)
+        },
+        completion: { [weak self](completed) -> Void in
           if let strongSelf = self {
             // check game won after placing the disk
             strongSelf.model.hasWon()
           }
-      })
+        }
+      )
+      if let fromPole = disk.onPole {
+        diskViewsForPole[fromPole]?.removeLast()
+      }
       model.placeDisk(disk, onPole: type)
+      if diskViewsForPole[type] == nil {
+        diskViewsForPole[type] = [DiskView]()
+      }
+      diskViewsForPole[type]?.append(diskView)
+      print("originalPoleDiskViewsCount: \(diskViewsForPole[.OriginalPole]?.count)")
+      print("bufferPoleDiskViewsCount: \(diskViewsForPole[.BufferPole]?.count)")
+      print("destinationPoleDiskViewsCount: \(diskViewsForPole[.DestinationPole]?.count)")
     }
   }
   
@@ -188,6 +235,7 @@ ViewControllerProtocol, DiskViewDelegate {
       diskView.removeFromSuperview()
     }
     diskViewToDiskMap.removeAll(keepCapacity: false)
+    diskViewsForPole.removeAll()
     print("diskViewToDiskMap count: \(diskViewToDiskMap.count)")
     model.clearDisks()
   }
@@ -270,7 +318,7 @@ ViewControllerProtocol, DiskViewDelegate {
   
   private func startTimer() {
     resetTimer()
-    intervalPoller = NSTimer.schedule(repeatInterval: 1.0, handler: poll)
+    intervalPoller = NSTimer.schedule(repeatInterval: 1.0, block: poll)
   }
   
   private func pauseTimer() {
@@ -282,7 +330,7 @@ ViewControllerProtocol, DiskViewDelegate {
   
   private func resumeTimer() {
     pauseTimer()
-    intervalPoller = NSTimer.schedule(repeatInterval: 1.0, handler: poll)
+    intervalPoller = NSTimer.schedule(repeatInterval: 1.0, block: poll)
   }
   
   private func resetCounter() {
@@ -371,12 +419,54 @@ ViewControllerProtocol, DiskViewDelegate {
   
   // MARK: NSTimer closure
   private func poll(nsTimer:NSTimer!) {
-    let timerStatus = timerCountUp ? timer.increment() : timer.decrement()
-    controlPanelView.timerString = timer.toString()
-    if !timerStatus {
-      // game lost
-      model.gameState = .Ended(hasWon: false)
+    Utility.dispatchToMainThread { [weak self]() -> Void in
+      if let strongSelf = self {
+        let timerStatus = strongSelf.timerCountUp ? strongSelf.timer.increment() : strongSelf.timer.decrement()
+        strongSelf.controlPanelView.timerString = strongSelf.timer.toString()
+        if !timerStatus {
+          // game lost
+          strongSelf.model.gameState = .Ended(hasWon: false)
+        }
+      }
     }
+  }
+  
+  // MARK: hanoi solver
+  
+  private func animateDisks(operationStack operationStack: [(from: PoleType, to: PoleType)], index: Int) {
+    if index == operationStack.count {
+      return
+    }
+    let operation = operationStack[index]
+    if let diskView = diskViewsForPole[operation.from]?.last {
+      if let disk = diskViewToDiskMap[diskView] {
+        if model.shouldDiskPlaceToPole(disk: disk, pole: operation.to) {
+          moveDisk(diskView, toPole: operation.to, animated: true)
+          NSTimer.schedule(delay: 0.6) { [weak self]timer -> Void in
+            if let strongSelf = self {
+              strongSelf.placeDisk(diskView, onPole: operation.to, animated: true)
+              strongSelf.incrementCounter()
+            }
+          }
+        }
+      }
+    }
+    NSTimer.schedule(delay: 0.95){ [weak self]timer -> Void in
+      Utility.dispatchToMainThread { [weak self]() -> Void in
+        if let strongSelf = self {
+          strongSelf.animateDisks(operationStack: operationStack, index: index+1)
+        }
+      }
+    }
+  }
+  
+  // MARK: timerLabel double tap event
+  @objc private func timerLabelTapped() {
+    model.solve(original: .OriginalPole, buffer: .BufferPole, destination: .DestinationPole, numDisks: model.gameLevel)
+    print("steps: \(model.operationStack.count) \n \(model.operationStack)")
+    let operationStack = model.operationStack
+    model.operationStack.removeAll()
+    animateDisks(operationStack: operationStack, index: 0);
   }
   
 }

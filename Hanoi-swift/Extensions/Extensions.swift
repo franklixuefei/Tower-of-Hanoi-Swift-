@@ -140,9 +140,9 @@ extension NSTimer {
   
   :returns: The newly-created `NSTimer` instance.
   */
-  class func schedule(delay delay: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer {
+  class func schedule(delay delay: NSTimeInterval, block: NSTimer! -> Void) -> NSTimer {
     let fireDate = delay + CFAbsoluteTimeGetCurrent()
-    let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, handler)
+    let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, 0, 0, 0, block)
     CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, kCFRunLoopCommonModes)
     return timer
   }
@@ -155,10 +155,25 @@ extension NSTimer {
   
   :returns: The newly-created `NSTimer` instance.
   */
-  class func schedule(repeatInterval interval: NSTimeInterval, handler: NSTimer! -> Void) -> NSTimer {
+  class func schedule(repeatInterval interval: NSTimeInterval, block: NSTimer! -> Void) -> NSTimer {
     let fireDate = interval + CFAbsoluteTimeGetCurrent()
-    let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, handler)
+    let timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, fireDate, interval, 0, 0, block)
     CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, kCFRunLoopCommonModes)
     return timer
+  }
+}
+
+class Utility {
+  class func delay(delay:Double, block:()->()) {
+    dispatch_after(
+      dispatch_time(
+        DISPATCH_TIME_NOW,
+        Int64(delay * Double(NSEC_PER_SEC))
+      ),
+      dispatch_get_main_queue(), block)
+  }
+  
+  class func dispatchToMainThread(block: () -> Void) {
+    dispatch_async(dispatch_get_main_queue(), block)
   }
 }
