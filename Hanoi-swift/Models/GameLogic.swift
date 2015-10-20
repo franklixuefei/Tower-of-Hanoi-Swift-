@@ -104,7 +104,6 @@ class GameLogic: NSObject {
       // FIXME: assertion
       assert(validateState(), "Invalid state: \(previousGameState.description) state is not "
         + "a prior state to \(gameState.description) state.")
-      gameState = previousGameState
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
         object: self)
     }
