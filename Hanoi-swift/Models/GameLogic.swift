@@ -152,6 +152,11 @@ class GameLogic: NSObject {
   // Records the operations during game play
   lazy var operationStack : [(from: PoleType, to: PoleType)] = []
   
+  var timer = Timer()
+  var timerCountUp = true
+  
+  var counter = 0
+  
   // MARK: - Helpers
   private func validateState() -> Bool {
     if let prevStates = gameStateNFA[gameState] {
@@ -166,6 +171,28 @@ class GameLogic: NSObject {
     } else {
       return 0
     }
+  }
+  
+  // Calculates the number of disks that have been moved to the destination peg.
+  // Note that only largest disks count.
+  func calculateNumDisksMovedOver() -> Int {
+    var count = 0
+    var bottomDiskWidthOnOriginal = 0.0
+    var bottomDiskWidthOnBuffer = 0.0
+    if let largestDiskOnOriginal = poleStackForPoleType[.OriginalPole]?.first {
+      bottomDiskWidthOnOriginal = largestDiskOnOriginal.width
+    }
+    if let largestDiskOnBuffer = poleStackForPoleType[.BufferPole]?.first {
+      bottomDiskWidthOnBuffer = largestDiskOnBuffer.width
+    }
+    for disk in poleStackForPoleType[.DestinationPole]! {
+      if disk.width > max(bottomDiskWidthOnOriginal, bottomDiskWidthOnBuffer) {
+        count++
+      } else {
+        break
+      }
+    }
+    return count
   }
   
   // MARK: - Disks life cycle

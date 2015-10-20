@@ -18,6 +18,7 @@ class MenuBaseViewController: UIViewController {
   
   var contentViewWidthConstraint: NSLayoutConstraint!
   
+  // MARK: - View controller life cycle
   override func loadView() {
     let view = UIView()
     self.view = view

@@ -92,6 +92,16 @@ extension NSLayoutConstraint {
     
     superview.addConstraints(horizontalConstraints)
   }
+  
+  class func pinViewToSuperview(view view: UIView, superview: UIView, paddings:(h:CGFloat, v:CGFloat) = (h:0, v:0)) {
+    assert((superview.subviews ).contains(view), "view is not a subview of superview")
+    view.translatesAutoresizingMaskIntoConstraints = false
+    let views = ["view": view]
+    superview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-\(paddings.h)-[view]-\(paddings.h)-|", options: [],
+      metrics: nil, views: views))
+    superview.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(paddings.v)-[view]-\(paddings.v)-|", options: [],
+      metrics: nil, views: views))
+  }
 }
 
 // Code reference: https://github.com/honghaoz/2048-Solver-AI

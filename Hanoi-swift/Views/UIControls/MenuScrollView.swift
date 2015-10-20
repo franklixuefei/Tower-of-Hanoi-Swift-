@@ -11,18 +11,27 @@ import UIKit
 class MenuScrollView: UIScrollView {
   lazy var contents = [UIView]()
   
-  private var verticalDirection = true
-  private var contentView: MenuContentView!
-  private var clearAppearance = false
+  private var scrollViewInset:CGFloat
+  private var scrollViewPadding:CGFloat
   
-  init(verticalDirection: Bool, clearAppearance: Bool = false) {
-    super.init(frame:CGRectZero)
+  private var verticalDirection: Bool
+  private var contentView: MenuContentView!
+  private var parentScrollView: Bool
+  
+  init(verticalDirection: Bool, parentScrollView: Bool = true, inset: CGFloat = 0, padding: CGFloat = 0) {
+    self.scrollViewInset = inset
+    self.scrollViewPadding = padding
     self.verticalDirection = verticalDirection
-    self.clearAppearance = clearAppearance
+    self.parentScrollView = parentScrollView
+    super.init(frame:CGRectZero)
     setup()
   }
   
   override init(frame: CGRect) {
+    self.scrollViewInset = 0
+    self.scrollViewPadding = 0
+    self.verticalDirection = true
+    self.parentScrollView = true
     super.init(frame: frame)
     setup()
   }
@@ -46,11 +55,11 @@ class MenuScrollView: UIScrollView {
     self.showsHorizontalScrollIndicator = false
     self.showsVerticalScrollIndicator = false
     contentView = MenuContentView(verticalDirection: verticalDirection)
-    if !clearAppearance {
+    if parentScrollView {
       if verticalDirection {
-        self.contentInset = UIEdgeInsetsMake(CGFloat(UIConstant.menuScrollViewInset), 0, 0, 0)
+        self.contentInset = UIEdgeInsetsMake(scrollViewInset, 0, scrollViewInset, 0)
       } else {
-        self.contentInset = UIEdgeInsetsMake(0, CGFloat(UIConstant.menuScrollViewInset), 0, 0)
+        self.contentInset = UIEdgeInsetsMake(0, scrollViewInset, 0, scrollViewInset)
       }
       self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.menuScrollViewBackgroundColor), alpha: 0.8)
       self.layer.cornerRadius = CGFloat(UIConstant.menuScrollViewCornerRadius)
@@ -58,12 +67,17 @@ class MenuScrollView: UIScrollView {
     }
     self.addSubview(contentView)
     contentView.translatesAutoresizingMaskIntoConstraints = false
-    let views = ["contentView":contentView, "self":self]
-    let hFormatString = verticalDirection ? "H:|[contentView(self)]|" : "H:|[contentView]|"
-    let vFormatString = verticalDirection ? "V:|[contentView]|" : "V:|[contentView(self)]|"
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(hFormatString, options: [], metrics: nil,
-      views: views))
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(vFormatString, options: [], metrics: nil,
-      views: views))
+    if verticalDirection {
+      let widthConstraint = NSLayoutConstraint(item: contentView, attribute: .Width, relatedBy: .Equal, toItem: self,
+        attribute: .Width, multiplier: 1.0, constant: -2.0*scrollViewPadding)
+      self.addConstraint(widthConstraint)
+      NSLayoutConstraint.pinViewToSuperview(view: contentView, superview: self, paddings: (h:scrollViewPadding, v:0))
+    } else {
+      let heightConstraint = NSLayoutConstraint(item: contentView, attribute: .Height, relatedBy: .Equal, toItem: self,
+        attribute: .Height, multiplier: 1.0, constant: -2.0*scrollViewPadding)
+      self.addConstraint(heightConstraint)
+      NSLayoutConstraint.pinViewToSuperview(view: contentView, superview: self, paddings: (h:0, v:scrollViewPadding))
+    }
+
   }
 }

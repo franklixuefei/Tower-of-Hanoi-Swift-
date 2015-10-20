@@ -19,6 +19,7 @@ class MenuPausedViewController: MenuBaseViewController {
   var quitButton: ConfirmableButton!
   weak var delegate: MenuPausedViewControllerDelegate?
   
+  // MARK: - View controller life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     restartButton = ConfirmableButton(type: .Custom) 
@@ -31,6 +32,7 @@ class MenuPausedViewController: MenuBaseViewController {
     quitButton.addTarget(self, action: "quitPressed", forControlEvents: .TouchUpInside)
   }
   
+  // MARK: - IBActions
   @objc private func restartPressed() {
     delegate?.restartButtonPressed()
   }

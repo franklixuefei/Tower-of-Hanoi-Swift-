@@ -32,6 +32,10 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     menuView.menuContainerView.addSubview(pageViewController.view)
     menuView.pinViewToContainerView(pageViewController.view)
     self.pageViewController.didMoveToParentViewController(self)
+    
+    // add gesture recognizer to MenuView
+    let dismissGesture = UITapGestureRecognizer(target: self, action: "dotPressed")
+    menuView.addGestureRecognizer(dismissGesture)
   }
   
   override func viewDidLoad() {
@@ -72,9 +76,12 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     case let .Ended(hasWon):
       endGame(hasWon)
       resultMenuPage.delegate = self
-      // TODO: let the model to evaluate the result data, and then pass the result data to resultMenuPage, 
-      // e.g., hasWon, time elapsed, steps taken, # disks on dest pole...
-      // and then maybe save the evaluated data to NSUserDefault
+      // TODO: maybe save the evaluated data to NSUserDefault
+      resultMenuPage.hasWon = hasWon
+      resultMenuPage.timeElapsedInSeconds = model.timer.timeElapsedInSeconds
+      resultMenuPage.stepsTaken = model.counter
+      resultMenuPage.level = model.gameLevel
+      resultMenuPage.numDisksOnDest = model.calculateNumDisksMovedOver()
       pageViewController.setViewControllers([resultMenuPage], direction: .Forward, animated: false, completion: nil)
     default:
       break
@@ -159,26 +166,31 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   }
   
   // MARK: - MenuResultViewControllerDelegate methods
-  func okButtonPressed() {
+  func okButtonPressed(nextLevel: Int) {
     pageViewController.setViewControllers([initialMenuPage], direction: .Reverse, animated: true, completion: nil)
     model.gameState = .Prepared
+    if nextLevel != model.gameLevel {
+      model.gameLevel = nextLevel
+    }
   }
   
   // MARK: - Helpers
   private func registerObserverForModel(notificationName notificationName: String!, block: (MenuViewController) -> Void) {
     NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
       [weak self](notification) -> Void in
-      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      Utility.dispatchToMainThread { () -> Void in
         if let strongSelf = self {
           block(strongSelf)
         }
-      })
+      }
     }
   }
   
   // MARK: - IBActions
   @IBAction func dotPressed() {
-    model.gameState = .Resumed
+    if model.gameState == .Paused {
+      model.gameState = .Resumed
+    }
   }
   
 }

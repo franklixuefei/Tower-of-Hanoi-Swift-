@@ -14,14 +14,17 @@ class Timer {
   var second:Int!
   var boundaryReached = false
   
+  var timeElapsedInSeconds = 0
+  
   func invalidate(countUp countUp:Bool, level:Int) {
     if countUp {
       hour = 0
       minute = 0
       second = 0
     } else {
-      (hour, minute, second) = initialTimeForLevel(level)
+      initiateChallengeTimeForLevel(level)
     }
+    timeElapsedInSeconds = 0
   }
   
   func increment() -> Bool {
@@ -37,6 +40,7 @@ class Timer {
     let hourCarry = minute / LogicConstant.minuteBase
     minute = minute % LogicConstant.minuteBase
     hour = hour + hourCarry
+    timeElapsedInSeconds++
     return true
   }
   
@@ -53,6 +57,7 @@ class Timer {
         hour = hour - 1
       }
     }
+    timeElapsedInSeconds++
     return true
   }
   
@@ -64,8 +69,32 @@ class Timer {
     }
   }
   
-  private func initialTimeForLevel(level:Int) -> (Int!, Int!, Int!) {
-    // TODO: decide the initial time for each level.
-    return (0,0,5)
+  private func initiateChallengeTimeForLevel(level:Int) {
+    var factor:Double
+    switch level {
+    case 2:
+      factor = 1.2
+    case 3:
+      factor = 1.25
+    case 4:
+      factor = 1.3
+    case 5:
+      factor = 1.45
+    case 6:
+      factor = 1.6
+    case 7:
+      factor = 1.75
+    case 8:
+      factor = 1.9
+    case 9:
+      factor = 2.1
+    default:
+      factor = 999.0
+    }
+    let seconds = pow(2.0, Double(level)) * factor
+    second = Int(round(seconds)) % LogicConstant.secondBase
+    minute = Int(round(seconds)) / LogicConstant.secondBase
+    hour = minute / LogicConstant.minuteBase
+    minute = minute % LogicConstant.minuteBase
   }
 }

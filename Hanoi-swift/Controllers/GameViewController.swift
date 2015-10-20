@@ -23,10 +23,6 @@ ViewControllerProtocol, DiskViewDelegate {
   lazy var diskViewsForPole = [PoleType:[DiskView]]() // the last element in each array is the top diskview
   
   var intervalPoller: NSTimer?
-  var timer = Timer()
-  var timerCountUp = true
-  
-  var counter = 0
   
   var replayMode = false // true when replaying the game or program solving the game
   
@@ -87,9 +83,9 @@ ViewControllerProtocol, DiskViewDelegate {
       print("game mode changed to: \(this.model.gameMode.description)")
       switch this.model.gameMode {
       case .Casual:
-        this.timerCountUp = true
+        this.model.timerCountUp = true
       case .Challenge:
-        this.timerCountUp = false
+        this.model.timerCountUp = false
       }
     }
     // registers the game level notification listener
@@ -118,11 +114,11 @@ ViewControllerProtocol, DiskViewDelegate {
   private func registerObserverForModel(notificationName notificationName: String!, block: (GameViewController) -> Void) {
     NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
       [weak self](notification) -> Void in
-      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+      Utility.dispatchToMainThread { () -> Void in
         if let strongSelf = self {
           block(strongSelf)
         }
-      })
+      }
     }
   }
   
@@ -332,8 +328,10 @@ ViewControllerProtocol, DiskViewDelegate {
   private func poll(nsTimer:NSTimer!) { // called by NSTimer to update the timer
     Utility.dispatchToMainThread { [weak self]() -> Void in
       if let strongSelf = self {
-        let timerStatus = strongSelf.timerCountUp ? strongSelf.timer.increment() : strongSelf.timer.decrement()
-        strongSelf.controlPanelView.timerString = strongSelf.timer.toString()
+        let timerStatus = strongSelf.model.timerCountUp ?
+          strongSelf.model.timer.increment() :
+          strongSelf.model.timer.decrement()
+        strongSelf.controlPanelView.timerString = strongSelf.model.timer.toString()
         if !timerStatus {
           // game lost
           strongSelf.model.gameState = .Ended(hasWon: false)
@@ -344,8 +342,8 @@ ViewControllerProtocol, DiskViewDelegate {
   
   private func resetTimer() {
     pauseTimer()
-    timer.invalidate(countUp: timerCountUp, level: model.gameLevel)
-    controlPanelView.timerString = timer.toString()
+    model.timer.invalidate(countUp: model.timerCountUp, level: model.gameLevel)
+    controlPanelView.timerString = model.timer.toString()
   }
   
   private func startTimer() {
@@ -367,16 +365,16 @@ ViewControllerProtocol, DiskViewDelegate {
   
   // MARK: - Counter controls
   private func resetCounter() {
-    counter = 0;
-    controlPanelView.count = counter;
+    model.counter = 0;
+    controlPanelView.count = model.counter;
   }
   
   private func incrementCounter() {
-    controlPanelView.count = ++counter
+    controlPanelView.count = ++model.counter
   }
   
   private func decrementCounter() {
-    controlPanelView.count = --counter
+    controlPanelView.count = --model.counter
   }
   
   // MARK: - UIViewControllerTransitioningDelegate methods
@@ -456,7 +454,7 @@ ViewControllerProtocol, DiskViewDelegate {
     if index == operationStack.count ||
       (model.gameState != .Started && model.gameState != .Resumed && model.gameState != .Paused) ||
       (model.previousGameState == .Paused && model.gameState == .Started) {
-      // algorithm finished or game not running or game restarted, stop the animation
+      // animation finished or game not running or game restarted, stop the animation
         replayMode = false
         return
     }

@@ -19,6 +19,7 @@ class MenuInitialViewController: MenuBaseViewController {
   var settingsButton: MenuButton!
   weak var delegate: MenuInitialViewControllerDelegate?
   
+  // MARK: - View controller life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     startButton = MenuButton(type: .Custom) 
@@ -31,6 +32,7 @@ class MenuInitialViewController: MenuBaseViewController {
     settingsButton.addTarget(self, action: "settingsPressed", forControlEvents: .TouchUpInside)
   }
   
+  // MARK: - IBActions
   @objc private func startPressed() {
     delegate?.startButtonPressed()
   }

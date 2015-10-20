@@ -19,12 +19,14 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
 
   var backButton: MenuButton!
   var scrollView: MenuScrollView!
+  var sliderView: MenuSlider!
   weak var delegate: MenuSettingsViewControllerDelegate?
   
+  // MARK: - View controller life cycle
   override func viewDidLoad() {
     super.viewDidLoad()
     self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
-    scrollView = MenuScrollView()
+    scrollView = MenuScrollView(verticalDirection: true, inset: CGFloat(UIConstant.menuScrollViewInset))
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil,
       attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeightSmall)))
@@ -39,11 +41,17 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
     backButton.addTarget(self, action: "backPressed", forControlEvents: .TouchUpInside)
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    sliderView.value = Float(delegate?.currentGameLevel() ?? Float(LogicConstant.minimumLevel))
+  }
+  
+  // MARK: - Helpers
   private func setupModeSettingsView() {
     let modeSettingsControl =
       UIView.viewFromNib(XibNames.MenuSettingsControlViewXibName, owner: self) as! MenuSettingsControlView
     modeSettingsControl.controlName = "Mode"
-    let modeScrollView = MenuScrollView(verticalDirection: false, clearAppearance: true)
+    let modeScrollView = MenuScrollView(verticalDirection: false, parentScrollView: false)
     modeScrollView.pagingEnabled = true
     modeScrollView.delegate = self
     modeSettingsControl.controlView = modeScrollView
@@ -66,15 +74,15 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
     let levelSettingsControl =
       UIView.viewFromNib(XibNames.MenuSettingsControlViewXibName, owner: self) as! MenuSettingsControlView
     levelSettingsControl.controlName = "Level"
-    let sliderView = MenuSlider()
+    sliderView = MenuSlider()
     sliderView.addTarget(self, action: "sliderValueChanged:", forControlEvents: .ValueChanged)
     sliderView.minimumValue = Float(LogicConstant.minimumLevel)
     sliderView.maximumValue = Float(LogicConstant.maximumLevel)
-    sliderView.value = Float(delegate?.currentGameLevel() ?? Float(LogicConstant.minimumLevel))
     levelSettingsControl.controlView = sliderView
     scrollView.addSubview(levelSettingsControl)
   }
   
+  // MARK: - IBActions
   @objc private func backPressed() {
     delegate?.backButtonPressed()
   }
@@ -84,6 +92,7 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
     delegate?.gameLevelSliderChanged(level)
   }
   
+  // MARK: - UIScrollViewDelegate methods
   func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
     if let menuScrollView = scrollView as? MenuScrollView {
       let contents = menuScrollView.contents
