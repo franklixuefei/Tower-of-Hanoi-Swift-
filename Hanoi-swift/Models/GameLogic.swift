@@ -173,14 +173,15 @@ class GameLogic: NSObject {
     return disks
   }
   
-  func placeDisk(disk: Disk, onPole type: PoleType) {
+  func placeDisk(disk: Disk, onPole type: PoleType, replayMode: Bool) {
     if let fromPole = disk.onPole {
-      if fromPole != type {
+      if fromPole != type && !replayMode {
         operationStack.append((from: fromPole, to: type))
       }
     }
     poleStackForPoleType[type]?.append(disk)
     disk.onPole = type
+    print("operationStack count: \(operationStack.count)")
   }
   
   func removeDisk(disk: Disk) -> Disk? {

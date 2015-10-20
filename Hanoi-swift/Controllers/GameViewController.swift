@@ -26,6 +26,8 @@ ViewControllerProtocol, DiskViewDelegate {
   
   var counter = 0
   
+  var replayMode = false // true when replaying the game or program solving the game
+  
   var controlPanelHorizontalPositionConstraint: NSLayoutConstraint!
   
   private func setupControlPanel() {
@@ -43,6 +45,7 @@ ViewControllerProtocol, DiskViewDelegate {
       constant: CGFloat(-UIConstant.controlPanelHeight))
     self.view.addConstraint(controlPanelHorizontalPositionConstraint)
     
+    // setup game solver control
     let doubleTap = UITapGestureRecognizer(target: self, action: "timerLabelTapped")
     doubleTap.numberOfTapsRequired = 2
     controlPanelView.timerLabel.userInteractionEnabled = true
@@ -218,7 +221,7 @@ ViewControllerProtocol, DiskViewDelegate {
       if let fromPole = disk.onPole {
         diskViewsForPole[fromPole]?.removeLast()
       }
-      model.placeDisk(disk, onPole: type)
+      model.placeDisk(disk, onPole: type, replayMode: replayMode)
       if diskViewsForPole[type] == nil {
         diskViewsForPole[type] = [DiskView]()
       }
@@ -260,7 +263,7 @@ ViewControllerProtocol, DiskViewDelegate {
   private func startGame() {
     if model.previousGameState == .Prepared {
       showControlPanel()
-    } else if model.previousGameState == .Paused {
+    } else if model.previousGameState == .Paused { // restarted
       resetTimer()
       resetCounter()
       clearDisks()
@@ -410,6 +413,9 @@ ViewControllerProtocol, DiskViewDelegate {
   }
   
   func shouldBeginRecognizingGestureForDisk(diskView: DiskView) -> Bool {
+    if replayMode {
+      return false
+    }
     if let disk = diskViewToDiskMap[diskView] {
       return model.shouldDiskMove(disk)
     } else {
@@ -433,28 +439,34 @@ ViewControllerProtocol, DiskViewDelegate {
   
   // MARK: hanoi solver
   
-  private func animateDisks(operationStack operationStack: [(from: PoleType, to: PoleType)], index: Int) {
-    if index == operationStack.count {
-      return
+  private func animateDisks(operationStack operationStack: [(from: PoleType, to: PoleType)], var index: Int) {
+    if index == operationStack.count ||
+      (model.gameState != .Started && model.gameState != .Resumed && model.gameState != .Paused) ||
+      (model.previousGameState == .Paused && model.gameState == .Started) {
+      // algorithm finished or game not running or game restarted, stop the animation
+        replayMode = false
+        return
     }
-    let operation = operationStack[index]
-    if let diskView = diskViewsForPole[operation.from]?.last {
-      if let disk = diskViewToDiskMap[diskView] {
-        if model.shouldDiskPlaceToPole(disk: disk, pole: operation.to) {
-          moveDisk(diskView, toPole: operation.to, animated: true)
-          NSTimer.schedule(delay: 0.6) { [weak self]timer -> Void in
-            if let strongSelf = self {
-              strongSelf.placeDisk(diskView, onPole: operation.to, animated: true)
-              strongSelf.incrementCounter()
+    if model.gameState != .Paused { // when in paused state, schedule delay timer without animation
+      let operation = operationStack[index++]
+      if let diskView = diskViewsForPole[operation.from]?.last {
+        if let disk = diskViewToDiskMap[diskView] {
+          if model.shouldDiskPlaceToPole(disk: disk, pole: operation.to) {
+            moveDisk(diskView, toPole: operation.to, animated: true)
+            NSTimer.schedule(delay: 0.6) { [weak self]timer -> Void in
+              if let strongSelf = self {
+                strongSelf.placeDisk(diskView, onPole: operation.to, animated: true)
+                strongSelf.incrementCounter()
+              }
             }
           }
         }
       }
     }
     NSTimer.schedule(delay: 0.95){ [weak self]timer -> Void in
-      Utility.dispatchToMainThread { [weak self]() -> Void in
+      Utility.dispatchToMainThread { () -> Void in
         if let strongSelf = self {
-          strongSelf.animateDisks(operationStack: operationStack, index: index+1)
+          strongSelf.animateDisks(operationStack: operationStack, index: index)
         }
       }
     }
@@ -462,10 +474,14 @@ ViewControllerProtocol, DiskViewDelegate {
   
   // MARK: timerLabel double tap event
   @objc private func timerLabelTapped() {
+    if replayMode {
+      return
+    }
+    print("start solving...")
+    replayMode = true
     model.solve(original: .OriginalPole, buffer: .BufferPole, destination: .DestinationPole, numDisks: model.gameLevel)
     print("steps: \(model.operationStack.count) \n \(model.operationStack)")
     let operationStack = model.operationStack
-    model.operationStack.removeAll()
     animateDisks(operationStack: operationStack, index: 0);
   }
   
