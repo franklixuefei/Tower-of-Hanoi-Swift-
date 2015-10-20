@@ -76,8 +76,10 @@ enum GameMode: Int {
 
 class GameLogic: NSObject {
   
+  // Singleton
   static let defaultModel = GameLogic()
   
+  // The game state NFA
   private let gameStateNFA: [GameState:[GameState]] = {
     // Prepared -> Prepared holds in cases like adjusting game level
     let preparePrevStates = [GameState.Empty, GameState.Prepared, GameState.Ended(hasWon: true),
@@ -99,12 +101,10 @@ class GameLogic: NSObject {
       previousGameState = gameState
     }
     didSet {
-      if !validateState() {
-        print("Invalid state: \(previousGameState.description) state is not "
-          + "a prior state to \(gameState.description) state.", terminator: "")
-        gameState = previousGameState
-        return
-      }
+      // FIXME: assertion
+      assert(validateState(), "Invalid state: \(previousGameState.description) state is not "
+        + "a prior state to \(gameState.description) state.")
+      gameState = previousGameState
       NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
         object: self)
     }
@@ -150,8 +150,10 @@ class GameLogic: NSObject {
     return [.OriginalPole:[], .BufferPole:[], .DestinationPole:[]]
   }()
   
+  // Records the operations during game play
   lazy var operationStack : [(from: PoleType, to: PoleType)] = []
   
+  // MARK: - Helpers
   private func validateState() -> Bool {
     if let prevStates = gameStateNFA[gameState] {
       return prevStates.contains(previousGameState)
@@ -159,7 +161,18 @@ class GameLogic: NSObject {
     return false
   }
   
-  func createDisks(largestDiskWidth largestDiskWidth: Double, numberOfDisks: Int, maximumDiskPileHeight: Double) -> [Disk] {
+  func pileHeight(poleType type: PoleType) -> Double {
+    if let stack = poleStackForPoleType[type] {
+      return Double(stack.count) * Disk.height
+    } else {
+      return 0
+    }
+  }
+  
+  // MARK: - Disks life cycle
+  func createDisks(largestDiskWidth largestDiskWidth: Double, numberOfDisks: Int, maximumDiskPileHeight: Double)
+    -> [Disk]
+  {
     let smallestDiskWidth = largestDiskWidth / UIConstant.largeSmallDiskWidthRatio
     if Double(numberOfDisks) * Disk.height > maximumDiskPileHeight - UIConstant.diskHeightOffset {
       Disk.height = (maximumDiskPileHeight - Disk.height) / Double(numberOfDisks)
@@ -202,15 +215,8 @@ class GameLogic: NSObject {
     print("destinationPoleStack count: \(poleStackForPoleType[.DestinationPole]?.count)")
     print("operationStack count: \(operationStack.count)")
   }
-  
-  func pileHeight(poleType type: PoleType) -> Double {
-    if let stack = poleStackForPoleType[type] {
-      return Double(stack.count) * Disk.height
-    } else {
-      return 0
-    }
-  }
-  
+
+  // MARK: - Checks
   func shouldDiskMove(disk: Disk) -> Bool {
     if let type = disk.onPole {
       return poleStackForPoleType[type]?.last! === disk
@@ -231,20 +237,7 @@ class GameLogic: NSObject {
     }
   }
   
-  /*
-  var trackmove = function(orig, origPile, des, desPile) { // helper
-  var topDisk = orig.pop();
-  changingArray.push([origPile, [desPile, des.length], topDisk]);
-  des.push(topDisk);
-  };
-  var calcHanoi = function(orig, des, buf, origPile, desPile, bufPile, n) { //
-  if (!n) return;
-  calcHanoi(orig, buf, des, origPile, bufPile, desPile, n-1);
-  trackmove(orig, origPile, des, desPile);
-  calcHanoi(buf, des, orig, bufPile, desPile, origPile, n-1);
-  };
-  */
-  
+  // MARK: - Hanoi solver algorithm
   private func trackmove(original original: PoleType, destination: PoleType) {
     operationStack.append((from: original, to: destination))
   }

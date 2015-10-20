@@ -10,13 +10,15 @@ import UIKit
 
 class GameViewController: UIViewController, UIViewControllerTransitioningDelegate,
 ViewControllerProtocol, DiskViewDelegate {
-
   @IBOutlet weak var dotButton: BaseButton!
-  
-  var menuViewController: MenuViewController?
-  lazy var model = GameLogic.defaultModel
   var gameSceneView: GameSceneView!
   var controlPanelView: ControlPanelView!
+  var controlPanelHorizontalPositionConstraint: NSLayoutConstraint!
+
+  var menuViewController: MenuViewController?
+  
+  lazy var model = GameLogic.defaultModel
+  
   lazy var diskViewToDiskMap = [DiskView:Disk]()
   lazy var diskViewsForPole = [PoleType:[DiskView]]() // the last element in each array is the top diskview
   
@@ -27,8 +29,6 @@ ViewControllerProtocol, DiskViewDelegate {
   var counter = 0
   
   var replayMode = false // true when replaying the game or program solving the game
-  
-  var controlPanelHorizontalPositionConstraint: NSLayoutConstraint!
   
   private func setupControlPanel() {
     controlPanelView = UIView.viewFromNib(XibNames.ControlPanelViewXibName, owner: self) as! ControlPanelView
@@ -45,13 +45,14 @@ ViewControllerProtocol, DiskViewDelegate {
       constant: CGFloat(-UIConstant.controlPanelHeight))
     self.view.addConstraint(controlPanelHorizontalPositionConstraint)
     
-    // setup game solver control
+    // setup game solver control - by double tapping the timer label
     let doubleTap = UITapGestureRecognizer(target: self, action: "timerLabelTapped")
     doubleTap.numberOfTapsRequired = 2
     controlPanelView.timerLabel.userInteractionEnabled = true
     controlPanelView.timerLabel.addGestureRecognizer(doubleTap)
   }
   
+  // MARK: - View controller life cycle
   override func loadView() {
     // setup game scene
     gameSceneView = UIView.viewFromNib(XibNames.GameSceneViewXibName, owner: self) as! GameSceneView
@@ -61,6 +62,7 @@ ViewControllerProtocol, DiskViewDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    // registers the game state notification listener
     registerObserverForModel(notificationName: InfrastructureConstant.gameStateNotificationChannelName) {
       (this) -> Void in
       print("game state changed to: \(this.model.gameState.description)")
@@ -79,6 +81,7 @@ ViewControllerProtocol, DiskViewDelegate {
         break
       }
     }
+    // registers the game mode notification listener
     registerObserverForModel(notificationName: InfrastructureConstant.gameModeNotificationChannelName) {
       (this) -> Void in
       print("game mode changed to: \(this.model.gameMode.description)")
@@ -89,6 +92,7 @@ ViewControllerProtocol, DiskViewDelegate {
         this.timerCountUp = false
       }
     }
+    // registers the game level notification listener
     registerObserverForModel(notificationName: InfrastructureConstant.gameLevelNotificationChannelName) {
       (this) -> Void in
       print("game level changed to: \(this.model.gameLevel)")
@@ -110,6 +114,7 @@ ViewControllerProtocol, DiskViewDelegate {
     showMenu()
   }
   
+  // MARK: - Helpers
   private func registerObserverForModel(notificationName notificationName: String!, block: (GameViewController) -> Void) {
     NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
       [weak self](notification) -> Void in
@@ -121,9 +126,18 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  @IBAction func dotPressed() {
-    model.gameState = .Paused
+  private func poleTypeForPoint(point: CGPoint) -> PoleType? {
+    if CGRectContainsPoint(gameSceneView.originalPole.frame, point) {
+      return .OriginalPole
+    } else if CGRectContainsPoint(gameSceneView.bufferPole.frame, point) {
+      return .BufferPole
+    } else if CGRectContainsPoint(gameSceneView.destinationPole.frame, point) {
+      return .DestinationPole
+    }
+    return nil
   }
+  
+
   
   private func showMenu() {
     if menuViewController == nil {
@@ -135,14 +149,39 @@ ViewControllerProtocol, DiskViewDelegate {
     self.presentViewController(menuViewController!, animated: true, completion: nil)
   }
   
-  func initiateDisks() {
+  private func showControlPanel() {
+    let damping = CGFloat(UIConstant.animationSpringWithDamping)
+    let velocity = CGFloat(UIConstant.animationSpringVelocity)
+    let delay = UIConstant.rippleAnimatorTransitionDuration
+    self.view.layoutIfNeeded()
+    self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
+    UIView.animateWithDuration(0.4, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity,
+      options: [], animations: { [weak self]() -> Void in
+        if let strongSelf = self {
+          strongSelf.view.layoutIfNeeded()
+        }
+      }, completion: nil)
+  }
+  
+  private func hideControlPanel() {
+    self.view.layoutIfNeeded()
+    self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-1.0*UIConstant.controlPanelHeight)
+    UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {  [weak self]() -> Void in
+      if let strongSelf = self {
+        strongSelf.view.layoutIfNeeded()
+      }
+      }, completion: nil)
+  }
+  
+  // MARK: - Disks life cycle
+  private func initiateDisks() {
     let diskViews = createDisks()
     for diskView in diskViews {
       placeDisk(diskView, onPole: .OriginalPole, animated: false)
     }
   }
   
-  func createDisks() -> [DiskView] {
+  private func createDisks() -> [DiskView] {
     let numberOfDisks = model.gameLevel
     let poleBaseWidth = gameSceneView.originalPole.poleBaseWidth
     let poleStickHeight = gameSceneView.originalPole.poleStickHeight
@@ -167,7 +206,7 @@ ViewControllerProtocol, DiskViewDelegate {
     return diskView
   }
   
-  func moveDisk(diskView: DiskView, toPole type: PoleType, animated: Bool) {
+  private func moveDisk(diskView: DiskView, toPole type: PoleType, animated: Bool) {
     if let disk = diskViewToDiskMap[diskView] {
       let fromPole = gameSceneView.poleViewForPoleType(disk.onPole!)
       let toPole = gameSceneView.poleViewForPoleType(type)
@@ -196,10 +235,10 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  func placeDisk(diskView: DiskView, onPole type: PoleType, animated: Bool) {
+  private func placeDisk(diskView: DiskView, onPole type: PoleType, animated: Bool) {
     if let disk = diskViewToDiskMap[diskView] {
       let pole = gameSceneView.poleViewForPoleType(type)
-      if let removedDisk = model.removeDisk(disk) { // TODO: delete assertion in production
+      if let removedDisk = model.removeDisk(disk) { // FIXME: assertion
         assert(removedDisk === disk, "removed disk should be disk")
       }
       let poleBaseFrame = pole.convertRect(pole.poleBase.frame, toView: gameSceneView)
@@ -232,7 +271,7 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  func clearDisks() {
+  private func clearDisks() {
     let diskViews = diskViewToDiskMap.keys.elements
     for diskView in diskViews {
       diskView.removeFromSuperview()
@@ -243,7 +282,7 @@ ViewControllerProtocol, DiskViewDelegate {
     model.clearDisks()
   }
   
-  // MARK: Game Lifecycle
+  // MARK: - Game Lifecycle
   
   // gameState has changed to .Prepared
   private func prepareGame() {
@@ -289,28 +328,18 @@ ViewControllerProtocol, DiskViewDelegate {
     showMenu()
   }
   
-  private func showControlPanel() {
-    let damping = CGFloat(UIConstant.animationSpringWithDamping)
-    let velocity = CGFloat(UIConstant.animationSpringVelocity)
-    let delay = UIConstant.rippleAnimatorTransitionDuration
-    self.view.layoutIfNeeded()
-    self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-0.5*UIConstant.controlPanelHeight)
-    UIView.animateWithDuration(0.4, delay: delay, usingSpringWithDamping: damping, initialSpringVelocity: velocity,
-      options: [], animations: { [weak self]() -> Void in
-        if let strongSelf = self {
-          strongSelf.view.layoutIfNeeded()
-        }
-      }, completion: nil)
-  }
-  
-  private func hideControlPanel() {
-    self.view.layoutIfNeeded()
-    self.controlPanelHorizontalPositionConstraint.constant = CGFloat(-1.0*UIConstant.controlPanelHeight)
-    UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {  [weak self]() -> Void in
+  // MARK: - Timer controls
+  private func poll(nsTimer:NSTimer!) { // called by NSTimer to update the timer
+    Utility.dispatchToMainThread { [weak self]() -> Void in
       if let strongSelf = self {
-        strongSelf.view.layoutIfNeeded()
+        let timerStatus = strongSelf.timerCountUp ? strongSelf.timer.increment() : strongSelf.timer.decrement()
+        strongSelf.controlPanelView.timerString = strongSelf.timer.toString()
+        if !timerStatus {
+          // game lost
+          strongSelf.model.gameState = .Ended(hasWon: false)
+        }
       }
-    }, completion: nil)
+    }
   }
   
   private func resetTimer() {
@@ -336,6 +365,7 @@ ViewControllerProtocol, DiskViewDelegate {
     intervalPoller = NSTimer.schedule(repeatInterval: 1.0, block: poll)
   }
   
+  // MARK: - Counter controls
   private func resetCounter() {
     counter = 0;
     controlPanelView.count = counter;
@@ -349,18 +379,7 @@ ViewControllerProtocol, DiskViewDelegate {
     controlPanelView.count = --counter
   }
   
-  private func poleTypeForPoint(point: CGPoint) -> PoleType? {
-    if CGRectContainsPoint(gameSceneView.originalPole.frame, point) {
-      return .OriginalPole
-    } else if CGRectContainsPoint(gameSceneView.bufferPole.frame, point) {
-      return .BufferPole
-    } else if CGRectContainsPoint(gameSceneView.destinationPole.frame, point) {
-      return .DestinationPole
-    }
-    return nil
-  }
-  
-  // MARK: UIViewControllerTransitioningDelegate methods
+  // MARK: - UIViewControllerTransitioningDelegate methods
   
   func animationControllerForPresentedController(presented: UIViewController, presentingController
     presenting: UIViewController, sourceController source: UIViewController)
@@ -386,7 +405,7 @@ ViewControllerProtocol, DiskViewDelegate {
     return nil
   }
   
-  // MARK: DiskViewDelegate methods
+  // MARK: - DiskViewDelegate methods
   
   func gestureState(state: UIGestureRecognizerState, onDisk diskView: DiskView) {
     if let disk = diskViewToDiskMap[diskView] {
@@ -423,21 +442,15 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  // MARK: NSTimer closure
-  private func poll(nsTimer:NSTimer!) {
-    Utility.dispatchToMainThread { [weak self]() -> Void in
-      if let strongSelf = self {
-        let timerStatus = strongSelf.timerCountUp ? strongSelf.timer.increment() : strongSelf.timer.decrement()
-        strongSelf.controlPanelView.timerString = strongSelf.timer.toString()
-        if !timerStatus {
-          // game lost
-          strongSelf.model.gameState = .Ended(hasWon: false)
-        }
-      }
-    }
+  // MARK: - Hanoi solver
+  private func solve() {
+    print("start solving...")
+    replayMode = true
+    model.solve(original: .OriginalPole, buffer: .BufferPole, destination: .DestinationPole, numDisks: model.gameLevel)
+    print("steps: \(model.operationStack.count) \n \(model.operationStack)")
+    let operationStack = model.operationStack
+    animateDisks(operationStack: operationStack, index: 0);
   }
-  
-  // MARK: hanoi solver
   
   private func animateDisks(operationStack operationStack: [(from: PoleType, to: PoleType)], var index: Int) {
     if index == operationStack.count ||
@@ -472,17 +485,16 @@ ViewControllerProtocol, DiskViewDelegate {
     }
   }
   
-  // MARK: timerLabel double tap event
+  // MARK: IBActions
   @objc private func timerLabelTapped() {
     if replayMode {
       return
     }
-    print("start solving...")
-    replayMode = true
-    model.solve(original: .OriginalPole, buffer: .BufferPole, destination: .DestinationPole, numDisks: model.gameLevel)
-    print("steps: \(model.operationStack.count) \n \(model.operationStack)")
-    let operationStack = model.operationStack
-    animateDisks(operationStack: operationStack, index: 0);
+    solve()
+  }
+
+  @IBAction func dotPressed() {
+    model.gameState = .Paused
   }
   
 }

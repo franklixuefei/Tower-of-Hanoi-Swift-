@@ -15,13 +15,14 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   var menuView: MenuView!
   
   var pageViewController: UIPageViewController!
-  
-  lazy var model = GameLogic.defaultModel
   lazy var initialMenuPage:MenuInitialViewController = MenuInitialViewController()
   lazy var pausedMenuPage:MenuPausedViewController = MenuPausedViewController()
   lazy var settingsMenuPage:MenuSettingsViewController = MenuSettingsViewController()
   lazy var resultMenuPage:MenuResultViewController = MenuResultViewController()
   
+  lazy var model = GameLogic.defaultModel
+  
+  // MARK: - View controller life cycle
   override func loadView() {
     menuView = UIView.viewFromNib(XibNames.MenuViewXibName, owner: self) as! MenuView
     self.view = menuView
@@ -35,6 +36,7 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    // registers game state listener
     registerObserverForModel(notificationName: InfrastructureConstant.gameStateNotificationChannelName) {
       (this) -> Void in
       switch this.model.gameState {
@@ -79,17 +81,7 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     }
   }
   
-  private func registerObserverForModel(notificationName notificationName: String!, block: (MenuViewController) -> Void) {
-    NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
-      [weak self](notification) -> Void in
-      dispatch_async(dispatch_get_main_queue(), { () -> Void in
-        if let strongSelf = self {
-          block(strongSelf)
-        }
-      })
-    }
-  }
-  
+  // MARK: - Game life cycle
   private func prepareGame() {
     menuView.titleLabel.text = LogicConstant.gameTitle
     dotButton.hidden = true
@@ -123,12 +115,7 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
     dotButton.hidden = true
   }
 
-  @IBAction func dotPressed() {
-    model.gameState = .Resumed
-  }
-  
   // MARK: - MenuInitialViewControllerDelegate methods
-  
   func startButtonPressed() {
     model.gameState = .Started
   }
@@ -175,6 +162,23 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   func okButtonPressed() {
     pageViewController.setViewControllers([initialMenuPage], direction: .Reverse, animated: true, completion: nil)
     model.gameState = .Prepared
+  }
+  
+  // MARK: - Helpers
+  private func registerObserverForModel(notificationName notificationName: String!, block: (MenuViewController) -> Void) {
+    NotificationManager.defaultManager.registerObserver(notificationName, forObject: model) {
+      [weak self](notification) -> Void in
+      dispatch_async(dispatch_get_main_queue(), { () -> Void in
+        if let strongSelf = self {
+          block(strongSelf)
+        }
+      })
+    }
+  }
+  
+  // MARK: - IBActions
+  @IBAction func dotPressed() {
+    model.gameState = .Resumed
   }
   
 }
