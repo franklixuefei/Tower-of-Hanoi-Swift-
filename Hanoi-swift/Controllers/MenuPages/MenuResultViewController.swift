@@ -50,15 +50,15 @@ class MenuResultViewController: MenuBaseViewController {
     var timeString = ""
     let hour = timeElapsedInSeconds / 3600
     if hour != 0 {
-      timeString += "\(hour) hour" + ((hour > 1) ? "s" : "")
+      timeString += "\(hour) hour" + ((hour > 1) ? "s " : " ")
     }
     let minute = (timeElapsedInSeconds/60) % 60
     if minute != 0 {
-      timeString += "\(minute) minute" + ((minute > 1) ? "s" : "")
+      timeString += "\(minute) minute" + ((minute > 1) ? "s " : " ")
     }
     let second = timeElapsedInSeconds % 60
     if second != 0 {
-      timeString += "\(second) second" + ((second > 1) ? "s" : "")
+      timeString += ((hour != 0 || minute != 0) ? "and " : "") + "\(second) second" + ((second > 1) ? "s" : "")
     }
     if hasWon {
       okButton.setTitle("Got It!", forState: .Normal)
