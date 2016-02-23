@@ -15,7 +15,7 @@ protocol MenuResultViewControllerDelegate: class {
 class MenuResultViewController: MenuBaseViewController {
 
   var hasWon = true
-  var timeElapsedInSeconds = 0
+  var timeElapsedInSeconds = 0 // set by MenuViewController
   var stepsTaken: Int = 0
   var numDisksOnDest: Int = 0 // must starts with the biggest disk
   var level: Int = LogicConstant.minimumLevel
@@ -30,13 +30,14 @@ class MenuResultViewController: MenuBaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
-    scrollView = MenuScrollView(verticalDirection: true, inset: 6, padding: 15)
+    scrollView = MenuScrollView(verticalDirection: true,
+      inset: CGFloat(UIConstant.menuResultScrollViewInset), padding: CGFloat(UIConstant.menuResultScrollViewSpacing))
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil,
       attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeightLarge)))
     contentView.addSubview(scrollView)
     outroView = UILabel()
-    outroView.font = UIFont.ayuthayaFontWithSize(17)
+    outroView.font = UIFont.ayuthayaFont(size: CGFloat(UIConstant.menuOutroFontSize))
     outroView.numberOfLines = 0
     outroView.textColor = UIColor.color(hexValue: UInt(UIConstant.buttonTitleColorForNormalState), alpha: 1.0)
     scrollView.addSubview(outroView)
@@ -48,17 +49,16 @@ class MenuResultViewController: MenuBaseViewController {
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     var timeString = ""
-    let hour = timeElapsedInSeconds / 3600
-    if hour != 0 {
-      timeString += "\(hour) hour" + ((hour > 1) ? "s " : " ")
+    let components = Utility.getTimeComponentsFromSeconds(timeElapsedInSeconds)
+    if components.hours != 0 {
+      timeString += "\(components.hours) hour" + ((components.hours > 1) ? "s " : " ")
     }
-    let minute = (timeElapsedInSeconds/60) % 60
-    if minute != 0 {
-      timeString += "\(minute) minute" + ((minute > 1) ? "s " : " ")
+    if components.minutes != 0 {
+      timeString += "\(components.minutes) minute" + ((components.minutes > 1) ? "s " : " ")
     }
-    let second = timeElapsedInSeconds % 60
-    if second != 0 {
-      timeString += ((hour != 0 || minute != 0) ? "and " : "") + "\(second) second" + ((second > 1) ? "s" : "")
+    if components.seconds != 0 {
+      timeString += ((components.hours != 0 || components.minutes != 0) ? "and " : "") +
+        "\(components.seconds) second" + ((components.seconds > 1) ? "s" : "")
     }
     if hasWon {
       okButton.setTitle("Got It!", forState: .Normal)

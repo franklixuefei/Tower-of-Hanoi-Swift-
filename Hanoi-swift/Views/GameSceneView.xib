@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8191"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9531"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Tower_of_Hanoi" customModuleProvider="target"/>
@@ -14,23 +14,19 @@
                 <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SIT-Ms-vZ7">
                     <rect key="frame" x="15" y="0.0" width="592" height="454"/>
                     <subviews>
-                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu4-jJ-qKp" userLabel="originalPole" customClass="PoleView" customModule="Tower_of_Hanoi" customModuleProvider="target">
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cu4-jJ-qKp" userLabel="originalPole" customClass="PoleViewContainer" customModule="Tower_of_Hanoi" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="197" height="454"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2M-OA-jUn" userLabel="bufferPole" customClass="PoleView" customModule="Tower_of_Hanoi" customModuleProvider="target">
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2M-OA-jUn" userLabel="bufferPole" customClass="PoleViewContainer" customModule="Tower_of_Hanoi" customModuleProvider="target">
                             <rect key="frame" x="197" y="0.0" width="198" height="454"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
-                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIO-xl-DB9" userLabel="destinationPole" customClass="PoleView" customModule="Tower_of_Hanoi" customModuleProvider="target">
+                        <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aIO-xl-DB9" userLabel="destinationPole" customClass="PoleViewContainer" customModule="Tower_of_Hanoi" customModuleProvider="target">
                             <rect key="frame" x="395" y="0.0" width="197" height="454"/>
-                            <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
-                    <animations/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="aIO-xl-DB9" secondAttribute="trailing" id="Cee-Ki-HnG"/>
@@ -48,7 +44,6 @@
                     </constraints>
                 </view>
             </subviews>
-            <animations/>
             <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="0.0" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="SIT-Ms-vZ7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="15" id="FOr-hm-wSW"/>
@@ -61,9 +56,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="bufferPole" destination="f2M-OA-jUn" id="BlA-f1-LY5"/>
-                <outlet property="destinationPole" destination="aIO-xl-DB9" id="zKV-Rg-Rui"/>
-                <outlet property="originalPole" destination="cu4-jJ-qKp" id="vUn-fz-NLo"/>
+                <outlet property="bufferPoleContainer" destination="f2M-OA-jUn" id="G12-PB-IPi"/>
+                <outlet property="destinationPoleContainer" destination="aIO-xl-DB9" id="a2u-SL-an2"/>
+                <outlet property="originalPoleContainer" destination="cu4-jJ-qKp" id="bOb-el-3y4"/>
             </connections>
             <point key="canvasLocation" x="231" y="285"/>
         </view>

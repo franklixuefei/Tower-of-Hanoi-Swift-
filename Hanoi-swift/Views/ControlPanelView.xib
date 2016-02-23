@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="Ayuthaya.ttf">
@@ -12,11 +12,7 @@
         </mutableArray>
     </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Tower_of_Hanoi" customModuleProvider="target">
-            <connections>
-                <outlet property="dotButton" destination="0hh-PX-geK" id="BRK-dH-Fsq"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GameViewController" customModule="Tower_of_Hanoi" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="d3v-Wi-b5B" customClass="ControlPanelView" customModule="Tower_of_Hanoi" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="735" height="120"/>
@@ -24,7 +20,6 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0hh-PX-geK" userLabel="dot" customClass="BaseButton" customModule="Tower_of_Hanoi" customModuleProvider="target">
                     <rect key="frame" x="20" y="74" width="36" height="36"/>
-                    <animations/>
                     <color key="backgroundColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="36" id="24E-SI-vxx"/>
@@ -44,7 +39,6 @@
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBN-Qe-drW">
                     <rect key="frame" x="96" y="73" width="38" height="38"/>
-                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="38" id="JW9-bw-qy0"/>
                         <constraint firstAttribute="width" constant="38" id="bNk-V2-BmP"/>
@@ -66,20 +60,17 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:12:12" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qe6-yo-hvf">
                     <rect key="frame" x="302" y="73" width="130" height="38"/>
-                    <animations/>
                     <fontDescription key="fontDescription" name="Ayuthaya" family="Ayuthaya" pointSize="27"/>
                     <color key="textColor" white="0.40468236019736842" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVf-UY-rsx">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVf-UY-rsx">
                     <rect key="frame" x="693" y="73" width="17" height="38"/>
-                    <animations/>
                     <fontDescription key="fontDescription" name="Ayuthaya" family="Ayuthaya" pointSize="27"/>
                     <color key="textColor" white="0.39710629111842105" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <animations/>
             <color key="backgroundColor" red="0.83529411764705885" green="1" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="0hh-PX-geK" secondAttribute="bottom" constant="10" id="4iD-Yu-VAs"/>
@@ -97,6 +88,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="counterLabel" destination="CVf-UY-rsx" id="wvk-yl-4V8"/>
+                <outlet property="dotButton" destination="0hh-PX-geK" id="k0W-LV-O4o"/>
                 <outlet property="levelLabel" destination="YBN-Qe-drW" id="w3H-Ty-W9h"/>
                 <outlet property="timerLabel" destination="qe6-yo-hvf" id="S0q-uX-TdW"/>
             </connections>

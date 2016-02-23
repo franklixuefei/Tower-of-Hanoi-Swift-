@@ -22,7 +22,7 @@ class BaseButton: UIButton {
   
   private func setup() {
     self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.buttonBackgroundColorForNormalState), alpha: 1)
-    self.titleLabel?.font = UIFont.ayuthayaFontWithSize(CGFloat(UIConstant.buttonTitleFontSize))
+    self.titleLabel?.font = UIFont.ayuthayaFont(size: CGFloat(UIConstant.buttonTitleFontSize))
     self.setTitleColor(UIColor.color(hexValue: UInt(UIConstant.buttonTitleColorForNormalState), alpha: 1),
       forState: .Normal)
     self.setTitleColor(UIColor.color(hexValue: UInt(UIConstant.buttonTitleColorForHighlightedState), alpha: 1),
@@ -34,7 +34,7 @@ class BaseButton: UIButton {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    self.applyDropShadow(false)
+    self.applyDropShadow(cornerRadius: self.cornerRadius)
   }
   
   override var highlighted: Bool {

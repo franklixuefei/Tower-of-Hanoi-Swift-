@@ -8,9 +8,9 @@
 
 import UIKit
 
-class GameViewController: UIViewController, UIViewControllerTransitioningDelegate,
-ViewControllerProtocol, DiskViewDelegate {
-  @IBOutlet weak var dotButton: BaseButton!
+class GameViewController: UIViewController, UIViewControllerTransitioningDelegate, DiskViewDelegate,
+RippleTransitioningDataSource {
+
   var gameSceneView: GameSceneView!
   var controlPanelView: ControlPanelView!
   var controlPanelHorizontalPositionConstraint: NSLayoutConstraint!
@@ -94,6 +94,8 @@ ViewControllerProtocol, DiskViewDelegate {
       print("game level changed to: \(this.model.gameLevel)")
       this.model.gameState = .Prepared
     }
+    // register listener for the animator
+    RippleTransitionAnimator.defaultAnimator.dataSource = self
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -123,11 +125,11 @@ ViewControllerProtocol, DiskViewDelegate {
   }
   
   private func poleTypeForPoint(point: CGPoint) -> PoleType? {
-    if CGRectContainsPoint(gameSceneView.originalPole.frame, point) {
+    if CGRectContainsPoint(gameSceneView.originalPoleContainer.frame, point) {
       return .OriginalPole
-    } else if CGRectContainsPoint(gameSceneView.bufferPole.frame, point) {
+    } else if CGRectContainsPoint(gameSceneView.bufferPoleContainer.frame, point) {
       return .BufferPole
-    } else if CGRectContainsPoint(gameSceneView.destinationPole.frame, point) {
+    } else if CGRectContainsPoint(gameSceneView.destinationPoleContainer.frame, point) {
       return .DestinationPole
     }
     return nil
@@ -140,7 +142,7 @@ ViewControllerProtocol, DiskViewDelegate {
       menuViewController = MenuViewController()
       menuViewController!.view.frame = self.view.bounds
       menuViewController!.transitioningDelegate = self
-      menuViewController!.modalPresentationStyle = .Custom
+      menuViewController!.modalPresentationStyle = .Custom // important!
     }
     self.presentViewController(menuViewController!, animated: true, completion: nil)
   }
@@ -179,8 +181,8 @@ ViewControllerProtocol, DiskViewDelegate {
   
   private func createDisks() -> [DiskView] {
     let numberOfDisks = model.gameLevel
-    let poleBaseWidth = gameSceneView.originalPole.poleBaseWidth
-    let poleStickHeight = gameSceneView.originalPole.poleStickHeight
+    let poleBaseWidth = gameSceneView.originalPoleContainer.poleView.poleBaseWidth
+    let poleStickHeight = gameSceneView.originalPoleContainer.poleView.poleStickHeight
     let disks = model.createDisks(largestDiskWidth: Double(poleBaseWidth) - UIConstant.diskWidthOffset,
       numberOfDisks: numberOfDisks, maximumDiskPileHeight: Double(poleStickHeight))
     var diskViews = [DiskView]()
@@ -437,6 +439,13 @@ ViewControllerProtocol, DiskViewDelegate {
       return model.shouldDiskMove(disk)
     } else {
       return false
+    }
+  }
+  
+  // MARK: - RippleTransitioningDataSource methods
+  var dotButton:BaseButton {
+    get {
+      return (menuViewController?.dotButton)!
     }
   }
   

@@ -22,7 +22,7 @@
 		151541A81B805E5900071650 /* GameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A71B805E5900071650 /* GameLogic.swift */; };
 		151541AA1B8130A600071650 /* GameSceneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541A91B8130A600071650 /* GameSceneView.swift */; };
 		151541AC1B8130BA00071650 /* GameSceneView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541AB1B8130BA00071650 /* GameSceneView.xib */; };
-		151541B11B81872900071650 /* PoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B01B81872900071650 /* PoleView.swift */; };
+		151541B11B81872900071650 /* PoleViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B01B81872900071650 /* PoleViewContainer.swift */; };
 		151541B31B81875700071650 /* PoleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541B21B81875700071650 /* PoleView.xib */; };
 		151541B81B8402BC00071650 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541B71B8402BC00071650 /* Extensions.swift */; };
 		151541BC1B84368100071650 /* DiskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541BB1B84368100071650 /* DiskView.swift */; };
@@ -31,7 +31,6 @@
 		151541C81B851C8000071650 /* ControlPanelView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541C71B851C8000071650 /* ControlPanelView.xib */; };
 		151541CA1B851C9500071650 /* ControlPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541C91B851C9500071650 /* ControlPanelView.swift */; };
 		151541CC1B85A22100071650 /* RippleTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541CB1B85A22100071650 /* RippleTransitionAnimator.swift */; };
-		151541CE1B85A39000071650 /* ViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541CD1B85A39000071650 /* ViewControllerProtocol.swift */; };
 		151541D01B85A47900071650 /* MenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151541CF1B85A47900071650 /* MenuView.xib */; };
 		151541D21B85A48700071650 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541D11B85A48700071650 /* MenuView.swift */; };
 		151541D41B867EF200071650 /* Todo in Resources */ = {isa = PBXBuildFile; fileRef = 151541D31B867EF200071650 /* Todo */; };
@@ -48,7 +47,8 @@
 		151541F31B8C210C00071650 /* MenuResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541F21B8C210C00071650 /* MenuResultViewController.swift */; };
 		151541F91B8C30E400071650 /* MenuBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541F81B8C30E400071650 /* MenuBaseViewController.swift */; };
 		151541FB1B8C428200071650 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151541FA1B8C428200071650 /* BaseButton.swift */; };
-		15A4F9BB1BD31618009F813A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A4F9BA1BD31618009F813A /* Timer.swift */; settings = {ASSET_TAGS = (); }; };
+		15A4F9BB1BD31618009F813A /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A4F9BA1BD31618009F813A /* Timer.swift */; };
+		15E4EB461C7C5BB800D92E6D /* PoleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E4EB451C7C5BB800D92E6D /* PoleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +81,7 @@
 		151541A71B805E5900071650 /* GameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLogic.swift; sourceTree = "<group>"; };
 		151541A91B8130A600071650 /* GameSceneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneView.swift; sourceTree = "<group>"; };
 		151541AB1B8130BA00071650 /* GameSceneView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameSceneView.xib; sourceTree = "<group>"; };
-		151541B01B81872900071650 /* PoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoleView.swift; sourceTree = "<group>"; };
+		151541B01B81872900071650 /* PoleViewContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoleViewContainer.swift; sourceTree = "<group>"; };
 		151541B21B81875700071650 /* PoleView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PoleView.xib; sourceTree = "<group>"; };
 		151541B71B8402BC00071650 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
 		151541BB1B84368100071650 /* DiskView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskView.swift; sourceTree = "<group>"; };
@@ -90,7 +90,6 @@
 		151541C71B851C8000071650 /* ControlPanelView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControlPanelView.xib; sourceTree = "<group>"; };
 		151541C91B851C9500071650 /* ControlPanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlPanelView.swift; sourceTree = "<group>"; };
 		151541CB1B85A22100071650 /* RippleTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RippleTransitionAnimator.swift; sourceTree = "<group>"; };
-		151541CD1B85A39000071650 /* ViewControllerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerProtocol.swift; sourceTree = "<group>"; };
 		151541CF1B85A47900071650 /* MenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuView.xib; sourceTree = "<group>"; };
 		151541D11B85A48700071650 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		151541D31B867EF200071650 /* Todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Todo; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		151541F81B8C30E400071650 /* MenuBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuBaseViewController.swift; sourceTree = "<group>"; };
 		151541FA1B8C428200071650 /* BaseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		15A4F9BA1BD31618009F813A /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		15E4EB451C7C5BB800D92E6D /* PoleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,7 +194,6 @@
 				151541A11B805E2E00071650 /* GameViewController.swift */,
 				151541A21B805E2E00071650 /* MenuViewController.swift */,
 				151541CB1B85A22100071650 /* RippleTransitionAnimator.swift */,
-				151541CD1B85A39000071650 /* ViewControllerProtocol.swift */,
 				151541EB1B8C1E8A00071650 /* MenuPages */,
 			);
 			path = Controllers;
@@ -216,7 +215,8 @@
 			children = (
 				151541A91B8130A600071650 /* GameSceneView.swift */,
 				151541AB1B8130BA00071650 /* GameSceneView.xib */,
-				151541B01B81872900071650 /* PoleView.swift */,
+				151541B01B81872900071650 /* PoleViewContainer.swift */,
+				15E4EB451C7C5BB800D92E6D /* PoleView.swift */,
 				151541B21B81875700071650 /* PoleView.xib */,
 				151541BB1B84368100071650 /* DiskView.swift */,
 				151541BD1B84368C00071650 /* DiskView.xib */,
@@ -381,7 +381,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				151541E41B8B088B00071650 /* ConfirmableButton.swift in Sources */,
-				151541CE1B85A39000071650 /* ViewControllerProtocol.swift in Sources */,
 				150DF0BE1B917F6100080B91 /* MenuContentView.swift in Sources */,
 				151541B81B8402BC00071650 /* Extensions.swift in Sources */,
 				150DF0B11B91746400080B91 /* MenuSettingsModeContentView.swift in Sources */,
@@ -392,13 +391,14 @@
 				151541F31B8C210C00071650 /* MenuResultViewController.swift in Sources */,
 				150DF0BF1B917F6100080B91 /* MenuScrollView.swift in Sources */,
 				151541A61B805E2E00071650 /* MenuViewController.swift in Sources */,
+				15E4EB461C7C5BB800D92E6D /* PoleView.swift in Sources */,
 				151541CC1B85A22100071650 /* RippleTransitionAnimator.swift in Sources */,
 				15A4F9BB1BD31618009F813A /* Timer.swift in Sources */,
 				151541CA1B851C9500071650 /* ControlPanelView.swift in Sources */,
 				151541FB1B8C428200071650 /* BaseButton.swift in Sources */,
 				150DF0C11B9181C300080B91 /* MenuSlider.swift in Sources */,
 				151541D81B86904D00071650 /* Disk.swift in Sources */,
-				151541B11B81872900071650 /* PoleView.swift in Sources */,
+				151541B11B81872900071650 /* PoleViewContainer.swift in Sources */,
 				151541E81B8BB50900071650 /* MenuButton.swift in Sources */,
 				151541D21B85A48700071650 /* MenuView.swift in Sources */,
 				151541F91B8C30E400071650 /* MenuBaseViewController.swift in Sources */,

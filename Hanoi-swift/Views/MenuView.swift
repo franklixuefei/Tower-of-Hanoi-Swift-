@@ -10,7 +10,12 @@ import UIKit
 
 class MenuView: UIView {
 
-  @IBOutlet weak var titleLabel: UILabel!
+  @IBOutlet weak var titleLabel: UILabel! {
+    didSet {
+      titleLabel.font = UIFont.lucidaFont(size: CGFloat(UIConstant.menuTitleFontSize))
+      titleLabel.textColor = UIColor.color(hexValue: UInt(UIConstant.menuTitleColor), alpha: 1.0)
+    }
+  }
   @IBOutlet weak var menuContainerView: UIView!
   
   func pinViewToContainerView(view: UIView) {

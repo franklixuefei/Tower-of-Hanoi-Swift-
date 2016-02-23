@@ -10,9 +10,27 @@ import UIKit
 
 class ControlPanelView: UIView {
   
-  @IBOutlet weak var levelLabel: UILabel!
-  @IBOutlet weak var timerLabel: UILabel!
-  @IBOutlet weak var counterLabel: UILabel!
+  @IBOutlet weak var dotButton: BaseButton!
+  @IBOutlet weak var levelLabel: UILabel! {
+    didSet {
+      levelLabel.borderWidth = CGFloat(UIConstant.controlPanelLevelLabelBorderWidth)
+      levelLabel.borderColor = UIColor.color(hexValue: UInt(UIConstant.controlPanelLevelLabelColor), alpha: 1.0)
+      levelLabel.textColor = UIColor.color(hexValue: UInt(UIConstant.controlPanelLevelLabelColor), alpha: 1.0)
+      levelLabel.font = UIFont.ayuthayaFont(size: CGFloat(UIConstant.controlPanelLevelLabelFontSize))
+    }
+  }
+  @IBOutlet weak var timerLabel: UILabel! {
+    didSet {
+      timerLabel.textColor = UIColor.color(hexValue: UInt(UIConstant.controlPanelTimerLabelColor), alpha: 1.0)
+      timerLabel.font = UIFont.ayuthayaFont(size: CGFloat(UIConstant.controlPanelTimerLabelFontSize))
+    }
+  }
+  @IBOutlet weak var counterLabel: UILabel! {
+    didSet {
+      counterLabel.textColor = UIColor.color(hexValue: UInt(UIConstant.controlPanelCounterLabelColor), alpha: 1.0)
+      counterLabel.font = UIFont.ayuthayaFont(size: CGFloat(UIConstant.controlPanelCounterLabelFontSize))
+    }
+  }
   
   var level: Int = LogicConstant.defaultLevel {
     didSet {

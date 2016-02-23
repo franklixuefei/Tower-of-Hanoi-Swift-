@@ -13,7 +13,7 @@ protocol MenuPausedViewControllerDelegate: class {
   func quitButtonPressed()
 }
 
-class MenuPausedViewController: MenuBaseViewController {
+class MenuPausedViewController: MenuBaseViewController, ConfirmableButtonDelegate {
 
   var restartButton: ConfirmableButton!
   var quitButton: ConfirmableButton!
@@ -26,10 +26,12 @@ class MenuPausedViewController: MenuBaseViewController {
     restartButton.setTitle("Restart", forState: .Normal)
     contentView.addSubview(restartButton)
     restartButton.addTarget(self, action: "restartPressed", forControlEvents: .TouchUpInside)
+    restartButton.delegate = self
     quitButton = ConfirmableButton(type: .Custom) 
     quitButton.setTitle("Quit", forState: .Normal)
     contentView.addSubview(quitButton)
     quitButton.addTarget(self, action: "quitPressed", forControlEvents: .TouchUpInside)
+    quitButton.delegate = self
   }
   
   // MARK: - IBActions
@@ -39,5 +41,14 @@ class MenuPausedViewController: MenuBaseViewController {
   
   @objc private func quitPressed() {
     delegate?.quitButtonPressed()
+  }
+  
+  // MARK: - ConfirmableButtonDelegate methods
+  func confirmationPresented(button: ConfirmableButton) {
+    if button == restartButton {
+      quitButton.dismissConfirmation()
+    } else {
+      restartButton.dismissConfirmation()
+    }
   }
 }

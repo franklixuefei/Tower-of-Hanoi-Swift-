@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol ConfirmableButtonDelegate : class {
+  func confirmationPresented(button:ConfirmableButton)
+}
+
 class ConfirmableButton: MenuButton {
 
   var yesButton: BaseButton?
   var noButton: BaseButton?
   var token: dispatch_once_t = 0
+  
+  weak var delegate:ConfirmableButtonDelegate?
+  
   var yesButtonText = "Yes" {
     didSet {
       yesButton?.setTitle(yesButtonText, forState: .Normal)
@@ -37,7 +44,7 @@ class ConfirmableButton: MenuButton {
   override func addTarget(target: AnyObject?, action: Selector, forControlEvents controlEvents: UIControlEvents) {
     if target != nil && target! === self {
       super.addTarget(target, action: action, forControlEvents: controlEvents)
-    } else {
+    } else { // hijack the action and assign it to yes button.
       yesButton?.addTarget(target, action: action, forControlEvents: controlEvents)
     }
   }
@@ -100,9 +107,10 @@ class ConfirmableButton: MenuButton {
     self.layer.opacity = 0
     self.superview?.bringSubviewToFront(yesButton!)
     self.superview?.bringSubviewToFront(noButton!)
+    delegate?.confirmationPresented(self)
   }
   
-  @objc private func dismissConfirmation() {
+  func dismissConfirmation() {
     self.layer.opacity = 1
     yesButton?.layer.opacity = 0
     noButton?.layer.opacity = 0

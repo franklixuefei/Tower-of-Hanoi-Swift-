@@ -47,15 +47,13 @@ extension UIView {
     return views.first as? UIView
   }
   
-  func applyDropShadow(bezierPathEnabled: Bool = true) {
+  func applyDropShadow(cornerRadius radius:CGFloat = 0) {
     self.layer.masksToBounds = false
-    self.layer.shadowColor = UIColor.blackColor().CGColor
+    self.layer.shadowColor = UIColor(white: 0.2, alpha: 1.0).CGColor
     self.layer.shadowOffset = CGSizeMake(0, 1)
-    self.layer.shadowOpacity = 0.3
+    self.layer.shadowOpacity = 0.5
     self.layer.shadowRadius = 1.5
-    if bezierPathEnabled {
-      self.layer.shadowPath = UIBezierPath(rect: self.bounds).CGPath
-    }
+    self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: radius).CGPath
   }
 }
 
@@ -71,8 +69,11 @@ extension UIColor {
 }
 
 extension UIFont {
-  class func ayuthayaFontWithSize(size: CGFloat) -> UIFont? {
-    return self.init(name: "ayuthaya", size: size)
+  class func ayuthayaFont(size size: CGFloat) -> UIFont? {
+    return self.init(name: "Ayuthaya", size: size)
+  }
+  class func lucidaFont(size size:CGFloat) -> UIFont? {
+    return self.init(name: "LucidaHandwriting-Italic", size: size)
   }
 }
 
@@ -185,5 +186,12 @@ class Utility {
   
   class func dispatchToMainThread(block: () -> Void) {
     dispatch_async(dispatch_get_main_queue(), block)
+  }
+  
+  class func getTimeComponentsFromSeconds(seconds:Int) -> (hours:Int, minutes:Int, seconds:Int) {
+    let hour = seconds / 3600
+    let minute = (seconds/60) % 60
+    let second = seconds % 60
+    return (hours:hour, minutes:minute, seconds:second)
   }
 }

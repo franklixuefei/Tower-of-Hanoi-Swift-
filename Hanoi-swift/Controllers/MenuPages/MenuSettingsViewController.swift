@@ -26,7 +26,7 @@ class MenuSettingsViewController: MenuBaseViewController, UIScrollViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.contentViewWidthConstraint.constant = CGFloat(UIConstant.menuContentViewWidthLarge)
-    scrollView = MenuScrollView(verticalDirection: true, inset: CGFloat(UIConstant.menuScrollViewInset))
+    scrollView = MenuScrollView(verticalDirection: true, inset: CGFloat(UIConstant.menuSettingsScrollViewInset))
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.addConstraint(NSLayoutConstraint(item: scrollView, attribute: .Height, relatedBy: .Equal, toItem: nil,
       attribute: .Height, multiplier: 0, constant: CGFloat(UIConstant.menuScrollViewHeightSmall)))

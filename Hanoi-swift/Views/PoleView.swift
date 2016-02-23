@@ -1,19 +1,27 @@
-
 //
 //  PoleView.swift
 //  Hanoi-swift
 //
-//  Created by Frank Li on 8/16/15.
-//  Copyright (c) 2015 Frank Li. All rights reserved.
+//  Created by Frank Li on 2/23/16.
+//  Copyright © 2016 Frank Li. All rights reserved.
 //
 
 import UIKit
 
 class PoleView: UIView {
 
-  private var poleView: UIView!
-  @IBOutlet weak var poleBase: UIView!
-  @IBOutlet weak var poleStick: UIView!
+  @IBOutlet weak var poleBase: UIView! {
+    didSet { // This effectively eliminates the abuse of awakeFromNib()
+      poleBase.cornerRadius = CGFloat(UIConstant.pegBaseCornerRadius)
+      poleBase.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.pegBaseColor), alpha: 1.0)
+    }
+  }
+  @IBOutlet weak var poleStick: UIView! {
+    didSet { // This effectively eliminates the abuse of awakeFromNib()
+      poleStick.cornerRadius = CGFloat(UIConstant.pegStickCornerRadius)
+      poleStick.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.pegStickColor), alpha: 1.0)
+    }
+  }
   
   var poleType: PoleType!
   
@@ -28,26 +36,5 @@ class PoleView: UIView {
       return CGRectGetHeight(poleStick.frame)
     }
   }
-  
-  override init(frame: CGRect) {
-    super.init(frame: frame)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  private func setup() {
-    poleView = UIView.viewFromNib(XibNames.PoleViewXibName, owner: self)
-    self.addSubview(poleView)
-    poleView.translatesAutoresizingMaskIntoConstraints = false
-    let viewsDict = ["pole": poleView]
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "H:|[pole]|", options: [], metrics: nil, views: viewsDict))
-    self.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "V:|[pole]|", options: [], metrics: nil, views: viewsDict))
-  }
-  
+
 }

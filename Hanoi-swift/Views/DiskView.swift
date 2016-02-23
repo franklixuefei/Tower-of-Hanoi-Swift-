@@ -12,6 +12,15 @@ class DiskView: UIView, UIGestureRecognizerDelegate {
   
   weak var delegate: DiskViewDelegate?
   
+  @IBOutlet weak var disk: UIView! {
+    didSet {
+      disk.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.diskColor), alpha: 1.0)
+      disk.borderColor = UIColor.color(hexValue: UInt(UIConstant.diskBorderColor), alpha: 1.0)
+      disk.borderWidth = CGFloat(UIConstant.diskBorderWidth)
+      disk.cornerRadius = CGFloat(UIConstant.diskCornerRadius)
+    }
+  }
+  
   override init(frame: CGRect) {
     super.init(frame: frame)
     setup()

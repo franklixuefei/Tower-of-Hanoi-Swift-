@@ -10,18 +10,18 @@ import UIKit
 
 class GameSceneView: UIView {
   
-  @IBOutlet weak var originalPole: PoleView!
-  @IBOutlet weak var bufferPole: PoleView!
-  @IBOutlet weak var destinationPole: PoleView!
+  @IBOutlet weak var originalPoleContainer: PoleViewContainer!
+  @IBOutlet weak var bufferPoleContainer: PoleViewContainer!
+  @IBOutlet weak var destinationPoleContainer: PoleViewContainer!
   
   func poleViewForPoleType(poleType: PoleType) -> PoleView {
     switch poleType {
     case .OriginalPole:
-      return originalPole
+      return originalPoleContainer.poleView
     case .BufferPole:
-      return bufferPole
+      return bufferPoleContainer.poleView
     case .DestinationPole:
-      return destinationPole
+      return destinationPoleContainer.poleView
     }
   }
 }

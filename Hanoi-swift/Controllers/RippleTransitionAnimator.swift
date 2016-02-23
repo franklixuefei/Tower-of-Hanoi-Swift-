@@ -8,10 +8,15 @@
 
 import UIKit
 
+protocol RippleTransitioningDataSource : class {
+  var dotButton:BaseButton {get}
+}
+
 class RippleTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning {
   
-  static let defaultAnimator = RippleTransitionAnimator()
+  static let defaultAnimator = RippleTransitionAnimator() // singleton
   
+  weak var dataSource:RippleTransitioningDataSource?
   weak var transitionContext: UIViewControllerContextTransitioning?
   var presenting = true
   
@@ -25,7 +30,10 @@ class RippleTransitionAnimator: NSObject, UIViewControllerAnimatedTransitioning 
     let containerView = transitionContext.containerView()
     let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
     let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-    let button = (fromViewController as! ViewControllerProtocol).dotButton
+    if dataSource == nil {
+      return;
+    }
+    let button = dataSource!.dotButton
     if let containerView = containerView {
       if presenting {
         containerView.addSubview(toViewController.view)

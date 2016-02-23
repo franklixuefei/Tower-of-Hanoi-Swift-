@@ -92,20 +92,23 @@ class GameLogic: NSObject {
     return [GameState.Prepared:preparePrevStates, GameState.Started:startedPrevStates,
       GameState.Paused:pausedPrevStates, GameState.Resumed:resumedPrevStates,
       GameState.Ended(hasWon: true):wonPrevStates, GameState.Ended(hasWon: false):lostPrevStates]
-    }() // state -> list of possible previous states
-  
-  var previousGameState = GameState.Empty
+  }() // state -> list of possible previous states
+
+  var previousGameState: GameState = .Empty
   
   var gameState: GameState = .Empty {
     willSet {
       previousGameState = gameState
     }
     didSet {
-      // FIXME: assertion
-      assert(validateState(), "Invalid state: \(previousGameState.description) state is not "
-        + "a prior state to \(gameState.description) state.")
-      NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
-        object: self)
+      if !validateState(gameState) {
+        debugPrint("Invalid state: \(previousGameState.description) state is not "
+          + "a prior state to \(gameState.description) state. Possible cause is state being mutated from outside environment.")
+        gameState = previousGameState // won't cause an infinite loop if the property is set in its didSet block
+      } else {
+        NSNotificationCenter.defaultCenter().postNotificationName(InfrastructureConstant.gameStateNotificationChannelName,
+          object: self)
+      }
     }
   }
   
@@ -158,8 +161,8 @@ class GameLogic: NSObject {
   var counter = 0
   
   // MARK: - Helpers
-  private func validateState() -> Bool {
-    if let prevStates = gameStateNFA[gameState] {
+  private func validateState(state:GameState) -> Bool {
+    if let prevStates = gameStateNFA[state] {
       return prevStates.contains(previousGameState)
     }
     return false
@@ -200,8 +203,10 @@ class GameLogic: NSObject {
     -> [Disk]
   {
     let smallestDiskWidth = largestDiskWidth / UIConstant.largeSmallDiskWidthRatio
-    if Double(numberOfDisks) * Disk.height > maximumDiskPileHeight - UIConstant.diskHeightOffset {
-      Disk.height = (maximumDiskPileHeight - Disk.height) / Double(numberOfDisks)
+    if Double(numberOfDisks) * UIConstant.maximumDiskHeight > maximumDiskPileHeight - UIConstant.diskHeightOffset {
+      Disk.height = (maximumDiskPileHeight - UIConstant.diskHeightOffset) / Double(numberOfDisks)
+    } else {
+      Disk.height = UIConstant.maximumDiskHeight
     }
     let increment = (largestDiskWidth - smallestDiskWidth) / (Double(numberOfDisks - 1))
     var disks = [Disk]()

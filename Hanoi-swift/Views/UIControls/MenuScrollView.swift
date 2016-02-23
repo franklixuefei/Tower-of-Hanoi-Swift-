@@ -63,7 +63,7 @@ class MenuScrollView: UIScrollView {
       }
       self.backgroundColor = UIColor.color(hexValue: UInt(UIConstant.menuScrollViewBackgroundColor), alpha: 0.8)
       self.layer.cornerRadius = CGFloat(UIConstant.menuScrollViewCornerRadius)
-      contentView.viewSpacing = CGFloat(UIConstant.menuScrollViewSpacing)
+      contentView.viewSpacing = CGFloat(UIConstant.menuSettingsScrollViewSpacing)
     }
     self.addSubview(contentView)
     contentView.translatesAutoresizingMaskIntoConstraints = false

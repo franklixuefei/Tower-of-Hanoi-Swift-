@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MenuViewController: UIViewController, ViewControllerProtocol, MenuInitialViewControllerDelegate,
+class MenuViewController: UIViewController, MenuInitialViewControllerDelegate,
 MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResultViewControllerDelegate {
   
   @IBOutlet weak var dotButton: BaseButton!
@@ -188,9 +188,14 @@ MenuPausedViewControllerDelegate, MenuSettingsViewControllerDelegate, MenuResult
   
   // MARK: - IBActions
   @IBAction func dotPressed() {
+    if model.gameState == .Prepared { // Do not dismiss the menu page in the initial game state!
+      return
+    }
     if model.gameState == .Paused {
       model.gameState = .Resumed
     }
+    self.pausedMenuPage.restartButton.dismissConfirmation()
+    self.pausedMenuPage.quitButton.dismissConfirmation()
   }
   
 }
